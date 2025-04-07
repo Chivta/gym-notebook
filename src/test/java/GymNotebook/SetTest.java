@@ -36,4 +36,9 @@ public class SetTest {
         assertEquals("{\"repCount\":1,\"weight\":60}", json);
     }
 
+
+//    @Test
+//    public void testFail(){
+//        assertFalse(true);
+//    }
 }
