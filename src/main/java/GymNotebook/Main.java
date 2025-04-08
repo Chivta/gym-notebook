@@ -1,18 +1,17 @@
 package GymNotebook;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import GymNotebook.view.UIManager;
 
 public class Main {
-    public static void main(String[] args) throws JsonProcessingException {
-//        System.out.println("Hello World");
-//
-//
-//        Set s = new Set((short)1,(short)60);
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        String json = mapper.writeValueAsString(s);
-//
-//        System.out.printf("%s\n", json);
+    public static void main(String[] args) {
+        UIManager uiManager = new UIManager();
+
+        try{
+            uiManager.Start();
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

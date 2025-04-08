@@ -10,21 +10,22 @@ class ExerciseTest {
     public void testToJson() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        Exercise exercise = new Exercise("Bench Press");
+        StrengthExercise exercise = new StrengthExercise("Bench Press");
 
-        Set set = new Set((short)3,(short)45);
+        StregthSet set = new StregthSet((short)3,(short)45);
 
         exercise.getSets().add(set);
         exercise.getSets().add(set);
 
         String json = mapper.writeValueAsString(exercise);
 
-        String expected = "{\"title\":\"Bench Press\"," +
+        String expected = "{" +
+                "\"title\":\"Bench Press\"," +
                 "\"sets\":" +
-                    "[" +
-                        "{\"repCount\":3,\"weight\":45}," +
-                        "{\"repCount\":3,\"weight\":45}" +
-                    "]" +
+                "[" +
+                    "{\"repCount\":3,\"weight\":45}," +
+                    "{\"repCount\":3,\"weight\":45}" +
+                "]" +
                 "}";
 
         assertEquals(expected,json);
@@ -33,25 +34,23 @@ class ExerciseTest {
 
     @Test
     public void testFromJson() throws JsonProcessingException {
-        Exercise exercise = new Exercise("Bench Press");
-        Set set = new Set((short)3,(short)45);
-        exercise.getSets().add(set);
-        exercise.getSets().add(set);
+        StrengthExercise actual = new StrengthExercise("Bench Press");
+
+        StregthSet set = new StregthSet((short)3,(short)45);
+        actual.getSets().add(set);
+        actual.getSets().add(set);
 
         ObjectMapper mapper = new ObjectMapper();
 
-        String json = "{\"title\":\"Bench Press\"," +
+        String json = "{" +
+                "\"title\":\"Bench Press\"," +
                 "\"sets\":" +
-                    "[" +
-                        "{\"repCount\":3,\"weight\":45}," +
-                        "{\"repCount\":3,\"weight\":45}" +
-                    "]" +
+                "[{\"repCount\":3,\"weight\":45}," +
+                "{\"repCount\":3,\"weight\":45}" +
+                "]" +
                 "}";
-        Exercise expected = mapper.readValue(json, Exercise.class);
-
-        //assertEquals( mapper.writeValueAsString(exercise),mapper.writeValueAsString(expected));
-        assertEquals(expected.getTitle(), exercise.getTitle());
-        assertArrayEquals(exercise.getSets().toArray(), exercise.getSets().toArray());
+        StrengthExercise expected = mapper.readValue(json, StrengthExercise.class);
+        assertEquals(mapper.writeValueAsString(actual),mapper.writeValueAsString(expected));
 
     }
 }
