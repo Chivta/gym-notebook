@@ -9,16 +9,19 @@ import lombok.Setter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Scanner;
+import java.util.Stack;
 
 
 public class UIManager {
     @Getter
     @Setter
     private Window CurrentWindow;
+    private final Stack<Window> history;
 
     public UIManager(){
         Presenter presenter = new Presenter(this);
         CurrentWindow = new MainMenuWindow(presenter);
+        history = new Stack<Window>();
     }
 
     public void Start() {
@@ -31,11 +34,19 @@ public class UIManager {
                 CurrentWindow.HandleInput(line);
 
                 clearScreen();
-                System.out.printf("%n");
                 CurrentWindow.Render();
             }
 
         }
+    }
+
+    public void GoBack(){
+        CurrentWindow = history.pop();
+    }
+
+    public void ChangeWindow(Window newWindow){
+        history.push(CurrentWindow);
+        CurrentWindow = newWindow;
     }
 
     private static void clearScreen() {

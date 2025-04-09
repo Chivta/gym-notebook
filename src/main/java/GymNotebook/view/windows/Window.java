@@ -2,8 +2,6 @@ package GymNotebook.view.windows;
 
 import lombok.Getter;
 
-import java.util.Map;
-
 @Getter
 public abstract class Window {
     protected String header = "";

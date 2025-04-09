@@ -13,10 +13,12 @@ public class Presenter {
     }
 
     public void OpenWorkoutListView(){
-        ui.setCurrentWindow(new WorkoutListViewWindow(this));
+        ui.ChangeWindow(new WorkoutListViewWindow(this));
     }
 
-    public void GoBack(){}
+    public void GoBack(){
+        ui.GoBack();
+    }
 
     public List<String> GetWorkoutFilenamesSorted() {
         return FileManager.getAllWorkoutFilenamesSortedByDateDesc();
