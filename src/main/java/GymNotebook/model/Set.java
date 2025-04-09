@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
         property = "@type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = StregthSet.class, name = "StrengthSet"),
+        @JsonSubTypes.Type(value = RepSet.class, name = "StrengthSet"),
 })
 public abstract class Set{
 }

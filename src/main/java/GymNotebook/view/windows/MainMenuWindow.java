@@ -14,11 +14,11 @@ public class MainMenuWindow extends Window {
         this.presenter = presenter;
 
         header = "Main Menu";
-        footer = "Enter option number to open"; // Still useful as a general instruction
+        footer = "Enter option number to open";
         options = new ArrayList<>();
         options.add("New Workout");
         options.add("View Workouts");
-        info = ""; // Initialize the info field
+        info = "";
     }
 
     @Override
@@ -37,18 +37,18 @@ public class MainMenuWindow extends Window {
             if (selected >= 0 && selected < options.size()) {
                 switch (selected){
                     case 0:
-                        //presenter.OpenNewWorkoutView();
+                        presenter.OpenNewWorkoutCreation();
                         break;
                     case 1:
                         presenter.OpenWorkoutListView();
                         break;
                 }
             } else {
-                info = "Invalid option number";
+                info = "ERR: Invalid option number";
             }
         }
         catch(NumberFormatException e){
-            info = "Invalid input. Please enter a number.";
+            info = "ERR: Invalid input. Please enter a number.";
         }
     }
 }

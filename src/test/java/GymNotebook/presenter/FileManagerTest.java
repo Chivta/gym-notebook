@@ -1,13 +1,5 @@
 package GymNotebook.presenter;
 
-import GymNotebook.model.StrengthExercise;
-import GymNotebook.model.StregthSet;
-import GymNotebook.model.Workout;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 public class FileManagerTest {
 
     String fullFileName = "09.04.2025";
@@ -16,9 +8,9 @@ public class FileManagerTest {
 //    public void testSaveWorkout() {
 //        Workout workout = new Workout("Day 1");
 //
-//        StrengthExercise exercise = new StrengthExercise("Bench Press");
+//        RepExercise exercise = new RepExercise("Bench Press");
 //
-//        StregthSet set = new StregthSet(1,60);
+//        RepSet set = new RepSet(1,60);
 //
 //        exercise.getSets().add(set);
 //
@@ -42,9 +34,9 @@ public class FileManagerTest {
 //
 //        Workout expectedWorkout = new Workout("Day 1");
 //
-//        StrengthExercise exercise = new StrengthExercise("Bench Press");
+//        RepExercise exercise = new RepExercise("Bench Press");
 //
-//        StregthSet set = new StregthSet(1,60);
+//        RepSet set = new RepSet(1,60);
 //
 //        exercise.getSets().add(set);
 //

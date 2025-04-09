@@ -1,9 +1,12 @@
 package GymNotebook.presenter;
 
+import GymNotebook.model.Exercise;
+import GymNotebook.model.Workout;
 import GymNotebook.view.UIManager;
+import GymNotebook.view.windows.NewExerciseWindow;
+import GymNotebook.view.windows.NewWorkoutCreationWindow;
 import GymNotebook.view.windows.WorkoutListViewWindow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Presenter {
@@ -25,4 +28,24 @@ public class Presenter {
     }
 
     public void OpenWorkoutView(String filename){}
+
+    Workout currentWorkout;
+    public void OpenNewWorkoutCreation(){
+        currentWorkout = new Workout();
+        ui.ChangeWindow(new NewWorkoutCreationWindow(this, currentWorkout));
+    }
+
+    public void OpenNewExercise(){
+        ui.ChangeWindow(new NewExerciseWindow(this));
+    }
+
+    public void OpenNewSet(){
+        ui.ChangeWindow(new NewExerciseWindow(this));
+    }
+
+    public void ReturnToWorkoutAndAddExercise(Exercise exercise){
+        currentWorkout.getExercises().add(exercise);
+        ui.GoBack();
+    }
+
 }

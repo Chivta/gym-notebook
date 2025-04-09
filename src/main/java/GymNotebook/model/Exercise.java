@@ -3,7 +3,6 @@ package GymNotebook.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +16,7 @@ import lombok.Setter;
         property = "@type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = StrengthExercise.class, name = "StrengthExercise"),
+        @JsonSubTypes.Type(value = RepExercise.class, name = "RepExercise"),
 })
 public abstract class Exercise{
     protected String title;

@@ -10,9 +10,9 @@ class ExerciseTest {
     public void testToJson() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        StrengthExercise exercise = new StrengthExercise("Bench Press");
+        RepExercise exercise = new RepExercise("Bench Press");
 
-        StregthSet set = new StregthSet((short)3,(short)45);
+        RepSet set = new RepSet((short)3,(short)45);
 
         exercise.getSets().add(set);
         exercise.getSets().add(set);
@@ -20,7 +20,7 @@ class ExerciseTest {
         String json = mapper.writeValueAsString(exercise);
 
         String expected = "{" +
-                "\"@type\":\"StrengthExercise\","+
+                "\"@type\":\"RepExercise\","+
                 "\"title\":\"Bench Press\"," +
                 "\"sets\":" +
                 "[" +
@@ -35,16 +35,16 @@ class ExerciseTest {
 
     @Test
     public void testFromJson() throws JsonProcessingException {
-        StrengthExercise actual = new StrengthExercise("Bench Press");
+        RepExercise actual = new RepExercise("Bench Press");
 
-        StregthSet set = new StregthSet((short)3,(short)45);
+        RepSet set = new RepSet((short)3,(short)45);
         actual.getSets().add(set);
         actual.getSets().add(set);
 
         ObjectMapper mapper = new ObjectMapper();
 
         String json = "{" +
-                "\"@type\":\"StrengthExercise\","+
+                "\"@type\":\"RepExercise\","+
                 "\"title\":\"Bench Press\"," +
                 "\"sets\":" +
                 "[" +
@@ -52,7 +52,7 @@ class ExerciseTest {
                 "{\"@type\":\"StrengthSet\",\"repCount\":3,\"weight\":45}" +
                 "]" +
                 "}";
-        StrengthExercise expected = mapper.readValue(json, StrengthExercise.class);
+        RepExercise expected = mapper.readValue(json, RepExercise.class);
         assertEquals(mapper.writeValueAsString(actual),mapper.writeValueAsString(expected));
 
     }
