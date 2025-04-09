@@ -6,26 +6,31 @@ import java.util.Map;
 
 @Getter
 public abstract class Window {
-    protected String header;
-    protected String footer;
-    public abstract void Render();
-    public void HandleEnter(){}
+    protected String header = "";
+    protected String footer = "";
+    protected String info = "";
     public void HandleInput(String input){}
 
-    Map<String,String> colors = Map.of(
-            "black","\u001B[30m",
-            "white", "\u001B[37m",
-            "reset","\u001B[0m"
-    );
-
-    protected void WriteInColor(String foregroundColor, String backgroundColor, String text){
-        System.out.printf(
-                colors.get(foregroundColor) +
-                colors.get(backgroundColor) +
-                "%s" +
-                colors.get("reset"),text);
+    private void SendHeader(){
+        System.out.println(header);
     }
-    protected void Test(){
-        System.out.printf("\\x1B[48;2;255;255;255m  123");
+    private void SendFooter(){
+        System.out.println(footer);
+    }
+    private void SendInfo(){
+        System.out.println(info);
+    }
+
+    protected abstract void SendBody();
+
+    public void Render(){
+        SendHeader();
+        SendBody();
+        SendFooter();
+        SendInfo();
+    }
+
+    protected void AddBackOptionToFooter(){
+        footer += ", [B] - Back";
     }
 }

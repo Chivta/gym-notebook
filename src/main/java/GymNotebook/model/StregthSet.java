@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StregthSet extends Set {
-    private short repCount;
-    private short weight;
+    private int repCount;
+    private int weight;
 }

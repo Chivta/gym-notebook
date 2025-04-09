@@ -9,14 +9,13 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 public class StrengthExercise extends Exercise {
     private ArrayList<StregthSet> sets;
 
-    public StrengthExercise() {}
 
     public StrengthExercise(String title) {
-        this.title = title;
+        super(title);
         this.sets = new ArrayList<>();
     }
 }

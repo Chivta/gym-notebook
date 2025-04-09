@@ -1,5 +1,6 @@
 package GymNotebook.view;
 
+import GymNotebook.presenter.Presenter;
 import GymNotebook.view.windows.MainMenuWindow;
 import GymNotebook.view.windows.Window;
 import lombok.Getter;
@@ -14,25 +15,20 @@ public class UIManager {
     @Getter
     @Setter
     private Window CurrentWindow;
-    private Scanner scanner;
 
     public UIManager(){
-        CurrentWindow = new MainMenuWindow();
+        Presenter presenter = new Presenter(this);
+        CurrentWindow = new MainMenuWindow(presenter);
     }
 
     public void Start() {
-        scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         clearScreen();
         CurrentWindow.Render();
         while (true) {
             if (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if(line.equals("exit")){
-                    CurrentWindow.HandleEnter();
-                }
-                else{
-                    CurrentWindow.HandleInput(line);
-                }
+                CurrentWindow.HandleInput(line);
 
                 clearScreen();
                 System.out.printf("%n");

@@ -22,7 +22,7 @@ public class SetTest {
 
         String json = mapper.writeValueAsString(set);
 
-        assertEquals("{\"repCount\":1,\"weight\":60}", json);
+        assertEquals("{\"@type\":\"StrengthSet\",\"repCount\":1,\"weight\":60}", json);
     }
 
 

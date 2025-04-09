@@ -20,11 +20,12 @@ class ExerciseTest {
         String json = mapper.writeValueAsString(exercise);
 
         String expected = "{" +
+                "\"@type\":\"StrengthExercise\","+
                 "\"title\":\"Bench Press\"," +
                 "\"sets\":" +
                 "[" +
-                    "{\"repCount\":3,\"weight\":45}," +
-                    "{\"repCount\":3,\"weight\":45}" +
+                "{\"@type\":\"StrengthSet\",\"repCount\":3,\"weight\":45}," +
+                "{\"@type\":\"StrengthSet\",\"repCount\":3,\"weight\":45}" +
                 "]" +
                 "}";
 
@@ -43,10 +44,12 @@ class ExerciseTest {
         ObjectMapper mapper = new ObjectMapper();
 
         String json = "{" +
+                "\"@type\":\"StrengthExercise\","+
                 "\"title\":\"Bench Press\"," +
                 "\"sets\":" +
-                "[{\"repCount\":3,\"weight\":45}," +
-                "{\"repCount\":3,\"weight\":45}" +
+                "[" +
+                "{\"@type\":\"StrengthSet\",\"repCount\":3,\"weight\":45}," +
+                "{\"@type\":\"StrengthSet\",\"repCount\":3,\"weight\":45}" +
                 "]" +
                 "}";
         StrengthExercise expected = mapper.readValue(json, StrengthExercise.class);

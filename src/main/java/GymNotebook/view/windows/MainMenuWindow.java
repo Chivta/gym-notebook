@@ -1,66 +1,54 @@
 package GymNotebook.view.windows;
 
+import GymNotebook.presenter.Presenter;
+
 import java.util.ArrayList;
 
 public class MainMenuWindow extends Window {
 
-    ArrayList<String> options;
-    int selected;
+    private final ArrayList<String> options;
+    private final Presenter presenter;
+    private String info;
 
-    public MainMenuWindow(){
+    public MainMenuWindow(Presenter presenter){
+        this.presenter = presenter;
+
         header = "Main Menu";
-        footer = "Enter option number";
+        footer = "Enter option number to open"; // Still useful as a general instruction
         options = new ArrayList<>();
         options.add("New Workout");
         options.add("View Workouts");
+        info = ""; // Initialize the info field
     }
 
     @Override
-    public void Render() {
-        System.out.printf("%s%n", header);
-        for(int i = 0; i<options.size(); i++){
-            if(selected == i){
-                System.out.print(">");
-            }
-            else{
-                System.out.print("-");
-            }
-            System.out.printf(" %d. %s%n",i,options.get(i));
-
+    protected void SendBody() {
+        for(int i = 0; i < options.size(); i++){
+            System.out.printf("%d. %s%n", i+1, options.get(i));
         }
-
-        System.out.printf("%s%n", footer);
     }
 
     public void HandleInput(String input){
+        info = "";
+
         try{
             int selected = Integer.parseInt(input);
-
-            if(selected>=options.size()){
-                footer = "Number is too big";
-                return;
+            selected -= 1;
+            if (selected >= 0 && selected < options.size()) {
+                switch (selected){
+                    case 0:
+                        //presenter.OpenNewWorkoutView();
+                        break;
+                    case 1:
+                        presenter.OpenWorkoutListView();
+                        break;
+                }
+            } else {
+                info = "Invalid option number";
             }
-
-            this.selected = selected;
-            footer="Enter option number";
-
         }
         catch(NumberFormatException e){
-        }
-
-    }
-
-    public void HandleEnter(){
-        switch (selected){
-            case 0:
-                break;
-            case 1:
-                break;
+            info = "Invalid input. Please enter a number.";
         }
     }
-
-
-
-
-
 }
