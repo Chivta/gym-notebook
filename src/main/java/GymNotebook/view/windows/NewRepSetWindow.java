@@ -11,10 +11,9 @@ public class NewRepSetWindow extends Window{
     public NewRepSetWindow(Presenter presenter){
         this.presenter = presenter;
 
-        set = new RepSet();
+        header = "Set adding";
 
-        options.add("NewRep");
-        options.add("SaveSet");
+        set = new RepSet();
 
         state = State.SettingWeight;
     }
