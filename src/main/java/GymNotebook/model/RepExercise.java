@@ -8,13 +8,15 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class RepExercise extends Exercise {
-    private ArrayList<RepSet> sets;
+    private ArrayList<Set> sets;
 
+    public RepExercise(){
+        sets = new ArrayList<>();
+    }
 
-    public RepExercise(String title) {
-        super(title);
-        this.sets = new ArrayList<>();
+    @Override
+    public void AddSet(Set set){
+        sets.add(set);
     }
 }

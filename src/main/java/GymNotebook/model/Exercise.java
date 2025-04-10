@@ -24,4 +24,6 @@ public abstract class Exercise{
     protected Exercise(String title){
         this.title = title;
     }
+
+    public abstract void AddSet(Set set);
 }

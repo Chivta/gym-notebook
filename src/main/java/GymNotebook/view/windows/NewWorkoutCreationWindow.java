@@ -17,7 +17,6 @@ public class NewWorkoutCreationWindow extends Window{
     enum State {
         TitleInput,
         OptionSelection,
-        AddingExercise,
     }
 
     public NewWorkoutCreationWindow(Presenter presenter, Workout workout) {
@@ -78,15 +77,14 @@ public class NewWorkoutCreationWindow extends Window{
 
     private void HandleOptionSelection(String input){
         try{
-            int selected = Integer.parseInt(input) - 1;
+            int selected = Integer.parseInt(input);
 
             switch (selected){
-                case 0:
-
-                    state = State.AddingExercise;
+                case 1:
+                    presenter.OpenNewExercise();
             }
         }catch (NumberFormatException e){
-            info = "ERR: Please enter a valid number";
+            info = "ERR: Please enter a valid number!";
         }
     }
 }

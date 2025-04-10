@@ -10,22 +10,33 @@ public abstract class Window {
     public void HandleInput(String input){}
 
     private void SendHeader(){
-        System.out.println(header);
+        if(!header.isEmpty()){
+            System.out.println(header);
+        }
     }
     private void SendFooter(){
-        System.out.println(footer);
+        if(!footer.isEmpty()){
+            System.out.println(footer);
+        }
     }
     private void SendInfo(){
-        System.out.println(info);
+        if(!info.isEmpty()){
+            System.out.println(info);
+        }
+    }
+    private void SendSeparator(){
+        System.out.println("---------------");
     }
 
     protected abstract void SendBody();
 
     public void Render(){
+        SendSeparator();
         SendHeader();
         SendBody();
         SendFooter();
         SendInfo();
+        SendSeparator();
     }
 
     protected void AddBackOptionToFooter(){

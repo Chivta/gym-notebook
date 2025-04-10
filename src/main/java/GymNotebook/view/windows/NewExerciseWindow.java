@@ -7,7 +7,8 @@ import GymNotebook.presenter.Presenter;
 import java.util.ArrayList;
 
 public class NewExerciseWindow extends Window{
-    private ArrayList<String> exerciseOptions;
+    private final ArrayList<String> exerciseTypes;
+    private final ArrayList<String> exerciseOptions;
     private final Presenter presenter;
     private final Exercise exercise;
     private State state;
@@ -26,12 +27,17 @@ public class NewExerciseWindow extends Window{
         header = "New Exercise Adding";
         footer = "Enter Exercise Name";
 
-        state = State.TypeSelection;
+        state = State.TitleEnter;
+
+        exerciseTypes = new ArrayList<>();
+
+        exerciseTypes.add("Rep Exercise");
+        exerciseTypes.add("Time Exercise");
 
         exerciseOptions = new ArrayList<>();
 
-        exerciseOptions.add("RepExercise");
-        exerciseOptions.add("TimeExercise");
+        exerciseOptions.add("Add Set");
+        exerciseOptions.add("Save Exercise");
     }
 
     @Override
@@ -45,8 +51,8 @@ public class NewExerciseWindow extends Window{
                 SendTypeSelection();
                 break;
             case RepExercise:
-                break;
             case TimeExercise:
+                SendExerciseOptions();
                 break;
 
         }
@@ -57,22 +63,25 @@ public class NewExerciseWindow extends Window{
     }
 
     private void SendTypeSelection(){
-        for(int i = 0; i<exerciseOptions.size(); i++){
-            System.out.printf("%d. %s",i+1,exerciseOptions.get(i));
+        for(int i = 0; i< exerciseTypes.size(); i++){
+            System.out.printf("%d. %s%n",i+1, exerciseTypes.get(i));
         }
 
         footer = "Select option.";
     }
 
-    private void SendRepExercise(){
+    private void SendExerciseOptions(){
+        for(int i = 0; i< exerciseTypes.size(); i++){
+            System.out.printf("%d. %s%n",i+1, exerciseOptions.get(i));
+        }
 
-    }
-    private void SendTimeExercise(){
-
+        footer = "Select option.";
     }
 
     @Override
     public void HandleInput(String input){
+        info = "";
+
         input = input.toLowerCase();
         switch(state){
             case TitleEnter:
@@ -84,6 +93,7 @@ public class NewExerciseWindow extends Window{
             case RepExercise:
                 HandleRepExercise(input);
                 break;
+
         }
     }
 
@@ -93,8 +103,6 @@ public class NewExerciseWindow extends Window{
     }
 
     private void HandleTypeSelection(String input){
-        info = "";
-
         try{
             int selected = Integer.parseInt(input);
             switch(selected){
@@ -112,6 +120,46 @@ public class NewExerciseWindow extends Window{
         }
     }
 
-    private void HandleRepExercise(String input){}
+    private void HandleRepExercise(String input){
+        try{
+            int selected = Integer.parseInt(input);
+            switch(selected){
+                case 1:
+                    presenter.SaveCurrentExercise(exercise);
+                    presenter.OpenNewRepSet();
+                    break;
+                case 2:
+                    presenter.AddExerciseToCurrentWorkout(exercise);
+                    presenter.GoBack();
+                    break;
+                default:
+                    info = "ERR: Number out of range.";
+            }
+        }catch (NumberFormatException e){
+            info = "ERR: Invalid input.";
+        }
+    }
+
+    private void HandleTimeExercise(String input){
+        try{
+            int selected = Integer.parseInt(input);
+            switch(selected){
+                case 1:
+                    presenter.SaveCurrentExercise(exercise);
+                    presenter.OpenNewTimeSet();
+                    break;
+                case 2:
+                    presenter.AddExerciseToCurrentWorkout(exercise);
+                    presenter.GoBack();
+                    break;
+                default:
+                    info = "ERR: Number out of range.";
+            }
+        }catch (NumberFormatException e){
+            info = "ERR: Invalid input.";
+        }
+    }
+
+
 
 }

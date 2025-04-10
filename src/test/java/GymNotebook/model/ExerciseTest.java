@@ -10,7 +10,8 @@ class ExerciseTest {
     public void testToJson() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        RepExercise exercise = new RepExercise("Bench Press");
+        RepExercise exercise = new RepExercise();
+        exercise.setTitle("BenchPress");
 
         RepSet set = new RepSet((short)3,(short)45);
 
@@ -35,7 +36,8 @@ class ExerciseTest {
 
     @Test
     public void testFromJson() throws JsonProcessingException {
-        RepExercise actual = new RepExercise("Bench Press");
+        RepExercise actual = new RepExercise();
+        actual.setTitle("BenchPress");
 
         RepSet set = new RepSet((short)3,(short)45);
         actual.getSets().add(set);
