@@ -3,7 +3,7 @@ package GymNotebook.view.windows;
 import java.util.ArrayList;
 
 public abstract class Window {
-    protected String header = "";
+    protected String header = "UNSET TITLE";
     protected String info = "";
     protected ArrayList<String> options;
     protected ArrayList<String> inputOptions;

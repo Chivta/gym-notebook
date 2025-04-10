@@ -24,7 +24,7 @@ public class NewWorkoutCreationWindow extends Window{
         this.workout = workout;
 
         options.add("Add Exercise");
-
+        options.add("Save Workout");
     }
 
     @Override
@@ -67,6 +67,11 @@ public class NewWorkoutCreationWindow extends Window{
             switch (selected){
                 case 1:
                     presenter.OpenNewExercise();
+                    break;
+                case 2:
+                    presenter.saveCurrentWorkout();
+                    break;
+
             }
         }catch (NumberFormatException e){
             info = "ERR: Please enter a valid number!";
