@@ -4,12 +4,12 @@ package GymNotebook.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -20,6 +20,26 @@ import lombok.Setter;
 })
 public abstract class Exercise{
     protected String title;
+    private ArrayList<Set> sets;
 
-    public abstract void AddSet(Set set);
+    protected Exercise(){
+        sets = new ArrayList<>();
+    }
+
+    public void AddSet(Set set){
+
+        sets.add(set);
+    }
+
+
+    @Override
+    public String toString(){
+        StringBuilder toReturn = new StringBuilder();
+        toReturn.append(title);
+        for(Set set: sets){
+            toReturn.append(String.format("%n - %s",set.toString()));
+        }
+
+        return toReturn.toString();
+    }
 }
