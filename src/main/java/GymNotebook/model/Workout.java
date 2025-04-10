@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.imageio.plugins.tiff.ExifTIFFTagSet;
 import java.util.ArrayList;
 
 @Getter
@@ -30,4 +31,17 @@ public class Workout {
         exercises.add(exercise);
     }
 
+    @Override
+    public String toString(){
+        StringBuffer toReturn = new StringBuffer();
+
+        toReturn.append(title);
+
+        for(Exercise ex : exercises){
+            toReturn.append(String.format("%n - %s", (ex.toString()).replace("-","--")));
+        }
+
+
+        return toReturn.toString();
+    }
 }

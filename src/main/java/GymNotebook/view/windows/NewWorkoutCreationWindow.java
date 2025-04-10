@@ -34,13 +34,19 @@ public class NewWorkoutCreationWindow extends Window{
                 SendTitleWaiting();
                 break;
             case OptionSelection:
+                SendWorkoutOverview();
                 SendOptions();
                 break;
         }
     }
 
+
     private void SendTitleWaiting(){
         System.out.println("Enter Workout Title");
+    }
+
+    private void SendWorkoutOverview(){
+        System.out.println(workout.toString());
     }
 
     @Override
@@ -56,8 +62,14 @@ public class NewWorkoutCreationWindow extends Window{
     }
 
     private void HandleTitleInput(String title){
-        workout.setTitle(title);
-        state = State.OptionSelection;
+        if(!title.isEmpty()){
+            workout.setTitle(title);
+            state = State.OptionSelection;
+        }
+        else{
+            info = "ERR: Title cannot be empty";
+        }
+
     }
 
     private void HandleOptionSelection(String input){

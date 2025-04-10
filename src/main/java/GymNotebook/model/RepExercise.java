@@ -19,4 +19,15 @@ public class RepExercise extends Exercise {
     public void AddSet(Set set){
         sets.add(set);
     }
+
+    @Override
+    public String toString(){
+        StringBuilder toReturn = new StringBuilder();
+        toReturn.append(title);
+        for(Set set: sets){
+            toReturn.append(String.format("%n - %s",set.toString()));
+        }
+
+        return toReturn.toString();
+    }
 }

@@ -49,7 +49,8 @@ public class NewExerciseWindow extends Window{
                 break;
             case RepExercise:
             case TimeExercise:
-                SendExerciseOptions();
+                SendExerciseOverview();
+                SendOptions();
                 break;
 
         }
@@ -57,6 +58,10 @@ public class NewExerciseWindow extends Window{
 
     private void SendTitleEnter(){
         System.out.println("Enter Exercise Title");
+    }
+
+    private void SendExerciseOverview(){
+        System.out.println(exercise.toString());
     }
 
     private void SendTypeSelection(){
@@ -67,13 +72,6 @@ public class NewExerciseWindow extends Window{
         inputOptions.add("[Number] - Choose option");
     }
 
-    private void SendExerciseOptions(){
-        for(int i = 0; i< exerciseTypes.size(); i++){
-            System.out.printf("%d. %s%n",i+1, options.get(i));
-        }
-
-        inputOptions.addFirst("[Number] - Choose option");
-    }
 
     @Override
     public void HandleInput(String input){
@@ -92,8 +90,13 @@ public class NewExerciseWindow extends Window{
     }
 
     private void HandleTitleEnter(String input){
-        exercise.setTitle(input);
-        state = State.TypeSelection;
+        if(!input.isEmpty()){
+            exercise.setTitle(input);
+            state = State.TypeSelection;
+        }
+        else{
+            info = "ERR: Title cannot be empty";
+        }
     }
 
     private void HandleTypeSelection(String input){

@@ -21,9 +21,5 @@ import lombok.Setter;
 public abstract class Exercise{
     protected String title;
 
-    protected Exercise(String title){
-        this.title = title;
-    }
-
     public abstract void AddSet(Set set);
 }

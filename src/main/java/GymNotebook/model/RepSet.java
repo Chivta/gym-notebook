@@ -1,9 +1,6 @@
 package GymNotebook.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -14,4 +11,8 @@ public class RepSet extends Set {
     private int weight;
 
 
+    @Override
+    public String toString(){
+        return String.format("%s kg : %s",weight,repCount);
+    }
 }
