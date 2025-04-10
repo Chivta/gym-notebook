@@ -61,59 +61,58 @@ public class WorkoutListViewWindow extends Window {
                 System.out.println(absoluteNumber + ". " + filename);
             }
         }
-        System.out.println("-------------------------");
 
         if(currentPage > 1) inputOptions.add("[N] - Next Page");
-        if (currentPage < totalPages) inputOptions.add("[B] Back");
+        if (currentPage < totalPages) inputOptions.add("[P] - Previous Page");
     }
 
-    /**
-     * Handles user input, updating pagination or setting the info field.
-     * Overrides method from parent (if defined there, otherwise just implements it).
-     * @param input User input string.
-     */
     @Override
     public void HandleInput(String input) {
-        this.info = "";
-
-        input = input.trim().toLowerCase();
         switch (input) {
-            case "n": // Next Page
-                if (currentPage < totalPages) {
-                    currentPage++;
-                } else {
-                    this.info = "INFO: This is the last page.";
-                }
+            case "n":
+                HandleNextPage();
                 break;
-            case "p": // Previous Page
-                if (currentPage > 1) {
-                    currentPage--;
-                } else {
-                    this.info = "INFO: This is the first page.";
-                }
+            case "p":
+                HandlePreviousPage();
                 break;
-            case "b": // Back
-                this.info = "INFO: Returning back...";
-                presenter.GoBack();
+            default:
+                HandleWorkoutNumber(input);
                 break;
-            default: // Handle numeric input
-                try {
-                    int optionNumber = Integer.parseInt(input);
+        }
+    }
 
-                    // Validate against total items
-                    if (optionNumber >= 1 && optionNumber <= totalItems) {
-                        int absoluteIndexZeroBased = optionNumber - 1;
-                        String selectedFilename = allWorkoutFilenames.get(absoluteIndexZeroBased);
+    private void HandleNextPage(){
+        if (currentPage < totalPages) {
+            currentPage++;
+        } else {
+            this.info = "INFO: This is the last page.";
+        }
+    }
 
-                        presenter.OpenWorkoutView(selectedFilename);
+    private void HandlePreviousPage(){
+        if (currentPage > 1) {
+            currentPage--;
+        } else {
+            this.info = "INFO: This is the first page.";
+        }
+    }
 
-                    } else {
-                        this.info = "ERROR: Invalid workout number. Please enter a number between 1 and " + totalItems + ".";
-                    }
-                } catch (NumberFormatException e) {
-                    this.info = "ERROR: Unknown command or invalid number.";
-                }
-                break;
+    private void HandleWorkoutNumber(String input){
+        try {
+            int optionNumber = Integer.parseInt(input);
+
+            // Validate against total items
+            if (optionNumber >= 1 && optionNumber <= totalItems) {
+                int absoluteIndexZeroBased = optionNumber - 1;
+                String selectedFilename = allWorkoutFilenames.get(absoluteIndexZeroBased);
+
+                presenter.OpenWorkoutView(selectedFilename);
+
+            } else {
+                this.info = "ERR: Invalid workout number. Please enter a number between 1 and " + totalItems + ".";
+            }
+        } catch (NumberFormatException e) {
+            this.info = "ERR: Invalid input.";
         }
     }
 }

@@ -7,7 +7,9 @@ public abstract class Window {
     protected String info = "";
     protected ArrayList<String> options;
     protected ArrayList<String> inputOptions;
-    public void HandleInput(String input){}
+
+    protected abstract void SendBody();
+    public abstract void HandleInput(String input);
 
     protected Window(){
         options = new ArrayList<>();
@@ -40,10 +42,10 @@ public abstract class Window {
     }
 
     private void SendSeparator(){
-        System.out.println("---------------");
+        System.out.println("-------------------------");
     }
 
-    protected abstract void SendBody();
+
 
     public void Render(){
         inputOptions.clear();

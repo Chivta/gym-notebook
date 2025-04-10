@@ -22,7 +22,7 @@ public class MainMenuWindow extends Window {
     public void HandleInput(String input){
         try{
             int selected = Integer.parseInt(input);
-            if (selected >= 0 && selected < options.size()) {
+            if (selected > 0 && selected <= options.size()) {
                 switch (selected){
                     case 1:
                         presenter.OpenNewWorkoutCreation();
