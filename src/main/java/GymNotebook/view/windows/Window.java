@@ -1,10 +1,7 @@
 package GymNotebook.view.windows;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 
-@Getter
 public abstract class Window {
     protected String header = "";
     protected String info = "";
