@@ -11,7 +11,7 @@ public class MainMenuWindow extends Window {
         header = "Main Menu";
         options.add("New Workout");
         options.add("View Workouts");
-        info = "";
+        options.add("Quit");
     }
 
     @Override
@@ -30,6 +30,8 @@ public class MainMenuWindow extends Window {
                     case 2:
                         presenter.OpenWorkoutListView();
                         break;
+                    case 3:
+                        presenter.Quit();
                 }
             } else {
                 info = "ERR: Invalid option number";

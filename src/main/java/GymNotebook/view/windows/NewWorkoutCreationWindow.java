@@ -2,6 +2,7 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
 import GymNotebook.presenter.Presenter;
+import GymNotebook.presenter.WorkoutPrinter;
 
 
 public class NewWorkoutCreationWindow extends Window{
@@ -46,7 +47,7 @@ public class NewWorkoutCreationWindow extends Window{
     }
 
     private void SendWorkoutOverview(){
-        System.out.println(workout.toString());
+        WorkoutPrinter.PrintWorkout(workout);
     }
 
     @Override

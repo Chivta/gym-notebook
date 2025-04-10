@@ -28,11 +28,13 @@ public class Presenter {
         ui.GoBack();
     }
 
+    public void Quit(){
+        System.exit(200);
+    }
+
     public List<String> GetWorkoutFilenamesSorted() {
         return FileManager.getAllWorkoutFilenamesSortedByDateDesc();
     }
-
-    public void OpenWorkoutView(String filename){}
 
     Workout currentWorkout;
     public void OpenNewWorkoutCreation(){
@@ -57,13 +59,13 @@ public class Presenter {
 
     public void OpenNewTimeSet(){
         System.out.println("NotImplemented");
-        //ui.ChangeWindow(new NewRepSetWindow(this));
+        ui.ChangeWindow(new NewTimeSetWindow(this));
+
     }
 
     public void AddSetToCurrentExercise(Set set){
         currentExercise.AddSet(set);
     }
-
 
     public void AddExerciseToCurrentWorkout(Exercise exercise){
         currentWorkout.AddExercise(exercise);
@@ -121,5 +123,10 @@ public class Presenter {
             System.err.println("An unexpected error occurred during saving workout '" + filename + "': " + e.getMessage());
         }
 
+    }
+
+    public void OpenWorkoutView(String filename){
+        Workout workout = FileManager.loadWorkoutByFileName(filename);
+        ui.ChangeWindow(new WorkoutViewWindow(this,workout));
     }
 }

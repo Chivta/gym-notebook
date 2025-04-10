@@ -18,7 +18,7 @@ public abstract class Window {
 
     private void SendHeader(){
         if(!header.isEmpty()){
-            System.out.println(header);
+            System.out.printf("== %s ==%n",header);
         }
     }
     private void SendFooter(){
@@ -52,6 +52,7 @@ public abstract class Window {
         SendSeparator();
         SendHeader();
         SendBody();
+        SendSeparator();
         AddBackOptionToFooter();
         SendFooter();
         SendInfo();

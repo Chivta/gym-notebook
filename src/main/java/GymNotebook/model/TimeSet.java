@@ -10,13 +10,12 @@ import lombok.AllArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RepSet extends Set {
-    private int repCount;
+public class TimeSet extends Set{
+    private int time;
     private int weight;
-
 
     @Override
     public String toString(){
-        return String.format("%s kg : %s",weight,repCount);
+        return String.format("%s kg : %s sec",weight,time);
     }
 }

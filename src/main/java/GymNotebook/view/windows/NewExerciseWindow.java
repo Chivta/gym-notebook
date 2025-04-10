@@ -85,10 +85,12 @@ public class NewExerciseWindow extends Window{
             case RepExercise:
                 HandleRepExercise(input);
                 break;
+            case TimeExercise:
+                HandleTimeExercise(input);
+                break;
 
         }
     }
-
     private void HandleTitleEnter(String input){
         if(!input.isEmpty()){
             exercise.setTitle(input);
