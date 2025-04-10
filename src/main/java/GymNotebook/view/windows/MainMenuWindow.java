@@ -2,8 +2,6 @@ package GymNotebook.view.windows;
 
 import GymNotebook.presenter.Presenter;
 
-import java.util.ArrayList;
-
 public class MainMenuWindow extends Window {
     private final Presenter presenter;
 

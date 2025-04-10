@@ -20,8 +20,6 @@ public class NewExerciseWindow extends Window{
     }
 
     public NewExerciseWindow(Presenter presenter){
-        //super();
-
         this.presenter = presenter;
         exercise = new RepExercise();
 

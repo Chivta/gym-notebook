@@ -3,9 +3,6 @@ package GymNotebook.view.windows;
 import GymNotebook.model.RepSet;
 import GymNotebook.presenter.Presenter;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 public class NewRepSetWindow extends Window{
     Presenter presenter;
     State state;

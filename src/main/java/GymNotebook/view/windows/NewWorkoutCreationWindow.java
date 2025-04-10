@@ -3,9 +3,6 @@ package GymNotebook.view.windows;
 import GymNotebook.model.Workout;
 import GymNotebook.presenter.Presenter;
 
-import java.util.ArrayList;
-
-
 
 public class NewWorkoutCreationWindow extends Window{
     private final Presenter presenter;
@@ -26,7 +23,6 @@ public class NewWorkoutCreationWindow extends Window{
 
         this.workout = workout;
 
-        options = new ArrayList<>();
         options.add("Add Exercise");
 
     }
