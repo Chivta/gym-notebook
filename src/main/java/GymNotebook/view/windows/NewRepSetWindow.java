@@ -8,7 +8,6 @@ import java.util.Locale;
 
 public class NewRepSetWindow extends Window{
     Presenter presenter;
-    ArrayList<String> options;
     State state;
     RepSet set;
 
@@ -17,7 +16,6 @@ public class NewRepSetWindow extends Window{
 
         set = new RepSet();
 
-        options = new ArrayList<>();
         options.add("NewRep");
         options.add("SaveSet");
 
@@ -53,10 +51,6 @@ public class NewRepSetWindow extends Window{
 
     @Override
     public void HandleInput(String input){
-        info = "";
-
-        input = input.toLowerCase().trim();
-
         switch (state){
             case SettingWeight:
                 HandleSettingWeight(input);

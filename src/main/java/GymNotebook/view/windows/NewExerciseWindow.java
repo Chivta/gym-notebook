@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class NewExerciseWindow extends Window{
     private final ArrayList<String> exerciseTypes;
-    private final ArrayList<String> exerciseOptions;
     private final Presenter presenter;
     private final Exercise exercise;
     private State state;
@@ -21,11 +20,14 @@ public class NewExerciseWindow extends Window{
     }
 
     public NewExerciseWindow(Presenter presenter){
+        //super();
+
         this.presenter = presenter;
         exercise = new RepExercise();
 
         header = "New Exercise Adding";
-        footer = "Enter Exercise Name";
+
+        inputOptions.add("Enter exercise name");
 
         state = State.TitleEnter;
 
@@ -34,15 +36,12 @@ public class NewExerciseWindow extends Window{
         exerciseTypes.add("Rep Exercise");
         exerciseTypes.add("Time Exercise");
 
-        exerciseOptions = new ArrayList<>();
-
-        exerciseOptions.add("Add Set");
-        exerciseOptions.add("Save Exercise");
+        options.add("Add Set");
+        options.add("Save Exercise");
     }
 
     @Override
     public void SendBody(){
-        footer = "";
         switch(state){
             case TitleEnter:
                 SendTitleEnter();
@@ -66,23 +65,20 @@ public class NewExerciseWindow extends Window{
         for(int i = 0; i< exerciseTypes.size(); i++){
             System.out.printf("%d. %s%n",i+1, exerciseTypes.get(i));
         }
-
-        footer = "Select option.";
+        inputOptions.clear();
+        inputOptions.add("[Number] - Choose option");
     }
 
     private void SendExerciseOptions(){
         for(int i = 0; i< exerciseTypes.size(); i++){
-            System.out.printf("%d. %s%n",i+1, exerciseOptions.get(i));
+            System.out.printf("%d. %s%n",i+1, options.get(i));
         }
 
-        footer = "Select option.";
+        inputOptions.addFirst("[Number] - Choose option");
     }
 
     @Override
     public void HandleInput(String input){
-        info = "";
-
-        input = input.toLowerCase();
         switch(state){
             case TitleEnter:
                 HandleTitleEnter(input);

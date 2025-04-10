@@ -17,7 +17,7 @@ public class WorkoutListViewWindow extends Window {
         this.presenter = presenter;
 
         this.header = "Workout List (Sorted by Date)";
-        this.footer = "[Number] - Select";
+        inputOptions.addFirst("[Number] - Select");
         loadWorkoutData();
     }
 
@@ -38,7 +38,7 @@ public class WorkoutListViewWindow extends Window {
             return;
         }
         // Reseting footer
-        this.footer = "[Number] - Select";
+        inputOptions.addFirst("[Number] - Select");
 
         // Ensure current page is valid
         if (currentPage < 1) currentPage = 1;
@@ -63,9 +63,8 @@ public class WorkoutListViewWindow extends Window {
         }
         System.out.println("-------------------------");
 
-        if(currentPage > 1) this.footer += ", [N] - Next Page";
-        if (currentPage < totalPages) this.footer += ", [B] Back";
-        this.AddBackOptionToFooter();
+        if(currentPage > 1) inputOptions.add("[N] - Next Page");
+        if (currentPage < totalPages) inputOptions.add("[B] Back");
     }
 
     /**

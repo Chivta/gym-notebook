@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -29,12 +30,20 @@ public class UIManager {
         clearScreen();
         CurrentWindow.Render();
         while (true) {
-            if (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                CurrentWindow.HandleInput(line);
 
+
+            if (scanner.hasNextLine()) {
+                String line = scanner.nextLine().toLowerCase().trim();
+
+                if (line.equals("b") && !history.isEmpty()){
+                    GoBack();
+                }
+                else{
+                    CurrentWindow.HandleInput(line);
+                }
                 clearScreen();
                 CurrentWindow.Render();
+
             }
 
         }

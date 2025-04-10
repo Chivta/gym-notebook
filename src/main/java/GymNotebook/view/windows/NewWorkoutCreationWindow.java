@@ -12,8 +12,6 @@ public class NewWorkoutCreationWindow extends Window{
     private State state;
     private final Workout workout;
 
-    ArrayList<String> options;
-
     enum State {
         TitleInput,
         OptionSelection,
@@ -23,15 +21,14 @@ public class NewWorkoutCreationWindow extends Window{
         this.presenter = presenter;
 
         header = "New Workout Creation";
-        footer = "";
 
         state = State.TitleInput;
 
         this.workout = workout;
 
         options = new ArrayList<>();
-
         options.add("Add Exercise");
+
     }
 
     @Override
@@ -50,16 +47,8 @@ public class NewWorkoutCreationWindow extends Window{
         System.out.println("Enter Workout Title");
     }
 
-    private void SendOptions(){
-        for (int i = 0; i < options.size(); i++){
-            System.out.printf("%d. %s%n", i+1, options.get(i));
-        }
-    }
-
     @Override
     public void HandleInput(String input) {
-        footer = "";
-        input = input.trim();
         switch (state){
             case TitleInput:
                 HandleTitleInput(input);
