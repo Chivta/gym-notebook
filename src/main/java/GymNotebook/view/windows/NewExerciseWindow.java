@@ -1,7 +1,6 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Exercise;
-import GymNotebook.model.RepExercise;
 import GymNotebook.presenter.Presenter;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class NewExerciseWindow extends Window{
 
     public NewExerciseWindow(Presenter presenter){
         this.presenter = presenter;
-        exercise = new RepExercise();
+        exercise = new Exercise();
 
         header = "New Exercise Adding";
 

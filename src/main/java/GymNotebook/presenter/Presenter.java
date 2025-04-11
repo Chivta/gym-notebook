@@ -41,7 +41,7 @@ public class Presenter {
 
         currentWorkout = new Workout();
 
-        ui.ChangeWindow(new NewWorkoutCreationWindow(this, currentWorkout));
+                ui.ChangeWindow(new NewWorkoutCreationWindow(this, currentWorkout));
     }
 
     public void OpenNewExercise(){
@@ -110,8 +110,8 @@ public class Presenter {
 
             currentWorkout = null;
 
-            ui.ClearHistory();
             ui.ChangeWindow(new MainMenuWindow(this));
+            ui.ClearHistory();
 
         } catch (IOException e) {
             System.err.println("Failed to save workout file '" + filename + "': " + e.getMessage());
@@ -124,5 +124,9 @@ public class Presenter {
     public void OpenWorkoutView(String filename){
         Workout workout = FileManager.loadWorkoutByFileName(filename);
         ui.ChangeWindow(new WorkoutViewWindow(this,workout));
+    }
+
+    public void PrintWorkout(Workout workout){
+        WorkoutPrinter.PrintWorkout(workout);
     }
 }

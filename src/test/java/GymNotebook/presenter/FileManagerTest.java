@@ -1,10 +1,8 @@
 package GymNotebook.presenter;
 
-
-import GymNotebook.model.RepExercise;
+import GymNotebook.model.Exercise;
 import GymNotebook.model.RepSet;
 import GymNotebook.model.Workout;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -27,6 +25,7 @@ class FileManagerTest {
         Files.createDirectories(dir);
         Files.writeString(dir.resolve(filename), content);
     }
+
     private void createEmptyFile(Path dir, String filename) throws IOException {
         createFile(dir, filename, "");
     }
@@ -43,12 +42,12 @@ class FileManagerTest {
         createEmptyFile(workoutsDir, "LegDay_2025-04-08.json");
         createEmptyFile(workoutsDir, "NoDateWorkout.json");
         createEmptyFile(workoutsDir, "Workout_invalid-date.json");
-        createFile(workoutsDir, "config.txt", "some text"); // Non-json
+        createFile(workoutsDir, "config.txt", "some text");
 
         List<String> sortedFiles = FileManager.getAllWorkoutFilenamesSortedByDateDesc(tempDir);
 
         assertNotNull(sortedFiles);
-        assertEquals(5, sortedFiles.size()); // Expect 5 json files
+        assertEquals(5, sortedFiles.size());
         assertEquals("Workout_2025-04-09.json", sortedFiles.get(0));
         assertEquals("LegDay_2025-04-08.json", sortedFiles.get(1));
         assertEquals("Session_2025-04-07.json", sortedFiles.get(2));
@@ -72,11 +71,10 @@ class FileManagerTest {
         assertTrue(sortedFiles.isEmpty());
     }
 
-
     @Test
     void saveAndLoadWorkoutByFileName_successful_test() throws IOException {
         Workout originalWorkout = new Workout("Chest Day Test");
-        RepExercise benchPress = new RepExercise();
+        Exercise benchPress = new Exercise();
         benchPress.setTitle("Bench Press");
         benchPress.AddSet(new RepSet(5, 100));
         originalWorkout.AddExercise(benchPress);
@@ -90,12 +88,11 @@ class FileManagerTest {
         assertNotNull(loadedWorkout);
         assertEquals(originalWorkout.getTitle(), loadedWorkout.getTitle());
         assertEquals(1, loadedWorkout.getExercises().size());
-        assertTrue(loadedWorkout.getExercises().get(0) instanceof RepExercise);
         assertEquals("Bench Press", loadedWorkout.getExercises().get(0).getTitle());
-        RepExercise loadedEx = (RepExercise) loadedWorkout.getExercises().get(0);
-        assertEquals(1, loadedEx.getSets().size());
-        assertTrue(loadedEx.getSets().get(0) instanceof RepSet);
-        assertEquals(5, ((RepSet)loadedEx.getSets().get(0)).getRepCount());
+        assertEquals(1, loadedWorkout.getExercises().get(0).getSets().size());
+        assertTrue(loadedWorkout.getExercises().get(0).getSets().get(0) instanceof RepSet);
+        assertEquals(5, ((RepSet) loadedWorkout.getExercises().get(0).getSets().get(0)).getRepCount());
+        assertEquals(100, ((RepSet) loadedWorkout.getExercises().get(0).getSets().get(0)).getWeight());
     }
 
     @Test
@@ -110,11 +107,10 @@ class FileManagerTest {
         assertNull(loadedWorkout);
     }
 
-
     @Test
     void loadWorkoutByFileName_invalidJson_test() throws IOException {
         String filename = "invalid_json.json";
-        createFile(workoutsDir, filename, "{ \"title\": \"Bad JSON\",, }");
+        createFile(workoutsDir, filename, "{ title: \"Bad JSON\" }");
 
         Workout loadedWorkout = FileManager.loadWorkoutByFileName(tempDir, filename);
 
@@ -122,7 +118,7 @@ class FileManagerTest {
     }
 
     @Test
-    void saveWorkout_nullWorkout_test() throws IOException{
+    void saveWorkout_nullWorkout_test() throws IOException {
         FileManager.saveWorkout(tempDir, null, "somefile.json");
         assertFalse(Files.exists(workoutsDir.resolve("somefile.json")));
     }
@@ -133,20 +129,16 @@ class FileManagerTest {
         assertDoesNotThrow(() -> FileManager.saveWorkout(tempDir, workout, null));
         assertDoesNotThrow(() -> FileManager.saveWorkout(tempDir, workout, ""));
         assertDoesNotThrow(() -> FileManager.saveWorkout(tempDir, workout, "   "));
-        assertFalse(Files.exists(workoutsDir.resolve(""))); // Check if empty string was attempted
+        assertFalse(Files.exists(workoutsDir.resolve("")));
     }
 
     @Test
     void saveWorkout_IOException_test() throws IOException {
-
         Workout workout = new Workout("Test IO Fail");
         String filename = "io_fail.json";
         Path targetPath = workoutsDir.resolve(filename);
         assertThrows(IOException.class, () -> {
-
             throw new IOException("Simulated IO error during save");
         }, "Saving with simulated IO error should throw IOException");
-
-
     }
 }

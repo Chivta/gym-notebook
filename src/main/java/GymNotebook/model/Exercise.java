@@ -1,46 +1,37 @@
 package GymNotebook.model;
 
-
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @Getter
 @Setter
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "@type"
-)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = RepExercise.class, name = "RepExercise"),
-        @JsonSubTypes.Type(value = TimeExercise.class, name = "TimeExercise"),
-})
-public abstract class Exercise{
+public class Exercise {
     protected String title;
     private ArrayList<Set> sets;
 
-    protected Exercise(){
+
+    public Exercise() {
         sets = new ArrayList<>();
     }
 
-    public void AddSet(Set set){
 
+    public void AddSet(Set set) {
         sets.add(set);
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder toReturn = new StringBuilder();
-        toReturn.append(title);
-        for(Set set: sets){
-            toReturn.append(String.format("%n - %s",set.toString()));
-        }
+        toReturn.append(title != null ? title : "Untitled Exercise");
+        if (sets != null && !sets.isEmpty()) {
+            for (Set set : sets) {
+                if (set != null) {
 
+                    toReturn.append(String.format("%n - %s", set));
+                }
+            }
+        }
         return toReturn.toString();
     }
 }

@@ -2,9 +2,6 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
 import GymNotebook.presenter.Presenter;
-import GymNotebook.presenter.WorkoutPrinter;
-
-import java.util.Timer;
 
 public class WorkoutViewWindow extends Window{
     Presenter presenter;
@@ -19,7 +16,7 @@ public class WorkoutViewWindow extends Window{
 
     @Override
     public void SendBody(){
-        WorkoutPrinter.PrintWorkout(workout);
+        presenter.PrintWorkout(workout);
     }
 
     @Override
