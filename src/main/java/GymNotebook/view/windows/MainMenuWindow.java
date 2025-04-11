@@ -20,6 +20,8 @@ public class MainMenuWindow extends Window {
     }
 
     public void HandleInput(String input){
+        input = input.toLowerCase();
+
         try{
             int selected = Integer.parseInt(input);
             if (selected > 0 && selected <= options.size()) {

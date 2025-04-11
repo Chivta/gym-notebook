@@ -38,9 +38,9 @@ public class Presenter {
 
     Workout currentWorkout;
     public void OpenNewWorkoutCreation(){
-        if(currentWorkout == null){
-            currentWorkout = new Workout();
-        }
+
+        currentWorkout = new Workout();
+
         ui.ChangeWindow(new NewWorkoutCreationWindow(this, currentWorkout));
     }
 
@@ -80,34 +80,30 @@ public class Presenter {
         String title = currentWorkout.getTitle();
         String sanitizedTitle = (title == null || title.trim().isEmpty())
                 ? "UntitledWorkout"
-                // Замінюємо пробіли на підкреслення і видаляємо символи, неприпустимі в іменах файлів
                 : title.trim().replaceAll("\\s+", "_").replaceAll("[^a-zA-Z0-9\\-_]", "");
         if (sanitizedTitle.length() > 50) {
             sanitizedTitle = sanitizedTitle.substring(0, 50);
         }
-        if (sanitizedTitle.isEmpty()) { // Якщо після санітизації нічого не лишилось
+        if (sanitizedTitle.isEmpty()) {
             sanitizedTitle = "Workout";
         }
 
 
-        // 3. Отримання поточної дати
-        LocalDate today = LocalDate.now();
-        String dateString = today.format(DateTimeFormatter.ISO_LOCAL_DATE); // Формат YYYY-MM-DD
 
-        // 4. Формування базового імені файлу
+        LocalDate today = LocalDate.now();
+        String dateString = today.format(DateTimeFormatter.ISO_LOCAL_DATE);
+
+
         String baseFilename = dateString + "_" + sanitizedTitle;
         String filename = baseFilename + ".json";
-        Path workoutDirPath = Paths.get("Workouts"); // Шлях до каталогу Workouts (з кореня проекту)
+        Path workoutDirPath = Paths.get("Workouts");
 
-        // 5. Перевірка на дублікати та генерація унікального імені
         int counter = 0;
-        // Перевіряємо існування файлу у цільовому каталозі
         while (Files.exists(workoutDirPath.resolve(filename))) {
             counter++;
             filename = baseFilename + "(" + counter + ").json";
         }
 
-        // 6. Збереження файлу через FileManager
         try {
             FileManager.saveWorkout(currentWorkout, filename);
             System.out.println("Workout saved successfully as: " + filename);

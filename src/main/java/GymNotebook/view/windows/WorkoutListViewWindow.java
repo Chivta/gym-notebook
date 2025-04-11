@@ -62,12 +62,14 @@ public class WorkoutListViewWindow extends Window {
             }
         }
 
-        if(currentPage > 1) inputOptions.add("[N] - Next Page");
-        if (currentPage < totalPages) inputOptions.add("[P] - Previous Page");
+        if(currentPage > 1)  inputOptions.add("[P] - Previous Page");
+        if (currentPage < totalPages) inputOptions.add("[N] - Next Page");
     }
 
     @Override
     public void HandleInput(String input) {
+        input = input.toLowerCase();
+
         switch (input) {
             case "n":
                 HandleNextPage();

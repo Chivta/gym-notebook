@@ -33,9 +33,9 @@ public class UIManager {
 
 
             if (scanner.hasNextLine()) {
-                String line = scanner.nextLine().toLowerCase().trim();
+                String line = scanner.nextLine().trim();
 
-                if (line.equals("b") && !history.isEmpty()){
+                if (line.equalsIgnoreCase("b") && !history.isEmpty()){
                     GoBack();
                 }
                 else{
