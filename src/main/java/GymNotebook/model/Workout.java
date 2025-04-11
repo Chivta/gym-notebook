@@ -41,7 +41,6 @@ public class Workout {
             toReturn.append(String.format("%n - %s", (ex.toString()).replace("-","--")));
         }
 
-
         return toReturn.toString();
     }
 }

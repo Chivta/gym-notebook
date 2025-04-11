@@ -15,7 +15,8 @@ import lombok.Setter;
         property = "@type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = RepSet.class, name = "StrengthSet"),
+        @JsonSubTypes.Type(value = RepSet.class, name = "RepSet"),
+        @JsonSubTypes.Type(value = TimeSet.class, name = "TimeSet"),
 })
 public abstract class Set{
 }

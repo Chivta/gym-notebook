@@ -17,6 +17,7 @@ import java.util.ArrayList;
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = RepExercise.class, name = "RepExercise"),
+        @JsonSubTypes.Type(value = TimeExercise.class, name = "TimeExercise"),
 })
 public abstract class Exercise{
     protected String title;
