@@ -51,7 +51,9 @@ public abstract class Window {
         inputOptions.clear();
         SendSeparator();
         SendHeader();
+
         SendBody();
+
         SendSeparator();
         AddBackOptionToFooter();
         SendFooter();

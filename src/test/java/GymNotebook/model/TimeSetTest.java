@@ -1,4 +1,3 @@
-// File: src/test/java/GymNotebook/model/TimeSetTest.java
 package GymNotebook.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,24 +43,19 @@ class TimeSetTest {
         TimeSet originalSet = new TimeSet(120, 10);
         String json = objectMapper.writeValueAsString(originalSet);
 
-        // Deserialize into TimeSet.class
         TimeSet deserializedSet = objectMapper.readValue(json, TimeSet.class);
 
         assertNotNull(deserializedSet);
         assertEquals(originalSet.getTime(), deserializedSet.getTime());
         assertEquals(originalSet.getWeight(), deserializedSet.getWeight());
-        // Expecting "@type":"TimeSet" based on updated Set annotations
         assertTrue(json.contains("\"@type\":\"TimeSet\""));
     }
 
     @Test
     void jsonPolymorphism_TimeSetAsSet_test() throws JsonProcessingException {
-        // This test should now PASS because TimeSet is included in Set's @JsonSubTypes
         TimeSet originalSet = new TimeSet(30, 5);
-        // JSON will contain "@type":"TimeSet"
         String json = objectMapper.writeValueAsString(originalSet);
 
-        // Deserialize into abstract Set
         Set deserializedSet = objectMapper.readValue(json, Set.class);
 
         assertNotNull(deserializedSet);

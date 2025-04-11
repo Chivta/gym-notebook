@@ -1,10 +1,8 @@
-// File: FileManager.java
-package GymNotebook.presenter; // Або ваш пакет
+package GymNotebook.presenter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import GymNotebook.model.Workout; // Імпортуємо Workout
-import GymNotebook.model.Exercise; // Потрібен для Workout
+import GymNotebook.model.Workout;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +22,6 @@ import java.util.stream.Stream;
 
 public class FileManager {
 
-    // Змінено на Workouts
     private static final String WORKOUTS_DIR_NAME = "Workouts";
     private static final ObjectMapper objectMapper = createObjectMapper();
     private static final Pattern DATE_PATTERN = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})");
@@ -33,14 +30,10 @@ public class FileManager {
     private static ObjectMapper createObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        // Переконайтесь, що ObjectMapper знає про поліморфізм Exercise (анотації в Exercise)
-        // Якщо використовуєте Java 8 Date/Time:
-        // mapper.registerModule(new JavaTimeModule());
-        // mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         return mapper;
     }
 
-    // Допоміжний клас для сортування (змінено ім'я)
     private static class WorkoutFileInfo {
         String filename;
         LocalDate date;
@@ -53,17 +46,10 @@ public class FileManager {
         String getFilename() { return filename; }
     }
 
-    /**
-     * Повертає список імен файлів тренувань, відсортованих за датою (з імені файлу) DESC.
-     * Приймає базовий каталог для можливості тестування.
-     * @param baseDir Базовий каталог, де знаходиться підкаталог WORKOUTS_DIR_NAME.
-     * @return Відсортований список імен файлів або порожній список.
-     */
     public static List<String> getAllWorkoutFilenamesSortedByDateDesc(Path baseDir) {
         Path workoutsDirPath = baseDir.resolve(WORKOUTS_DIR_NAME);
 
         if (!Files.exists(workoutsDirPath) || !Files.isDirectory(workoutsDirPath)) {
-            // System.err.println("Warning: Directory '" + workoutsDirPath + "' not found.");
             return new ArrayList<>();
         }
 
@@ -97,20 +83,12 @@ public class FileManager {
         }
     }
 
-    /**
-     * Перевантажений метод для зручності, використовує поточний робочий каталог.
-     */
+
     public static List<String> getAllWorkoutFilenamesSortedByDateDesc() {
         return getAllWorkoutFilenamesSortedByDateDesc(Paths.get("")); // Використовуємо поточний каталог
     }
 
-    /**
-     * Завантажує тренування з JSON-файлу за його повною назвою.
-     * Приймає базовий каталог для тестування.
-     * @param baseDir Базовий каталог, де знаходиться підкаталог WORKOUTS_DIR_NAME.
-     * @param fullFileName Повна назва файлу (наприклад, "LegDay_2025-04-08.json").
-     * @return Об'єкт Workout або null у разі помилки.
-     */
+
     public static Workout loadWorkoutByFileName(Path baseDir, String fullFileName) {
         if (fullFileName == null || fullFileName.trim().isEmpty()) {
             return null;
@@ -132,22 +110,12 @@ public class FileManager {
         }
     }
 
-    /**
-     * Перевантажений метод для зручності, використовує поточний робочий каталог.
-     */
+
     public static Workout loadWorkoutByFileName(String fullFileName) {
         return loadWorkoutByFileName(Paths.get(""), fullFileName);
     }
 
 
-    /**
-     * Зберігає об'єкт Workout у JSON-файл.
-     * Приймає базовий каталог для тестування.
-     * @param baseDir Базовий каталог, де буде створено/використано підкаталог WORKOUTS_DIR_NAME.
-     * @param workout Об'єкт тренування для збереження.
-     * @param fullFileName Повна назва файлу для збереження.
-     * @return true, якщо збереження пройшло успішно, false в іншому випадку.
-     */
     public static void saveWorkout(Path baseDir, Workout workout, String fullFileName) throws IOException {
         if (workout == null || fullFileName == null || fullFileName.trim().isEmpty()) {
             return;
@@ -164,9 +132,7 @@ public class FileManager {
         }
     }
 
-    /**
-     * Перевантажений метод для зручності, використовує поточний робочий каталог.
-     */
+
     public static void saveWorkout(Workout workout, String fullFileName) throws IOException {
         try{
             saveWorkout(Paths.get(""), workout, fullFileName);

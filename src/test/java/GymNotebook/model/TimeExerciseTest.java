@@ -1,4 +1,3 @@
-// File: src/test/java/GymNotebook/model/TimeExerciseTest.java
 package GymNotebook.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,7 +15,6 @@ class TimeExerciseTest {
     @BeforeEach
     void setUp() {
         objectMapper = new ObjectMapper();
-        // No MixIns needed
         exercise = new TimeExercise();
         exercise.setTitle("Plank");
     }
@@ -39,7 +37,7 @@ class TimeExerciseTest {
         assertEquals(1, exercise.getSets().size());
         assertTrue(exercise.getSets().contains(timeSet));
 
-        exercise.AddSet(repSet); // Now works correctly
+        exercise.AddSet(repSet);
         assertEquals(2, exercise.getSets().size());
         assertTrue(exercise.getSets().contains(repSet));
     }
@@ -57,17 +55,15 @@ class TimeExerciseTest {
 
     @Test
     void jsonDirectSerialization_TimeExercise_test() throws JsonProcessingException {
-        // Test direct serialization/deserialization
         exercise.AddSet(new TimeSet(90, 5));
         exercise.AddSet(new RepSet(20, 0));
 
         String json = objectMapper.writeValueAsString(exercise);
-        assertTrue(json.contains("\"@type\":\"TimeExercise\"")); // Added by base class annotation
+        assertTrue(json.contains("\"@type\":\"TimeExercise\""));
         assertTrue(json.contains("\"title\":\"Plank\""));
         assertTrue(json.contains("\"@type\":\"TimeSet\""));
-        assertTrue(json.contains("\"@type\":\"RepSet\"")); // Updated name
+        assertTrue(json.contains("\"@type\":\"RepSet\""));
 
-        // Deserialize into TimeExercise.class
         TimeExercise deserializedExercise = objectMapper.readValue(json, TimeExercise.class);
 
         assertNotNull(deserializedExercise);
@@ -79,11 +75,9 @@ class TimeExerciseTest {
 
     @Test
     void jsonPolymorphism_TimeExerciseAsExercise_test() throws JsonProcessingException {
-        // This test should now PASS because TimeExercise is included in Exercise's @JsonSubTypes
         exercise.AddSet(new TimeSet(30, 0));
-        String json = objectMapper.writeValueAsString(exercise); // Contains @type=TimeExercise
+        String json = objectMapper.writeValueAsString(exercise);
 
-        // Deserialize into abstract Exercise
         Exercise deserializedExercise = objectMapper.readValue(json, Exercise.class);
 
         assertNotNull(deserializedExercise);

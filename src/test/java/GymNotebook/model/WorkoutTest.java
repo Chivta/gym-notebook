@@ -1,4 +1,3 @@
-// File: src/test/java/GymNotebook/model/WorkoutTest.java
 package GymNotebook.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,7 +16,6 @@ class WorkoutTest {
     @BeforeEach
     void setUp() {
         objectMapper = new ObjectMapper();
-        // No MixIns needed as Exercise and Set annotations are now correct
         workout = new Workout("Full Body Test");
     }
 
@@ -31,8 +29,7 @@ class WorkoutTest {
         assertNull(workoutNoTitle.getTitle());
         assertNotNull(workoutNoTitle.getExercises());
 
-        // Note: @AllArgsConstructor might conflict if other constructors exist
-        // Let's test the state after using the title-only constructor
+
         Workout workoutTitleOnly = new Workout("Leg Day");
         assertEquals("Leg Day", workoutTitleOnly.getTitle());
         assertNotNull(workoutTitleOnly.getExercises());
@@ -50,7 +47,7 @@ class WorkoutTest {
         assertEquals(1, workout.getExercises().size());
         assertTrue(workout.getExercises().contains(repEx));
 
-        workout.AddExercise(timeEx); // Now works correctly
+        workout.AddExercise(timeEx);
         assertEquals(2, workout.getExercises().size());
         assertTrue(workout.getExercises().contains(timeEx));
     }
@@ -69,7 +66,6 @@ class WorkoutTest {
         workout.AddExercise(squats);
         workout.AddExercise(plank);
 
-        // Expected format with "--" replacement
         String expected = "Full Body Test" + System.lineSeparator() +
                 " - Squats" + System.lineSeparator() +
                 " -- 80 kg : 10" + System.lineSeparator() +
@@ -81,7 +77,6 @@ class WorkoutTest {
 
     @Test
     void jsonSerializationDeserialization_withPolymorphism_test() throws JsonProcessingException {
-        // Arrange: Create workout with different Exercise and Set types
         RepExercise pushups = new RepExercise();
         pushups.setTitle("Push Ups");
         pushups.AddSet(new RepSet(15, 0));
@@ -93,33 +88,27 @@ class WorkoutTest {
         workout.AddExercise(pushups);
         workout.AddExercise(cardio);
 
-        // Act: Serialize
         String json = objectMapper.writeValueAsString(workout);
-        // System.out.println(json); // Optional: print JSON for debugging
 
-        // Assert JSON content (key types)
         assertTrue(json.contains("\"title\":\"Full Body Test\""));
         assertTrue(json.contains("\"exercises\""));
         assertTrue(json.contains("\"@type\":\"RepExercise\""));
-        assertTrue(json.contains("\"@type\":\"TimeExercise\"")); // Should now work
-        assertTrue(json.contains("\"@type\":\"RepSet\""));     // Updated name
-        assertTrue(json.contains("\"@type\":\"TimeSet\""));    // Should now work
+        assertTrue(json.contains("\"@type\":\"TimeExercise\""));
+        assertTrue(json.contains("\"@type\":\"RepSet\""));
+        assertTrue(json.contains("\"@type\":\"TimeSet\""));
 
-        // Act: Deserialize
         Workout deserializedWorkout = objectMapper.readValue(json, Workout.class);
 
-        // Assert deserialized Workout object
         assertNotNull(deserializedWorkout);
         assertEquals(workout.getTitle(), deserializedWorkout.getTitle());
         assertEquals(workout.getExercises().size(), deserializedWorkout.getExercises().size());
 
-        // Assert Exercise types and content within the list
         assertTrue(deserializedWorkout.getExercises().get(0) instanceof RepExercise);
         assertEquals("Push Ups", deserializedWorkout.getExercises().get(0).getTitle());
         assertEquals(1, deserializedWorkout.getExercises().get(0).getSets().size());
         assertTrue(deserializedWorkout.getExercises().get(0).getSets().get(0) instanceof RepSet);
 
-        assertTrue(deserializedWorkout.getExercises().get(1) instanceof TimeExercise); // Should now work
+        assertTrue(deserializedWorkout.getExercises().get(1) instanceof TimeExercise);
         assertEquals("Jumping Jacks", deserializedWorkout.getExercises().get(1).getTitle());
         assertEquals(1, deserializedWorkout.getExercises().get(1).getSets().size());
         assertTrue(deserializedWorkout.getExercises().get(1).getSets().get(0) instanceof TimeSet);

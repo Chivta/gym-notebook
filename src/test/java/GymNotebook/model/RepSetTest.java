@@ -1,4 +1,3 @@
-// File: src/test/java/GymNotebook/model/RepSetTest.java
 package GymNotebook.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,12 +43,10 @@ class RepSetTest {
         RepSet originalSet = new RepSet(8, 70);
         String json = objectMapper.writeValueAsString(originalSet);
 
-        // Expecting "@type":"RepSet" based on updated Set annotations
         assertTrue(json.contains("\"@type\":\"RepSet\""), "JSON should contain type info 'RepSet'");
         assertTrue(json.contains("\"repCount\":8"));
         assertTrue(json.contains("\"weight\":70"));
 
-        // Deserialize into abstract Set
         Set deserializedSet = objectMapper.readValue(json, Set.class);
 
         assertNotNull(deserializedSet);
@@ -64,13 +61,11 @@ class RepSetTest {
         RepSet originalSet = new RepSet(5, 100);
         String json = objectMapper.writeValueAsString(originalSet);
 
-        // Deserialize directly into RepSet.class
         RepSet deserializedSet = objectMapper.readValue(json, RepSet.class);
 
         assertNotNull(deserializedSet);
         assertEquals(originalSet.getRepCount(), deserializedSet.getRepCount());
         assertEquals(originalSet.getWeight(), deserializedSet.getWeight());
-        // @type is still present due to base class annotation
         assertTrue(json.contains("\"@type\":\"RepSet\""));
     }
 }
