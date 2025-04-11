@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -38,5 +39,28 @@ public class Workout {
         }
 
         return toReturn.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Workout workout){
+            if (!title.equals(workout.getTitle())) return false;
+            if (exercises.size()!=workout.getExercises().size()) return false;
+
+            for(int i = 0; i < exercises.size(); i++){
+                if(!exercises.get(i).equals(workout.getExercises().get(i))){
+                    return false;
+                }
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, exercises);
     }
 }

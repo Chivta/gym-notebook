@@ -1,6 +1,8 @@
 package GymNotebook.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +17,10 @@ public class Exercise {
         sets = new ArrayList<>();
     }
 
+    public Exercise(String title) {
+        this();
+        this.title = title;
+    }
 
     public void AddSet(Set set) {
         sets.add(set);
@@ -33,5 +39,28 @@ public class Exercise {
             }
         }
         return toReturn.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Exercise exercise){
+            if (title == null || !title.equals(exercise.getTitle())) return false;
+            if (sets.size()!=exercise.getSets().size()) return false;
+
+            for(int i = 0; i < sets.size(); i++){
+                if(!sets.get(i).equals(exercise.getSets().get(i))){
+                    return false;
+                }
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, sets);
     }
 }

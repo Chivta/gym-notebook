@@ -18,4 +18,12 @@ public class TimeSet extends Set{
     public String toString(){
         return String.format("%s kg : %s sec",weight,time);
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof TimeSet timeSet){
+
+            return weight==timeSet.getWeight() && time==timeSet.getTime();
+        }return false;
+    }
 }
