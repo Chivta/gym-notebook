@@ -6,9 +6,6 @@ import GymNotebook.view.windows.Window;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.Stack;
 
