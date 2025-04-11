@@ -17,7 +17,6 @@ repositories {
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
-    testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.3")
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")
@@ -29,7 +28,7 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
     testLogging {
-        events ("passed", "skipped", "failed") // Покажемо тільки важливі події
-        showStandardStreams = true // Виводить стандартні потоки (System.out, System.err) в консоль
+        events ("passed", "skipped", "failed")
+        showStandardStreams = true
     }
 }
