@@ -109,4 +109,34 @@ class WorkoutTest {
         assertEquals(1, deserializedWorkout.getExercises().get(1).getSets().size());
         assertTrue(deserializedWorkout.getExercises().get(1).getSets().get(0) instanceof TimeSet);
     }
+
+    @Test
+    void equals_test() throws JsonProcessingException{
+        String json = "{\n" +
+                "  \"title\" : \"Full Body Test\",\n" +
+                "  \"exercises\" : [ {\n" +
+                "    \"title\" : \"Bench press\",\n" +
+                "    \"sets\" : [ {\n" +
+                "      \"@type\" : \"RepSet\",\n" +
+                "      \"repCount\" : 5,\n" +
+                "      \"weight\" : 60\n" +
+                "    } ]\n" +
+                "  } ]\n" +
+                "}";
+
+        Workout expected = objectMapper.readValue(json,Workout.class);
+
+        RepSet set = new RepSet();
+
+        set.setWeight(60);
+        set.setRepCount(5);
+
+        Exercise ex = new Exercise("Bench press");
+        ex.AddSet(set);
+
+        workout.AddExercise(ex);
+        workout.setTitle("Full Body Test");
+
+        assertEquals(workout,expected);
+    }
 }

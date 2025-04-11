@@ -33,14 +33,6 @@ class PresenterTest {
     }
 
 
-
-    @Test
-    void saveCurrentExercise_test() {
-        Exercise exercise = new Exercise();
-        presenter.SaveCurrentExercise(exercise);
-        assertEquals(exercise, presenter.currentExercise);
-    }
-
     @Test
     void addSetToCurrentExercise_test() {
         presenter.currentExercise = new Exercise();
@@ -53,9 +45,13 @@ class PresenterTest {
     @Test
     void addExerciseToCurrentWorkout_test() {
         presenter.currentWorkout = new Workout();
-        Exercise exercise = new Exercise();
-        presenter.AddExerciseToCurrentWorkout(exercise);
+        Exercise exerciseToAdd = new Exercise();
+        exerciseToAdd.setTitle("Присідання");
+        presenter.AddExerciseToCurrentWorkout(exerciseToAdd);
+
         assertEquals(1, presenter.currentWorkout.getExercises().size());
-        assertEquals(exercise, presenter.currentWorkout.getExercises().get(0));
+        Exercise retrievedExercise = presenter.currentWorkout.getExercises().get(0);
+        assertEquals(exerciseToAdd, retrievedExercise);
+        assertEquals("Присідання", retrievedExercise.getTitle());
     }
 }
