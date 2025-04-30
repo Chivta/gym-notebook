@@ -2,15 +2,17 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
 import GymNotebook.presenter.Presenter;
+import GymNotebook.presenter.UnitManger;
 
 public class NewRepSetWindow extends Window{
     Presenter presenter;
     State state;
     RepSet set;
+    UnitManger unitManger;
 
-    public NewRepSetWindow(Presenter presenter){
+    public NewRepSetWindow(Presenter presenter, UnitManger unitManger){
         this.presenter = presenter;
-
+        this.unitManger = unitManger;
         header = "Set adding";
 
         set = new RepSet();
@@ -36,7 +38,7 @@ public class NewRepSetWindow extends Window{
     }
 
     private void SendSettingWeight(){
-        System.out.printf("%s%n","Set weight (in kg).");
+        System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
         state = State.SettingWeight;
     }
 

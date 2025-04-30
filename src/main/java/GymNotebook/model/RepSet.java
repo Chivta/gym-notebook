@@ -3,20 +3,23 @@ package GymNotebook.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class RepSet extends Set {
     private int repCount;
-    private int weight;
+
+    public RepSet(double weight, int repCount){
+        this.weight = weight;
+        this.repCount = repCount;
+    }
+
 
     @Override
     public String toString(){
-        return String.format("%s kg : %s",weight,repCount);
+        return String.format("%s %s : %s times",weight,units,repCount);
     }
 
 

@@ -8,12 +8,7 @@ public class WorkoutPrinter {
         for(Exercise exercise : workout.getExercises()){
             System.out.printf("  -- %s --%n",exercise.getTitle());
             for(Set set : exercise.getSets()){
-                if (set instanceof RepSet){
-                    System.out.printf("    - %d kg : %d%n",((RepSet)set).getWeight(),((RepSet)set).getRepCount());
-                }else{
-                    System.out.printf("    - %d kg : %d sec%n",((TimeSet)set).getWeight(),((TimeSet)set).getTime());
-                }
-
+                System.out.printf("    -- %s%n" ,set.toString());
             }
         }
     }

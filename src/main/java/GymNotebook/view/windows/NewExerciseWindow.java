@@ -18,9 +18,9 @@ public class NewExerciseWindow extends Window{
         TimeExercise
     }
 
-    public NewExerciseWindow(Presenter presenter){
+    public NewExerciseWindow(Presenter presenter, Exercise exercise){
         this.presenter = presenter;
-        exercise = new Exercise();
+        this.exercise = exercise;
 
         header = "New Exercise Adding";
 

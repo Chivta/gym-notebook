@@ -25,6 +25,7 @@ public class NewWorkoutCreationWindow extends Window{
 
         options.add("Add Exercise");
         options.add("Save Workout");
+        options.add("Change units");
     }
 
     @Override
@@ -83,7 +84,8 @@ public class NewWorkoutCreationWindow extends Window{
                 case 2:
                     presenter.saveCurrentWorkout();
                     break;
-
+                case 3:
+                    presenter.ChangeUnits();
             }
         }catch (NumberFormatException e){
             info = "ERR: Please enter a valid number!";

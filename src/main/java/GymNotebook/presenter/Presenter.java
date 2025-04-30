@@ -1,6 +1,7 @@
 package GymNotebook.presenter;
 
 import GymNotebook.model.Exercise;
+import GymNotebook.model.UnitChangeListener;
 import GymNotebook.model.Workout;
 import GymNotebook.model.Set;
 import GymNotebook.view.UIManager;
@@ -16,9 +17,11 @@ import java.util.List;
 
 public class Presenter {
     private final UIManager ui;
+
     public Presenter(UIManager uiManager) {
         ui = uiManager;
     }
+
 
     public void OpenWorkoutListView(){
         ui.ChangeWindow(new WorkoutListViewWindow(this));
@@ -36,34 +39,43 @@ public class Presenter {
         return FileManager.getAllWorkoutFilenamesSortedByDateDesc();
     }
 
+    UnitManger unitManger;
     Workout currentWorkout;
     public void OpenNewWorkoutCreation(){
-
         currentWorkout = new Workout();
+        unitManger = new UnitManger();
 
-                ui.ChangeWindow(new NewWorkoutCreationWindow(this, currentWorkout));
-    }
+        unitManger.setUnits(UnitManger.WeightUnits.kg);
 
-    public void OpenNewExercise(){
-        ui.ChangeWindow(new NewExerciseWindow(this));
+        ui.ChangeWindow(new NewWorkoutCreationWindow(this, currentWorkout));
     }
 
     Exercise currentExercise;
+    public void OpenNewExercise(){
+        currentExercise = new Exercise();
+        ui.ChangeWindow(new NewExerciseWindow(this,currentExercise));
+    }
+
     public void SaveCurrentExercise(Exercise exercise){
         currentExercise = exercise;
     }
 
+    public void ChangeUnits(){
+        unitManger.ChangeUnits();
+    }
+
     public void OpenNewRepSet(){
-        ui.ChangeWindow(new NewRepSetWindow(this));
+        ui.ChangeWindow(new NewRepSetWindow(this,unitManger));
     }
 
     public void OpenNewTimeSet(){
-        System.out.println("NotImplemented");
         ui.ChangeWindow(new NewTimeSetWindow(this));
-
     }
 
     public void AddSetToCurrentExercise(Set set){
+        unitManger.Subscribe(set);
+        set.setUnits(unitManger.getUnits());
+
         currentExercise.AddSet(set);
     }
 

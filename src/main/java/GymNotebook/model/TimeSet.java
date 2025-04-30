@@ -9,14 +9,17 @@ import lombok.AllArgsConstructor;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class TimeSet extends Set{
     private int time;
-    private int weight;
+
+    public TimeSet(double weight, int time){
+       this.weight = weight;
+       this.time = time;
+    }
 
     @Override
     public String toString(){
-        return String.format("%s kg : %s sec",weight,time);
+        return String.format("%s %s : %s sec",weight,units,time);
     }
 
     @Override

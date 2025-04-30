@@ -44,7 +44,7 @@ class ExerciseTest {
     @Test
     void addSet_increasesListSizeAndContainsSets_test() {
         RepSet set1 = new RepSet(12, 100);
-        TimeSet set2 = new TimeSet(60, 0);
+        TimeSet set2 = new TimeSet(60.0, 0);
 
         exercise.AddSet(set1);
         assertEquals(1, exercise.getSets().size());

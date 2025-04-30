@@ -1,5 +1,6 @@
 package GymNotebook.model;
 
+import GymNotebook.presenter.UnitManger;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +14,6 @@ import java.util.Objects;
 public class Workout {
     private String title;
     private ArrayList<Exercise> exercises;
-
 
     public Workout(){
         exercises = new ArrayList<>();
