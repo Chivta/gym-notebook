@@ -5,7 +5,7 @@ import GymNotebook.presenter.Presenter;
 
 import java.util.ArrayList;
 
-public class NewExerciseWindow extends Window{
+public class ExerciseCreationWindow extends Window{
     private final ArrayList<String> exerciseTypes;
     private final Presenter presenter;
     private final Exercise exercise;
@@ -18,7 +18,7 @@ public class NewExerciseWindow extends Window{
         TimeExercise
     }
 
-    public NewExerciseWindow(Presenter presenter, Exercise exercise){
+    public ExerciseCreationWindow(Presenter presenter, Exercise exercise){
         this.presenter = presenter;
         this.exercise = exercise;
 

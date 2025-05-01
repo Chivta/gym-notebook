@@ -4,7 +4,7 @@ import GymNotebook.model.Workout;
 import GymNotebook.presenter.Presenter;
 
 
-public class NewWorkoutCreationWindow extends Window{
+public class WorkoutCreationWindow extends Window{
     private final Presenter presenter;
     private State state;
     private final Workout workout;
@@ -14,7 +14,7 @@ public class NewWorkoutCreationWindow extends Window{
         OptionSelection,
     }
 
-    public NewWorkoutCreationWindow(Presenter presenter, Workout workout) {
+    public WorkoutCreationWindow(Presenter presenter, Workout workout) {
         this.presenter = presenter;
 
         header = "New Workout Creation";

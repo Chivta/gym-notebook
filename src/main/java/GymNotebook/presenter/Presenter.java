@@ -1,7 +1,6 @@
 package GymNotebook.presenter;
 
 import GymNotebook.model.Exercise;
-import GymNotebook.model.UnitChangeListener;
 import GymNotebook.model.Workout;
 import GymNotebook.model.Set;
 import GymNotebook.view.UIManager;
@@ -47,13 +46,13 @@ public class Presenter {
 
         unitManger.setUnits(UnitManger.WeightUnits.kg);
 
-        ui.ChangeWindow(new NewWorkoutCreationWindow(this, currentWorkout));
+        ui.ChangeWindow(new WorkoutCreationWindow(this, currentWorkout));
     }
 
     Exercise currentExercise;
     public void OpenNewExercise(){
         currentExercise = new Exercise();
-        ui.ChangeWindow(new NewExerciseWindow(this,currentExercise));
+        ui.ChangeWindow(new ExerciseCreationWindow(this,currentExercise));
     }
 
     public void SaveCurrentExercise(Exercise exercise){
@@ -65,11 +64,11 @@ public class Presenter {
     }
 
     public void OpenNewRepSet(){
-        ui.ChangeWindow(new NewRepSetWindow(this,unitManger));
+        ui.ChangeWindow(new RepSetCreationWindow(this,unitManger));
     }
 
     public void OpenNewTimeSet(){
-        ui.ChangeWindow(new NewTimeSetWindow(this));
+        ui.ChangeWindow(new TimeSetCreationWindow(this));
     }
 
     public void AddSetToCurrentExercise(Set set){

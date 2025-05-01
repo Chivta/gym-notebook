@@ -2,17 +2,15 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
 import GymNotebook.presenter.Presenter;
-import GymNotebook.presenter.UnitManger;
 
-public class NewRepSetWindow extends Window{
+public class TimeSetCreationWindow extends Window{
     Presenter presenter;
     State state;
     RepSet set;
-    UnitManger unitManger;
 
-    public NewRepSetWindow(Presenter presenter, UnitManger unitManger){
+    public TimeSetCreationWindow(Presenter presenter){
         this.presenter = presenter;
-        this.unitManger = unitManger;
+
         header = "Set adding";
 
         set = new RepSet();
@@ -22,7 +20,7 @@ public class NewRepSetWindow extends Window{
 
     enum State{
         SettingWeight,
-        SettingRep,
+        SettingTime,
     }
 
     @Override
@@ -31,20 +29,20 @@ public class NewRepSetWindow extends Window{
             case SettingWeight:
                 SendSettingWeight();
                 break;
-            case SettingRep:
+            case SettingTime:
                 SendSettingRep();
                 break;
         }
     }
 
     private void SendSettingWeight(){
-        System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
+        System.out.printf("%s%n","Write weight (in kg).");
         state = State.SettingWeight;
     }
 
     private void SendSettingRep(){
-        System.out.printf("%s%n","Set amount of reps.");
-        state = State.SettingRep;
+        System.out.printf("%s%n","Write time (in seconds).");
+        state = State.SettingTime;
     }
 
     @Override
@@ -53,8 +51,8 @@ public class NewRepSetWindow extends Window{
             case SettingWeight:
                 HandleSettingWeight(input);
                 break;
-            case SettingRep:
-                HandleSettingRep(input);
+            case SettingTime:
+                HandleSettingTime(input);
                 break;
         }
     }
@@ -65,19 +63,19 @@ public class NewRepSetWindow extends Window{
 
             set.setWeight(weigth);
 
-            state = State.SettingRep;
+            state = State.SettingTime;
 
         } catch (NumberFormatException e) {
             info = "ERR: Invalid input format";
         }
     }
 
-    private void HandleSettingRep(String input){
+    private void HandleSettingTime(String input){
         try{
             int rep = Integer.parseInt(input);
 
             if(rep<1){
-                info = "ERR: Reps can't be lower then 1";
+                info = "ERR: Time can't be lower then 1";
             }
 
             set.setRepCount(rep);
