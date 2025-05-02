@@ -1,13 +1,12 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.presenter.Presenter;
+import GymNotebook.presenter.commands.OpenMainWindow;
+import GymNotebook.presenter.Command;
+import GymNotebook.presenter.commands.OpenWorkoutViewWindow;
 
 public class MainMenuWindow extends Window {
-    private final Presenter presenter;
-
-    public MainMenuWindow(Presenter presenter){
-        this.presenter = presenter;
-
+    public MainMenuWindow(){
         header = "Main Menu";
         options.add("New Workout");
         options.add("View Workouts");
@@ -19,21 +18,20 @@ public class MainMenuWindow extends Window {
         SendOptions();
     }
 
-    public void HandleInput(String input){
+    public Command HandleInput(String input){
         input = input.toLowerCase();
-
+        Command command = null;
         try{
             int selected = Integer.parseInt(input);
             if (selected > 0 && selected <= options.size()) {
-                switch (selected){
+                switch (selected) {
                     case 1:
-                        presenter.OpenNewWorkoutCreation();
-                        break;
-                    case 2:
-                        presenter.OpenWorkoutListView();
-                        break;
-                    case 3:
-                        presenter.Quit();
+                        command = new OpenWorkoutViewWindow();
+//                    case 2:
+//                        presenter.OpenWorkoutListView();
+//                        break;
+//                    case 3:
+//                        presenter.Quit();
                 }
             } else {
                 info = "ERR: Invalid option number";
@@ -42,5 +40,8 @@ public class MainMenuWindow extends Window {
         catch(NumberFormatException e){
             info = "ERR: Invalid input. Please enter a number.";
         }
+
+        return command;
+
     }
 }

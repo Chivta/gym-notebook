@@ -1,6 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
+import GymNotebook.presenter.Command;
 import GymNotebook.presenter.Presenter;
 
 
@@ -51,7 +52,9 @@ public class WorkoutCreationWindow extends Window{
     }
 
     @Override
-    public void HandleInput(String input) {
+    public Command HandleInput(String input) {
+        Command command = null;
+
         switch (state){
             case TitleInput:
                 HandleTitleInput(input);
@@ -60,6 +63,8 @@ public class WorkoutCreationWindow extends Window{
                 HandleOptionSelection(input);
                 break;
         }
+
+        return command;
     }
 
     private void HandleTitleInput(String title){

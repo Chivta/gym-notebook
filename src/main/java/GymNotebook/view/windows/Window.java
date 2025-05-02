@@ -1,6 +1,8 @@
 package GymNotebook.view.windows;
 
 import java.util.ArrayList;
+import GymNotebook.presenter.Command;
+
 
 public abstract class Window {
     protected String header = "UNSET TITLE";
@@ -9,7 +11,7 @@ public abstract class Window {
     protected ArrayList<String> inputOptions;
 
     protected abstract void SendBody();
-    public abstract void HandleInput(String input);
+    public abstract Command HandleInput(String input);
 
     protected Window(){
         options = new ArrayList<>();

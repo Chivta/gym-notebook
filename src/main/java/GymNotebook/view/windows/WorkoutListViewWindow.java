@@ -1,5 +1,6 @@
 package GymNotebook.view.windows;
 
+import GymNotebook.presenter.Command;
 import GymNotebook.presenter.Presenter;
 
 import java.util.List;
@@ -67,8 +68,8 @@ public class WorkoutListViewWindow extends Window {
     }
 
     @Override
-    public void HandleInput(String input) {
-        input = input.toLowerCase();
+    public Command HandleInput(String input) {
+        Command command = null;
 
         switch (input) {
             case "n":
@@ -81,6 +82,8 @@ public class WorkoutListViewWindow extends Window {
                 HandleWorkoutNumber(input);
                 break;
         }
+
+        return command;
     }
 
     private void HandleNextPage(){

@@ -1,6 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
+import GymNotebook.presenter.Command;
 import GymNotebook.presenter.Presenter;
 
 public class WorkoutViewWindow extends Window{
@@ -20,5 +21,9 @@ public class WorkoutViewWindow extends Window{
     }
 
     @Override
-    public void HandleInput(String input){}
+    public Command HandleInput(String input){
+        Command command = null;
+
+        return command;
+    }
 }

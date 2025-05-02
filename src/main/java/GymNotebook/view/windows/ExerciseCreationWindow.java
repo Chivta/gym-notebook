@@ -1,6 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Exercise;
+import GymNotebook.presenter.Command;
 import GymNotebook.presenter.Presenter;
 
 import java.util.ArrayList;
@@ -73,7 +74,9 @@ public class ExerciseCreationWindow extends Window{
 
 
     @Override
-    public void HandleInput(String input){
+    public Command HandleInput(String input){
+        Command command = null;
+
         switch(state){
             case TitleEnter:
                 HandleTitleEnter(input);
@@ -89,6 +92,8 @@ public class ExerciseCreationWindow extends Window{
                 break;
 
         }
+
+        return command;
     }
     private void HandleTitleEnter(String input){
         if(!input.isEmpty()){

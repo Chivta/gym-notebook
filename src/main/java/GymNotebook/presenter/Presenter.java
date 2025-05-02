@@ -121,7 +121,7 @@ public class Presenter {
 
             currentWorkout = null;
 
-            ui.ChangeWindow(new MainMenuWindow(this));
+            ui.ChangeWindow(new MainMenuWindow());
             ui.ClearHistory();
 
         } catch (IOException e) {

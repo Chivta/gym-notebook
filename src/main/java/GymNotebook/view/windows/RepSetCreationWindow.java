@@ -1,6 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
+import GymNotebook.presenter.Command;
 import GymNotebook.presenter.Presenter;
 import GymNotebook.presenter.UnitManger;
 
@@ -48,7 +49,9 @@ public class RepSetCreationWindow extends Window{
     }
 
     @Override
-    public void HandleInput(String input){
+    public Command HandleInput(String input){
+        Command command = null;
+
         switch (state){
             case SettingWeight:
                 HandleSettingWeight(input);
@@ -57,6 +60,8 @@ public class RepSetCreationWindow extends Window{
                 HandleSettingRep(input);
                 break;
         }
+
+        return command;
     }
 
     private void HandleSettingWeight(String input){
