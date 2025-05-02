@@ -59,7 +59,7 @@ public class Presenter {
         currentExercise = exercise;
     }
 
-    public void ChangeUnits(){
+    public void ChangeUnitsForCurrentWorkout(){
         unitManger.ChangeUnits();
     }
 

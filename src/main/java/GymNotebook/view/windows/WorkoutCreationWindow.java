@@ -2,6 +2,7 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
 import GymNotebook.presenter.WorkoutPrinter;
+import GymNotebook.presenter.commands.ChangeUnitsForCurrentWorkout;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 import GymNotebook.presenter.commands.OpenNewExercise;
@@ -87,8 +88,8 @@ public class WorkoutCreationWindow extends Window{
                     return new OpenNewExercise();
                 case 2:
                     return new SaveCurrentWorkout();
-//                case 3:
-//                    presenter.ChangeUnits();
+                case 3:
+                    return new ChangeUnitsForCurrentWorkout();
             }
         }catch (NumberFormatException e){
             info = "ERR: Please enter a valid number!";
