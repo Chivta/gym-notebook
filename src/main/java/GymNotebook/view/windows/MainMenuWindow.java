@@ -1,8 +1,6 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.presenter.Presenter;
-import GymNotebook.presenter.commands.OpenMainWindow;
-import GymNotebook.presenter.Command;
+import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.commands.OpenWorkoutViewWindow;
 
 public class MainMenuWindow extends Window {

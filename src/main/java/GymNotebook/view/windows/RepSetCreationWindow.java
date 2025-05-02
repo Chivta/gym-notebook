@@ -1,7 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
-import GymNotebook.presenter.Command;
+import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 import GymNotebook.presenter.UnitManger;
 

@@ -1,6 +1,5 @@
 package GymNotebook.presenter.commands;
 
-import GymNotebook.presenter.Command;
 import GymNotebook.presenter.Presenter;
 
 public class OpenMainWindow implements Command {

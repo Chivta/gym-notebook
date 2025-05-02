@@ -1,7 +1,7 @@
 package GymNotebook.view;
 
 import GymNotebook.presenter.Presenter;
-import GymNotebook.presenter.Command;
+import GymNotebook.presenter.commands.Command;
 import GymNotebook.view.windows.MainMenuWindow;
 import GymNotebook.view.windows.Window;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package GymNotebook.view.windows;
 
 import java.util.ArrayList;
-import GymNotebook.presenter.Command;
+import GymNotebook.presenter.commands.Command;
 
 
 public abstract class Window {
