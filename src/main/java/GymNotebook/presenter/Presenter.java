@@ -64,11 +64,11 @@ public class Presenter {
     }
 
     public void OpenNewRepSet(){
-        ui.ChangeWindow(new RepSetCreationWindow(this,unitManger));
+        ui.ChangeWindow(new RepSetCreationWindow(unitManger));
     }
 
     public void OpenNewTimeSet(){
-        ui.ChangeWindow(new TimeSetCreationWindow(this,unitManger));
+        ui.ChangeWindow(new TimeSetCreationWindow(unitManger));
     }
 
     public void AddSetToCurrentExercise(Set set){

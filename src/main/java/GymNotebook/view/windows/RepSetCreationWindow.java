@@ -1,9 +1,10 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
+import GymNotebook.presenter.commands.AddSetToCurrentExercise;
 import GymNotebook.presenter.commands.Command;
-import GymNotebook.presenter.Presenter;
 import GymNotebook.presenter.UnitManger;
+import GymNotebook.presenter.commands.GoBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,11 @@ import java.util.List;
 import static GymNotebook.presenter.UnitManger.RoundToDecimalPlaces;
 
 public class RepSetCreationWindow extends Window{
-    Presenter presenter;
     State state;
     RepSet set;
     UnitManger unitManger;
 
-    public RepSetCreationWindow(Presenter presenter, UnitManger unitManger){
-        this.presenter = presenter;
+    public RepSetCreationWindow( UnitManger unitManger){
         this.unitManger = unitManger;
         header = "Set adding";
 
@@ -62,7 +61,7 @@ public class RepSetCreationWindow extends Window{
                 HandleSettingWeight(input);
                 break;
             case SettingRep:
-                HandleSettingRep(input);
+                commands.addAll(HandleSettingRep(input));
                 break;
         }
 
@@ -83,22 +82,26 @@ public class RepSetCreationWindow extends Window{
         }
     }
 
-    private void HandleSettingRep(String input){
+    private List<Command> HandleSettingRep(String input){
+        List<Command> commands = new ArrayList<>();
+
         try{
             int rep = Integer.parseInt(input);
 
             if(rep<1){
                 info = "ERR: Reps can't be lower then 1";
             }
+            else{
+                set.setRepCount(rep);
 
-            set.setRepCount(rep);
-
-            presenter.AddSetToCurrentExercise(set);
-            presenter.GoBack();
-
+                commands.add(new AddSetToCurrentExercise(set));
+                commands.add(new GoBack());
+            }
         } catch (NumberFormatException e) {
             info = "ERR: Invalid input format";
         }
+
+        return commands;
     }
 
 }

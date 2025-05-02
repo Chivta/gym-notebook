@@ -2,8 +2,9 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
 import GymNotebook.presenter.UnitManger;
+import GymNotebook.presenter.commands.AddSetToCurrentExercise;
 import GymNotebook.presenter.commands.Command;
-import GymNotebook.presenter.Presenter;
+import GymNotebook.presenter.commands.GoBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,11 @@ import java.util.List;
 import static GymNotebook.presenter.UnitManger.RoundToDecimalPlaces;
 
 public class TimeSetCreationWindow extends Window{
-    Presenter presenter;
     State state;
     RepSet set;
     UnitManger unitManger;
 
-    public TimeSetCreationWindow(Presenter presenter, UnitManger unitManger){
-        this.presenter = presenter;
+    public TimeSetCreationWindow(UnitManger unitManger){
         this.unitManger = unitManger;
 
         header = "Set adding";
@@ -63,7 +62,7 @@ public class TimeSetCreationWindow extends Window{
                 HandleSettingWeight(input);
                 break;
             case SettingTime:
-                HandleSettingTime(input);
+                commands.addAll(HandleSettingTime(input));
                 break;
         }
 
@@ -84,7 +83,9 @@ public class TimeSetCreationWindow extends Window{
         }
     }
 
-    private void HandleSettingTime(String input){
+    private List<Command> HandleSettingTime(String input){
+        List<Command> commands = new ArrayList<>();
+
         try{
             int rep = Integer.parseInt(input);
 
@@ -94,12 +95,13 @@ public class TimeSetCreationWindow extends Window{
 
             set.setRepCount(rep);
 
-            presenter.AddSetToCurrentExercise(set);
-            presenter.GoBack();
+            commands.add(new AddSetToCurrentExercise(set));
+            commands.add(new GoBack());
 
         } catch (NumberFormatException e) {
             info = "ERR: Invalid input format";
         }
+        return commands;
     }
 
 }
