@@ -2,7 +2,6 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.Exercise;
 import GymNotebook.presenter.commands.*;
-import GymNotebook.presenter.Presenter;
 
 import java.util.ArrayList;
 import java.util.List;
