@@ -5,6 +5,7 @@ import GymNotebook.presenter.WorkoutPrinter;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 import GymNotebook.presenter.commands.OpenNewExercise;
+import GymNotebook.presenter.commands.SaveCurrentWorkout;
 
 
 public class WorkoutCreationWindow extends Window{
@@ -84,9 +85,8 @@ public class WorkoutCreationWindow extends Window{
             switch (selected){
                 case 1:
                     return new OpenNewExercise();
-//                case 2:
-//                    presenter.saveCurrentWorkout();
-//                    break;
+                case 2:
+                    return new SaveCurrentWorkout();
 //                case 3:
 //                    presenter.ChangeUnits();
             }
