@@ -34,7 +34,7 @@ public class UIManager {
         List<Command> commands = new ArrayList<>();
 
         while (true) {
-
+            commands.clear();
             if (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
 

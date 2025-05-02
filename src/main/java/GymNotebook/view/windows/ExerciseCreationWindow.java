@@ -1,7 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Exercise;
-import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.*;
 import GymNotebook.presenter.Presenter;
 
 import java.util.ArrayList;
@@ -9,7 +9,6 @@ import java.util.List;
 
 public class ExerciseCreationWindow extends Window{
     private final ArrayList<String> exerciseTypes;
-    private final Presenter presenter;
     private final Exercise exercise;
     private State state;
 
@@ -20,8 +19,7 @@ public class ExerciseCreationWindow extends Window{
         TimeExercise
     }
 
-    public ExerciseCreationWindow(Presenter presenter, Exercise exercise){
-        this.presenter = presenter;
+    public ExerciseCreationWindow(Exercise exercise){
         this.exercise = exercise;
 
         header = "New Exercise Adding";
@@ -85,10 +83,10 @@ public class ExerciseCreationWindow extends Window{
                 HandleTypeSelection(input);
                 break;
             case RepExercise:
-                HandleRepExercise(input);
+                commands.addAll(HandleRepExercise(input));
                 break;
             case TimeExercise:
-                HandleTimeExercise(input);
+                commands.addAll(HandleTimeExercise(input));
                 break;
 
         }
@@ -123,17 +121,25 @@ public class ExerciseCreationWindow extends Window{
         }
     }
 
-    private void HandleRepExercise(String input){
+    private List<Command> HandleRepExercise(String input){
+        List<Command> commands = new ArrayList<>();
+
         try{
             int selected = Integer.parseInt(input);
             switch(selected){
                 case 1:
-                    presenter.SaveCurrentExercise(exercise);
-                    presenter.OpenNewRepSet();
+                    SaveExercise saveExerciseCommand = new SaveExercise();
+                    saveExerciseCommand.SetExercise(exercise);
+                    commands.add(saveExerciseCommand);
+
+                    commands.add(new OpenNewRepSet());
                     break;
                 case 2:
-                    presenter.AddExerciseToCurrentWorkout(exercise);
-                    presenter.GoBack();
+                    AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
+                    AddExerciseCommand.SetExercise(exercise);
+                    commands.add(AddExerciseCommand);
+
+                    commands.add(new GoBack());
                     break;
                 default:
                     info = "ERR: Number out of range.";
@@ -141,19 +147,29 @@ public class ExerciseCreationWindow extends Window{
         }catch (NumberFormatException e){
             info = "ERR: Invalid input.";
         }
+
+        return commands;
     }
 
-    private void HandleTimeExercise(String input){
+    private List<Command> HandleTimeExercise(String input){
+        List<Command> commands = new ArrayList<>();
+
         try{
             int selected = Integer.parseInt(input);
             switch(selected){
                 case 1:
-                    presenter.SaveCurrentExercise(exercise);
-                    presenter.OpenNewTimeSet();
+                    SaveExercise saveExerciseCommand = new SaveExercise();
+                    saveExerciseCommand.SetExercise(exercise);
+                    commands.add(saveExerciseCommand);
+
+                    commands.add(new OpenNewTimeSet());
                     break;
                 case 2:
-                    presenter.AddExerciseToCurrentWorkout(exercise);
-                    presenter.GoBack();
+                    AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
+                    AddExerciseCommand.SetExercise(exercise);
+                    commands.add(AddExerciseCommand);
+
+                    commands.add(new GoBack());
                     break;
                 default:
                     info = "ERR: Number out of range.";
@@ -161,8 +177,7 @@ public class ExerciseCreationWindow extends Window{
         }catch (NumberFormatException e){
             info = "ERR: Invalid input.";
         }
+
+        return commands;
     }
-
-
-
 }

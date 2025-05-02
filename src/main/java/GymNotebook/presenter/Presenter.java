@@ -52,10 +52,10 @@ public class Presenter {
     Exercise currentExercise;
     public void OpenNewExercise(){
         currentExercise = new Exercise();
-        ui.ChangeWindow(new ExerciseCreationWindow(this,currentExercise));
+        ui.ChangeWindow(new ExerciseCreationWindow(currentExercise));
     }
 
-    public void SaveCurrentExercise(Exercise exercise){
+    public void SaveExercise(Exercise exercise){
         currentExercise = exercise;
     }
 
