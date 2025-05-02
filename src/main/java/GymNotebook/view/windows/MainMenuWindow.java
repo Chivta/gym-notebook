@@ -1,7 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.presenter.commands.Command;
-import GymNotebook.presenter.commands.OpenWorkoutViewWindow;
+import GymNotebook.presenter.commands.OpenNewWorkoutCreationWindow;
 
 public class MainMenuWindow extends Window {
     public MainMenuWindow(){
@@ -24,7 +24,7 @@ public class MainMenuWindow extends Window {
             if (selected > 0 && selected <= options.size()) {
                 switch (selected) {
                     case 1:
-                        command = new OpenWorkoutViewWindow();
+                        command = new OpenNewWorkoutCreationWindow();
 //                    case 2:
 //                        presenter.OpenWorkoutListView();
 //                        break;
