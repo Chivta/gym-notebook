@@ -4,6 +4,9 @@ import GymNotebook.model.RepSet;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TimeSetCreationWindow extends Window{
     Presenter presenter;
     State state;
@@ -47,8 +50,8 @@ public class TimeSetCreationWindow extends Window{
     }
 
     @Override
-    public Command HandleInput(String input){
-        Command command = null;
+    public List<Command> HandleInput(String input){
+        List<Command> commands = new ArrayList<>();
 
         switch (state){
             case SettingWeight:
@@ -59,7 +62,7 @@ public class TimeSetCreationWindow extends Window{
                 break;
         }
 
-        return command;
+        return commands;
     }
 
     private void HandleSettingWeight(String input){

@@ -5,6 +5,7 @@ import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseCreationWindow extends Window{
     private final ArrayList<String> exerciseTypes;
@@ -72,10 +73,9 @@ public class ExerciseCreationWindow extends Window{
         inputOptions.add("[Number] - Choose option");
     }
 
-
     @Override
-    public Command HandleInput(String input){
-        Command command = null;
+    public List<Command> HandleInput(String input){
+        List<Command> commands = new ArrayList<>();
 
         switch(state){
             case TitleEnter:
@@ -93,7 +93,7 @@ public class ExerciseCreationWindow extends Window{
 
         }
 
-        return command;
+        return commands;
     }
     private void HandleTitleEnter(String input){
         if(!input.isEmpty()){

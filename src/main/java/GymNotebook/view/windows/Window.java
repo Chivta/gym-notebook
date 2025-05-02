@@ -1,6 +1,8 @@
 package GymNotebook.view.windows;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import GymNotebook.presenter.commands.Command;
 
 
@@ -11,7 +13,7 @@ public abstract class Window {
     protected ArrayList<String> inputOptions;
 
     protected abstract void SendBody();
-    public abstract Command HandleInput(String input);
+    public abstract List<Command> HandleInput(String input);
 
     protected Window(){
         options = new ArrayList<>();

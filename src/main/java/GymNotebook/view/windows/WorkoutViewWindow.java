@@ -4,6 +4,9 @@ import GymNotebook.model.Workout;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WorkoutViewWindow extends Window{
     Presenter presenter;
     Workout workout;
@@ -21,9 +24,9 @@ public class WorkoutViewWindow extends Window{
     }
 
     @Override
-    public Command HandleInput(String input){
-        Command command = null;
+    public List<Command> HandleInput(String input){
+        List<Command> commands = new ArrayList<>();
 
-        return command;
+        return commands;
     }
 }

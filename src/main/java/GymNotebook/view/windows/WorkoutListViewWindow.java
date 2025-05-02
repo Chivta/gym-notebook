@@ -3,6 +3,7 @@ package GymNotebook.view.windows;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutListViewWindow extends Window {
@@ -68,8 +69,8 @@ public class WorkoutListViewWindow extends Window {
     }
 
     @Override
-    public Command HandleInput(String input) {
-        Command command = null;
+    public List<Command> HandleInput(String input) {
+        List<Command> commands = new ArrayList<>();
 
         switch (input) {
             case "n":
@@ -83,7 +84,7 @@ public class WorkoutListViewWindow extends Window {
                 break;
         }
 
-        return command;
+        return commands;
     }
 
     private void HandleNextPage(){

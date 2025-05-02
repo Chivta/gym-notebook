@@ -5,6 +5,9 @@ import GymNotebook.presenter.commands.OpenNewWorkoutCreationWindow;
 import GymNotebook.presenter.commands.OpenWorkoutListView;
 import GymNotebook.presenter.commands.QuitProgram;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainMenuWindow extends Window {
     public MainMenuWindow(){
         header = "Main Menu";
@@ -18,21 +21,21 @@ public class MainMenuWindow extends Window {
         SendOptions();
     }
 
-    public Command HandleInput(String input){
-        input = input.toLowerCase();
-        Command command = null;
+    @Override
+    public List<Command> HandleInput(String input){
+        List<Command> commands = new ArrayList<>();
         try{
             int selected = Integer.parseInt(input);
             if (selected > 0 && selected <= options.size()) {
                 switch (selected) {
                     case 1:
-                        command = new OpenNewWorkoutCreationWindow();
+                        commands.add(new OpenNewWorkoutCreationWindow());
                         break;
                     case 2:
-                        command = new OpenWorkoutListView();
+                        commands.add(new OpenWorkoutListView());
                         break;
                     case 3:
-                        command = new QuitProgram();
+                        commands.add(new QuitProgram());
                         break;
                 }
             } else {
@@ -43,7 +46,7 @@ public class MainMenuWindow extends Window {
             info = "ERR: Invalid input. Please enter a number.";
         }
 
-        return command;
+        return commands;
 
     }
 }

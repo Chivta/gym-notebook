@@ -7,6 +7,8 @@ import GymNotebook.view.windows.Window;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -29,7 +31,7 @@ public class UIManager {
         clearScreen();
         CurrentWindow.Render();
 
-        Command command = null;
+        List<Command> commands = new ArrayList<>();
 
         while (true) {
 
@@ -40,11 +42,13 @@ public class UIManager {
                     GoBack();
                 }
                 else{
-                    command = CurrentWindow.HandleInput(line);
+                    commands = CurrentWindow.HandleInput(line);
                 }
-                if(command!=null){
-                    command.SetPresenter(presenter);
-                    command.Execute();
+                if(!commands.isEmpty()){
+                    for(Command command : commands){
+                        command.SetPresenter(presenter);
+                        command.Execute();
+                    }
                 }
                 clearScreen();
                 CurrentWindow.Render();

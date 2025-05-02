@@ -8,6 +8,9 @@ import GymNotebook.presenter.Presenter;
 import GymNotebook.presenter.commands.OpenNewExercise;
 import GymNotebook.presenter.commands.SaveCurrentWorkout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class WorkoutCreationWindow extends Window{
     private State state;
@@ -53,19 +56,19 @@ public class WorkoutCreationWindow extends Window{
     }
 
     @Override
-    public Command HandleInput(String input) {
-        Command command = null;
+    public List<Command> HandleInput(String input) {
+        List<Command> commands = new ArrayList<>();
 
         switch (state){
             case TitleInput:
                 HandleTitleInput(input);
                 break;
             case OptionSelection:
-                command = HandleOptionSelection(input);
+                commands.addAll( HandleOptionSelection(input));
                 break;
         }
 
-        return command;
+        return commands;
     }
 
     private void HandleTitleInput(String title){
@@ -79,21 +82,25 @@ public class WorkoutCreationWindow extends Window{
 
     }
 
-    private Command HandleOptionSelection(String input){
+    private List<Command> HandleOptionSelection(String input){
+        List<Command> commands = new ArrayList<Command>();
         try{
             int selected = Integer.parseInt(input);
 
             switch (selected){
                 case 1:
-                    return new OpenNewExercise();
+                    commands.add(new OpenNewExercise());
+                    break;
                 case 2:
-                    return new SaveCurrentWorkout();
+                    commands.add(new SaveCurrentWorkout());
+                    break;
                 case 3:
-                    return new ChangeUnitsForCurrentWorkout();
+                    commands.add(new ChangeUnitsForCurrentWorkout());
+                    break;
             }
         }catch (NumberFormatException e){
             info = "ERR: Please enter a valid number!";
         }
-        return null;
+        return commands;
     }
 }
