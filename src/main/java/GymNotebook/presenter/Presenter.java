@@ -46,7 +46,7 @@ public class Presenter {
 
         unitManger.setUnits(UnitManger.WeightUnits.kg);
 
-        ui.ChangeWindow(new WorkoutCreationWindow(this, currentWorkout));
+        ui.ChangeWindow(new WorkoutCreationWindow(currentWorkout));
     }
 
     Exercise currentExercise;

@@ -1,12 +1,13 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
+import GymNotebook.presenter.WorkoutPrinter;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
+import GymNotebook.presenter.commands.OpenNewExercise;
 
 
 public class WorkoutCreationWindow extends Window{
-    private final Presenter presenter;
     private State state;
     private final Workout workout;
 
@@ -15,9 +16,7 @@ public class WorkoutCreationWindow extends Window{
         OptionSelection,
     }
 
-    public WorkoutCreationWindow(Presenter presenter, Workout workout) {
-        this.presenter = presenter;
-
+    public WorkoutCreationWindow(Workout workout) {
         header = "New Workout Creation";
 
         state = State.TitleInput;
@@ -48,7 +47,7 @@ public class WorkoutCreationWindow extends Window{
     }
 
     private void SendWorkoutOverview(){
-        presenter.PrintWorkout(workout);
+        WorkoutPrinter.PrintWorkout(workout);
     }
 
     @Override
@@ -60,7 +59,7 @@ public class WorkoutCreationWindow extends Window{
                 HandleTitleInput(input);
                 break;
             case OptionSelection:
-                HandleOptionSelection(input);
+                command = HandleOptionSelection(input);
                 break;
         }
 
@@ -78,22 +77,22 @@ public class WorkoutCreationWindow extends Window{
 
     }
 
-    private void HandleOptionSelection(String input){
+    private Command HandleOptionSelection(String input){
         try{
             int selected = Integer.parseInt(input);
 
             switch (selected){
                 case 1:
-                    presenter.OpenNewExercise();
-                    break;
-                case 2:
-                    presenter.saveCurrentWorkout();
-                    break;
-                case 3:
-                    presenter.ChangeUnits();
+                    return new OpenNewExercise();
+//                case 2:
+//                    presenter.saveCurrentWorkout();
+//                    break;
+//                case 3:
+//                    presenter.ChangeUnits();
             }
         }catch (NumberFormatException e){
             info = "ERR: Please enter a valid number!";
         }
+        return null;
     }
 }
