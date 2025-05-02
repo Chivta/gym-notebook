@@ -2,6 +2,8 @@ package GymNotebook.view.windows;
 
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.commands.OpenNewWorkoutCreationWindow;
+import GymNotebook.presenter.commands.OpenWorkoutListView;
+import GymNotebook.presenter.commands.QuitProgram;
 
 public class MainMenuWindow extends Window {
     public MainMenuWindow(){
@@ -25,11 +27,13 @@ public class MainMenuWindow extends Window {
                 switch (selected) {
                     case 1:
                         command = new OpenNewWorkoutCreationWindow();
-//                    case 2:
-//                        presenter.OpenWorkoutListView();
-//                        break;
-//                    case 3:
-//                        presenter.Quit();
+                        break;
+                    case 2:
+                        command = new OpenWorkoutListView();
+                        break;
+                    case 3:
+                        command = new QuitProgram();
+                        break;
                 }
             } else {
                 info = "ERR: Invalid option number";
