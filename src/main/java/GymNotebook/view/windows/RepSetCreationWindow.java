@@ -8,6 +8,8 @@ import GymNotebook.presenter.UnitManger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static GymNotebook.presenter.UnitManger.RoundToDecimalPlaces;
+
 public class RepSetCreationWindow extends Window{
     Presenter presenter;
     State state;
@@ -69,9 +71,10 @@ public class RepSetCreationWindow extends Window{
 
     private void HandleSettingWeight(String input){
         try{
-            int weigth = Integer.parseInt(input);
+            double weight = Double.parseDouble(input);
+            weight = RoundToDecimalPlaces(weight,2);
 
-            set.setWeight(weigth);
+            set.setWeight(weight);
 
             state = State.SettingRep;
 

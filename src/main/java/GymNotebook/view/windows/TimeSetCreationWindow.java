@@ -1,19 +1,24 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
+import GymNotebook.presenter.UnitManger;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.Presenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static GymNotebook.presenter.UnitManger.RoundToDecimalPlaces;
+
 public class TimeSetCreationWindow extends Window{
     Presenter presenter;
     State state;
     RepSet set;
+    UnitManger unitManger;
 
-    public TimeSetCreationWindow(Presenter presenter){
+    public TimeSetCreationWindow(Presenter presenter, UnitManger unitManger){
         this.presenter = presenter;
+        this.unitManger = unitManger;
 
         header = "Set adding";
 
@@ -40,7 +45,7 @@ public class TimeSetCreationWindow extends Window{
     }
 
     private void SendSettingWeight(){
-        System.out.printf("%s%n","Write weight (in kg).");
+        System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
         state = State.SettingWeight;
     }
 
@@ -67,9 +72,10 @@ public class TimeSetCreationWindow extends Window{
 
     private void HandleSettingWeight(String input){
         try{
-            int weigth = Integer.parseInt(input);
+            double weight = Double.parseDouble(input);
+            weight = RoundToDecimalPlaces(weight,2);
 
-            set.setWeight(weigth);
+            set.setWeight(weight);
 
             state = State.SettingTime;
 

@@ -68,7 +68,7 @@ public class Presenter {
     }
 
     public void OpenNewTimeSet(){
-        ui.ChangeWindow(new TimeSetCreationWindow(this));
+        ui.ChangeWindow(new TimeSetCreationWindow(this,unitManger));
     }
 
     public void AddSetToCurrentExercise(Set set){

@@ -22,10 +22,15 @@ public class UnitManger {
 
     public static final double KgInLbs = 2.2;
     public static double KGtoLBS(double KG){
-        return KG * KgInLbs;
+        return RoundToDecimalPlaces(KG * KgInLbs,2);
     }
     public static double LBStoKG(double LBS){
-        return LBS / KgInLbs;
+        return RoundToDecimalPlaces(LBS / KgInLbs,2);
+    }
+
+    public static double RoundToDecimalPlaces(double value, int order){
+        int multiplier  = (int) Math.pow(10,order);
+        return (double)Math.round(value * multiplier) / multiplier ;
     }
 
     public UnitManger(){
