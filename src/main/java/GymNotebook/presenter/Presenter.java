@@ -134,7 +134,7 @@ public class Presenter {
 
     public void OpenWorkoutView(String filename){
         Workout workout = FileManager.loadWorkoutByFileName(filename);
-        ui.ChangeWindow(new WorkoutViewWindow(this,workout));
+        ui.ChangeWindow(new WorkoutViewWindow(workout));
     }
 
     public void PrintWorkout(Workout workout){
