@@ -63,7 +63,7 @@ public class WorkoutCreationWindow extends Window{
                 HandleTitleInput(input);
                 break;
             case OptionSelection:
-                commands.addAll( HandleOptionSelection(input));
+                commands.addAll(HandleOptionIndex(input));
                 break;
         }
 
@@ -80,25 +80,20 @@ public class WorkoutCreationWindow extends Window{
         }
 
     }
-
-    private List<Command> HandleOptionSelection(String input){
+    @Override
+    protected List<Command> HandleOptionIndex(int index){
         List<Command> commands = new ArrayList<Command>();
-        try{
-            int selected = Integer.parseInt(input);
 
-            switch (selected){
-                case 1:
-                    commands.add(new OpenNewExercise());
-                    break;
-                case 2:
-                    commands.add(new SaveCurrentWorkout());
-                    break;
-                case 3:
-                    commands.add(new ChangeUnitsForCurrentWorkout());
-                    break;
-            }
-        }catch (NumberFormatException e){
-            info = "ERR: Please enter a valid number!";
+        switch (index) {
+            case 1:
+                commands.add(new OpenNewExercise());
+                break;
+            case 2:
+                commands.add(new SaveCurrentWorkout());
+                break;
+            case 3:
+                commands.add(new ChangeUnitsForCurrentWorkout());
+                break;
         }
         return commands;
     }

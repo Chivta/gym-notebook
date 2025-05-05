@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.OpenWorkoutView;
 
 
 public abstract class Window {
@@ -49,7 +50,27 @@ public abstract class Window {
         System.out.println("-------------------------");
     }
 
+    protected List<Command> HandleOptionIndex(String input){
+        List<Command> commands = new ArrayList<>();
 
+        try {
+            int optionNumber = Integer.parseInt(input);
+
+            if (optionNumber>0 && optionNumber <= options.size()) {
+                commands.addAll(HandleOptionIndex(optionNumber));
+            } else {
+                info = "ERR: Invalid option number. Enter a number between 1 and " + options.size();
+            }
+        } catch (NumberFormatException e) {
+            this.info = "ERR: Invalid input. Please enter a number.";
+        }
+
+        return commands;
+    }
+
+    protected List<Command> HandleOptionIndex(int index){
+        return new ArrayList<Command>();
+    }
 
     public void Render(){
         inputOptions.clear();

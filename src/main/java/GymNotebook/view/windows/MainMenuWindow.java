@@ -22,31 +22,26 @@ public class MainMenuWindow extends Window {
     }
 
     @Override
-    public List<Command> HandleInput(String input){
+    public List<Command> HandleOptionIndex(int index){
         List<Command> commands = new ArrayList<>();
-        try{
-            int selected = Integer.parseInt(input);
-            if (selected > 0 && selected <= options.size()) {
-                switch (selected) {
-                    case 1:
-                        commands.add(new OpenNewWorkoutCreationWindow());
-                        break;
-                    case 2:
-                        commands.add(new OpenWorkoutListView());
-                        break;
-                    case 3:
-                        commands.add(new QuitProgram());
-                        break;
-                }
-            } else {
-                info = "ERR: Invalid option number";
-            }
-        }
-        catch(NumberFormatException e){
-            info = "ERR: Invalid input. Please enter a number.";
-        }
 
+        switch (index) {
+            case 1:
+                commands.add(new OpenNewWorkoutCreationWindow());
+                break;
+            case 2:
+                commands.add(new OpenWorkoutListView());
+                break;
+            case 3:
+                commands.add(new QuitProgram());
+                break;
+        }
         return commands;
 
+    }
+
+    @Override
+    public List<Command> HandleInput(String input){
+        return HandleOptionIndex(input);
     }
 }
