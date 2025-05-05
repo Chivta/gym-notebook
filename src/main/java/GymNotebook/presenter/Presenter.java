@@ -21,9 +21,10 @@ public class Presenter {
         ui = uiManager;
     }
 
-
+    private WorkoutListService workoutListService;
     public void OpenWorkoutListView(){
-        ui.ChangeWindow(new WorkoutListViewWindow(this));
+        workoutListService = new WorkoutListService();
+        ui.ChangeWindow(new WorkoutListViewWindow(workoutListService));
     }
 
     public void GoBack(){

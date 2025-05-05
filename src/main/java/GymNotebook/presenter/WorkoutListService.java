@@ -10,6 +10,7 @@ public class WorkoutListService {
     @Getter
     private List<String> currentPageWorkouts;
 
+    @Getter
     private final int ItemsPerPage;
     @Getter
     private int CurrentPage;
@@ -65,6 +66,17 @@ public class WorkoutListService {
     }
 
     public String getWorkoutFilename(int index) {
-        return allWorkouts.get(index-1);
+        if (index > 0 && index <= ItemsCount){
+            return allWorkouts.get(index-1);
+        }
+        return "";
+    }
+
+    public boolean isNextPage(){
+        return CurrentPage < MaxPage;
+    }
+
+    public boolean isPreviousPage(){
+        return CurrentPage > 1;
     }
 }
