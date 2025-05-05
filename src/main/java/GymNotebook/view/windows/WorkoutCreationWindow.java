@@ -82,7 +82,7 @@ public class WorkoutCreationWindow extends Window{
     }
     @Override
     protected List<Command> HandleOptionIndex(int index){
-        List<Command> commands = new ArrayList<Command>();
+        List<Command> commands = new ArrayList<>();
 
         switch (index) {
             case 1:

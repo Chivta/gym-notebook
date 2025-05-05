@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import GymNotebook.presenter.commands.Command;
-import GymNotebook.presenter.commands.OpenWorkoutView;
-
 
 public abstract class Window {
     protected String header = "UNSET TITLE";
@@ -69,7 +67,7 @@ public abstract class Window {
     }
 
     protected List<Command> HandleOptionIndex(int index){
-        return new ArrayList<Command>();
+        return new ArrayList<>();
     }
 
     public void Render(){

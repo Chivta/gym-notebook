@@ -23,8 +23,7 @@ public class WorkoutViewWindow extends Window{
 
     @Override
     public List<Command> HandleInput(String input){
-        List<Command> commands = new ArrayList<>();
 
-        return commands;
+        return new ArrayList<>();
     }
 }

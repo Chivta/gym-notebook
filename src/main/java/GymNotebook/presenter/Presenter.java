@@ -21,9 +21,8 @@ public class Presenter {
         ui = uiManager;
     }
 
-    private WorkoutListService workoutListService;
     public void OpenWorkoutListView(){
-        workoutListService = new WorkoutListService();
+        WorkoutListService workoutListService = new WorkoutListService();
         ui.ChangeWindow(new WorkoutListViewWindow(workoutListService));
     }
 
@@ -35,9 +34,6 @@ public class Presenter {
         System.exit(200);
     }
 
-    public List<String> GetWorkoutFilenamesSorted() {
-        return FileManager.getAllWorkoutFilenamesSortedByDateDesc();
-    }
 
     UnitManger unitManger;
     Workout currentWorkout;
@@ -136,9 +132,5 @@ public class Presenter {
     public void OpenWorkoutView(String filename){
         Workout workout = FileManager.loadWorkoutByFileName(filename);
         ui.ChangeWindow(new WorkoutViewWindow(workout));
-    }
-
-    public void PrintWorkout(Workout workout){
-        WorkoutPrinter.PrintWorkout(workout);
     }
 }
