@@ -42,6 +42,14 @@ public class MainMenuWindow extends Window {
 
     @Override
     public List<Command> HandleInput(String input){
-        return TryHandleOptionIndex(input);
+        List<Command> commands = new ArrayList<>();
+
+        try{
+            commands.addAll(TryHandleOptionIndex(input));
+
+        }catch (WindowException e){
+            this.info = e.getMessage();
+        }
+        return commands;
     }
 }

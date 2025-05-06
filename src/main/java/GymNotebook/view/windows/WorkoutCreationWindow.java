@@ -58,13 +58,17 @@ public class WorkoutCreationWindow extends Window{
     public List<Command> HandleInput(String input) {
         List<Command> commands = new ArrayList<>();
 
-        switch (state){
-            case TitleInput:
-                HandleTitleInput(input);
-                break;
-            case OptionSelection:
-                commands.addAll(TryHandleOptionIndex(input));
-                break;
+        try{
+            switch (state){
+                case TitleInput:
+                    HandleTitleInput(input);
+                    break;
+                case OptionSelection:
+                    commands.addAll(TryHandleOptionIndex(input));
+                    break;
+            }
+        }catch (WindowException e){
+            this.info = e.getMessage();
         }
 
         return commands;
