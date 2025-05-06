@@ -21,7 +21,6 @@ public class MainMenuWindow extends Window {
         SendOptions();
     }
 
-    @Override
     public List<Command> HandleOptionIndex(int index){
         List<Command> commands = new ArrayList<>();
 
@@ -45,7 +44,7 @@ public class MainMenuWindow extends Window {
         List<Command> commands = new ArrayList<>();
 
         try{
-            commands.addAll(TryHandleOptionIndex(input));
+            commands.addAll(TryHandleOptionIndex(input, options));
 
         }catch (WindowException e){
             this.info = e.getMessage();

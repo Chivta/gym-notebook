@@ -64,7 +64,7 @@ public class WorkoutCreationWindow extends Window{
                     HandleTitleInput(input);
                     break;
                 case OptionSelection:
-                    commands.addAll(TryHandleOptionIndex(input));
+                    commands.addAll(TryHandleOptionIndex(input, options));
                     break;
             }
         }catch (WindowException e){
@@ -84,7 +84,7 @@ public class WorkoutCreationWindow extends Window{
         }
 
     }
-    @Override
+
     protected List<Command> HandleOptionIndex(int index){
         List<Command> commands = new ArrayList<>();
 
