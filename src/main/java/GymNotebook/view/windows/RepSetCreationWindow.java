@@ -12,96 +12,91 @@ import java.util.List;
 import static GymNotebook.presenter.UnitManger.RoundToDecimalPlaces;
 
 public class RepSetCreationWindow extends Window{
-    State state;
+    WindowState state;
     RepSet set;
     UnitManger unitManger;
 
-    public RepSetCreationWindow( UnitManger unitManger){
+    public RepSetCreationWindow(UnitManger unitManger){
         this.unitManger = unitManger;
         header = "Set adding";
 
         set = new RepSet();
 
-        state = State.SettingWeight;
+        state = new SettingWeight();
     }
 
-    enum State{
-        SettingWeight,
-        SettingRep,
+    private class SettingWeight implements WindowState{
+        public void Render(){
+            System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
+        }
+        private void SendSettingWeight(){
+
+        }
+        public List<Command> HandleInput(String input) throws WindowException{
+            List<Command> commands = new ArrayList<>();
+
+            try{
+                double weight = Double.parseDouble(input);
+
+                if(weight < 0){
+                    throw new WindowException("ERR: Weight can't be lower then 0");
+                }
+
+                weight = RoundToDecimalPlaces(weight,2);
+
+                set.setWeight(weight);
+
+                state = new SettingRep();
+
+            } catch (NumberFormatException e) {
+                throw new WindowException("ERR: Invalid input format");
+            }
+
+            return commands;
+        }
+    }
+    private class SettingRep implements WindowState{
+        public void Render(){
+            System.out.printf("%s%n","Set amount of reps.");
+        }
+        public List<Command> HandleInput(String input) throws WindowException{
+            List<Command> commands = new ArrayList<>();
+
+            try{
+                int rep = Integer.parseInt(input);
+
+                if(rep<1){
+                    throw new WindowException("ERR: Reps can't be lower then 1");
+                }
+                set.setRepCount(rep);
+
+                commands.add(new AddSetToCurrentExercise(set));
+                commands.add(new GoBack());
+
+            } catch (NumberFormatException e) {
+                throw new WindowException("ERR: Invalid input format");
+            }
+
+            return commands;
+        }
     }
 
     @Override
     public void SendBody(){
-        switch (state){
-            case SettingWeight:
-                SendSettingWeight();
-                break;
-            case SettingRep:
-                SendSettingRep();
-                break;
-        }
-    }
-
-    private void SendSettingWeight(){
-        System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
-        state = State.SettingWeight;
-    }
-
-    private void SendSettingRep(){
-        System.out.printf("%s%n","Set amount of reps.");
-        state = State.SettingRep;
+        state.Render();
     }
 
     @Override
     public List<Command> HandleInput(String input){
         List<Command> commands = new ArrayList<>();
 
-        switch (state){
-            case SettingWeight:
-                HandleSettingWeight(input);
-                break;
-            case SettingRep:
-                commands.addAll(HandleSettingRep(input));
-                break;
+        try{
+            commands.addAll(state.HandleInput(input));
+        }
+        catch (WindowException e){
+            info = e.getMessage();
         }
 
         return commands;
     }
-
-    private void HandleSettingWeight(String input){
-        try{
-            double weight = Double.parseDouble(input);
-            weight = RoundToDecimalPlaces(weight,2);
-
-            set.setWeight(weight);
-
-            state = State.SettingRep;
-
-        } catch (NumberFormatException e) {
-            info = "ERR: Invalid input format";
-        }
-    }
-
-    private List<Command> HandleSettingRep(String input){
-        List<Command> commands = new ArrayList<>();
-
-        try{
-            int rep = Integer.parseInt(input);
-
-            if(rep<1){
-                info = "ERR: Reps can't be lower then 1";
-            }
-            else{
-                set.setRepCount(rep);
-
-                commands.add(new AddSetToCurrentExercise(set));
-                commands.add(new GoBack());
-            }
-        } catch (NumberFormatException e) {
-            info = "ERR: Invalid input format";
-        }
-
-        return commands;
-    }
-
 }
