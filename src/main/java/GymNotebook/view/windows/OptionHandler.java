@@ -24,5 +24,7 @@ public abstract class OptionHandler {
         return commands;
     }
 
-    protected List<Command> HandleOptionIndex(int index){return new ArrayList<>();};
+    protected List<Command> HandleOptionIndex(int index) throws WindowException {
+        throw new WindowException("ERR: HandleOptionIndex not implemented in this window");
+    };
 }
