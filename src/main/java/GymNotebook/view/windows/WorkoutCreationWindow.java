@@ -76,8 +76,12 @@ public class WorkoutCreationWindow extends Window{
 
     private void HandleTitleInput(String title){
         if(!title.isEmpty()){
-            workout.setTitle(title);
-            state = State.OptionSelection;
+            if (title.length()<20){
+                workout.setTitle(title);
+                state = State.OptionSelection;
+            }else{
+                info = "ERR: Title cannot be longer than 20 symbols";
+            }
         }
         else{
             info = "ERR: Title cannot be empty";
