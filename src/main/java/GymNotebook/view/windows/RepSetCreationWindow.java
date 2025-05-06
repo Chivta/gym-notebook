@@ -29,9 +29,6 @@ public class RepSetCreationWindow extends Window{
         public void Render(){
             System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
         }
-        private void SendSettingWeight(){
-
-        }
         public List<Command> HandleInput(String input) throws WindowException{
             List<Command> commands = new ArrayList<>();
 

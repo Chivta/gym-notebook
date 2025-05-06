@@ -1,6 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.RepSet;
+import GymNotebook.model.TimeSet;
 import GymNotebook.presenter.UnitManger;
 import GymNotebook.presenter.commands.AddSetToCurrentExercise;
 import GymNotebook.presenter.commands.Command;
@@ -12,8 +13,8 @@ import java.util.List;
 import static GymNotebook.presenter.UnitManger.RoundToDecimalPlaces;
 
 public class TimeSetCreationWindow extends Window{
-    State state;
-    RepSet set;
+    WindowState state;
+    TimeSet set;
     UnitManger unitManger;
 
     public TimeSetCreationWindow(UnitManger unitManger){
@@ -21,87 +22,78 @@ public class TimeSetCreationWindow extends Window{
 
         header = "Set adding";
 
-        set = new RepSet();
+        set = new TimeSet();
 
-        state = State.SettingWeight;
+        state = new SettingWeight();
     }
 
-    enum State{
-        SettingWeight,
-        SettingTime,
+    private class SettingWeight implements WindowState{
+        public void Render(){
+            System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
+        }
+        public List<Command> HandleInput(String input) throws WindowException{
+            List<Command> commands = new ArrayList<>();
+
+            try{
+                double weight = Double.parseDouble(input);
+
+                if(weight < 0){
+                    throw new WindowException("ERR: Weight can't be lower then 0");
+                }
+
+                weight = RoundToDecimalPlaces(weight,2);
+
+                set.setWeight(weight);
+
+                state = new SettingTime();
+
+            } catch (NumberFormatException e) {
+                throw new WindowException("ERR: Invalid input format");
+            }
+
+            return commands;
+        }
+    }
+    private class SettingTime implements WindowState{
+        public void Render(){
+            System.out.printf("%s%n","Write time (in seconds).");
+        }
+        public List<Command> HandleInput(String input) throws WindowException{
+            List<Command> commands = new ArrayList<>();
+
+            try{
+                int time = Integer.parseInt(input);
+
+                if(time<1){
+                    throw new WindowException("ERR: Time cannot be lower than 1");
+                }
+                set.setTime(time);
+
+                commands.add(new AddSetToCurrentExercise(set));
+                commands.add(new GoBack());
+            } catch (NumberFormatException e) {
+                throw new WindowException("ERR: Invalid input format");
+            }
+
+            return commands;
+        }
     }
 
     @Override
     public void SendBody(){
-        switch (state){
-            case SettingWeight:
-                SendSettingWeight();
-                break;
-            case SettingTime:
-                SendSettingRep();
-                break;
-        }
-    }
-
-    private void SendSettingWeight(){
-        System.out.printf("Set weight (in %s).%n",unitManger.getUnits());
-        state = State.SettingWeight;
-    }
-
-    private void SendSettingRep(){
-        System.out.printf("%s%n","Write time (in seconds).");
-        state = State.SettingTime;
+        state.Render();
     }
 
     @Override
     public List<Command> HandleInput(String input){
         List<Command> commands = new ArrayList<>();
 
-        switch (state){
-            case SettingWeight:
-                HandleSettingWeight(input);
-                break;
-            case SettingTime:
-                commands.addAll(HandleSettingTime(input));
-                break;
+        try{
+            commands.addAll(state.HandleInput(input));
+        } catch (WindowException e) {
+            info = e.getMessage();
         }
 
         return commands;
     }
-
-    private void HandleSettingWeight(String input){
-        try{
-            double weight = Double.parseDouble(input);
-            weight = RoundToDecimalPlaces(weight,2);
-
-            set.setWeight(weight);
-
-            state = State.SettingTime;
-
-        } catch (NumberFormatException e) {
-            info = "ERR: Invalid input format";
-        }
-    }
-
-    private List<Command> HandleSettingTime(String input){
-        List<Command> commands = new ArrayList<>();
-
-        try{
-            int rep = Integer.parseInt(input);
-
-            if(rep<1){
-                info = "ERR: Time can't be lower then 1";
-            }
-
-            set.setRepCount(rep);
-
-            commands.add(new AddSetToCurrentExercise(set));
-            commands.add(new GoBack());
-
-        } catch (NumberFormatException e) {
-            info = "ERR: Invalid input format";
-        }
-        return commands;
-    }
-
 }
