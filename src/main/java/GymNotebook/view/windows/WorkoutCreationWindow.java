@@ -14,7 +14,7 @@ import java.util.List;
 public class WorkoutCreationWindow extends Window{
     private final Workout workout;
 
-    public WindowState state;
+    private WindowState state;
 
     private class TitleInput implements WindowState{
         public List<Command> HandleInput(String title) {
