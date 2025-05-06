@@ -42,6 +42,6 @@ public class MainMenuWindow extends Window {
 
     @Override
     public List<Command> HandleInput(String input){
-        return HandleOptionIndex(input);
+        return TryHandleOptionIndex(input);
     }
 }

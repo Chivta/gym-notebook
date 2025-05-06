@@ -48,7 +48,7 @@ public abstract class Window {
         System.out.println("-------------------------");
     }
 
-    protected List<Command> HandleOptionIndex(String input){
+    protected List<Command> TryHandleOptionIndex(String input){
         List<Command> commands = new ArrayList<>();
 
         try {

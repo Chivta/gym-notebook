@@ -63,7 +63,7 @@ public class WorkoutCreationWindow extends Window{
                 HandleTitleInput(input);
                 break;
             case OptionSelection:
-                commands.addAll(HandleOptionIndex(input));
+                commands.addAll(TryHandleOptionIndex(input));
                 break;
         }
 
