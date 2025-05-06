@@ -35,12 +35,11 @@ public abstract class Window {
     }
 
     protected void SendOptions(){
-
         for(int i = 0; i< options.size(); i++){
             System.out.printf("%d. %s%n",i+1, options.get(i));
         }
 
-        inputOptions.addFirst("[Number] - Choose option.");
+        inputOptions.addFirst("[Number] - Choose option");
 
     }
 
@@ -60,7 +59,7 @@ public abstract class Window {
                 throw new WindowException("ERR: Invalid option number. Enter a number between 1 and " + options.size());
             }
         } catch (NumberFormatException e) {
-            throw new WindowException("ERR: Invalid input. Please enter a number.");
+            throw new WindowException("ERR: Invalid input. Please enter a number");
         }
 
         return commands;
