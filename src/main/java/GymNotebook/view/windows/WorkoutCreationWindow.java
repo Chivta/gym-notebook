@@ -16,11 +16,6 @@ public class WorkoutCreationWindow extends Window{
 
     public WindowState state;
 
-    enum State {
-        TitleInput,
-        OptionSelection,
-    }
-
     private class TitleInput implements WindowState{
         public List<Command> HandleInput(String title) {
             List<Command> commands = new ArrayList<>();
