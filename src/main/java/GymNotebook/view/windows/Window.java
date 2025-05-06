@@ -12,7 +12,19 @@ public abstract class Window extends OptionHandler {
     protected ArrayList<String> inputOptions;
 
     protected abstract void SendBody();
-    public abstract List<Command> HandleInput(String input);
+    protected abstract List<Command> HandleInput(String input) throws WindowException;
+
+    public List<Command> AcceptInput(String input){
+        List<Command> commands = new ArrayList<>();
+
+        try{
+            commands.addAll(HandleInput(input));
+        } catch (WindowException e) {
+            info = e.getMessage();
+        }
+
+        return commands;
+    }
 
     protected Window(){
         options = new ArrayList<>();

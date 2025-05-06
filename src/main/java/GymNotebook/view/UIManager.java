@@ -42,7 +42,7 @@ public class UIManager {
                     GoBack();
                 }
                 else{
-                    commands = CurrentWindow.HandleInput(line);
+                    commands = CurrentWindow.AcceptInput(line);
                 }
                 if(!commands.isEmpty()){
                     for(Command command : commands){
