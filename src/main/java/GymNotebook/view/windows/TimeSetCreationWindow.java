@@ -85,14 +85,10 @@ public class TimeSetCreationWindow extends Window{
     }
 
     @Override
-    public List<Command> HandleInput(String input){
+    public List<Command> HandleInput(String input) throws WindowException{
         List<Command> commands = new ArrayList<>();
 
-        try{
-            commands.addAll(state.HandleInput(input));
-        } catch (WindowException e) {
-            info = e.getMessage();
-        }
+        commands.addAll(state.HandleInput(input));
 
         return commands;
     }

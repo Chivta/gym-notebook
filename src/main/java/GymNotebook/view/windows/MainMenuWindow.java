@@ -40,15 +40,11 @@ public class MainMenuWindow extends Window {
     }
 
     @Override
-    public List<Command> HandleInput(String input){
+    public List<Command> HandleInput(String input) throws WindowException{
         List<Command> commands = new ArrayList<>();
 
-        try{
-            commands.addAll(TryHandleOptionIndex(input, options));
+        commands.addAll(TryHandleOptionIndex(input, options));
 
-        }catch (WindowException e){
-            this.info = e.getMessage();
-        }
         return commands;
     }
 }

@@ -7,7 +7,7 @@ import GymNotebook.presenter.commands.Command;
 
 public abstract class Window extends OptionHandler {
     protected String header = "UNSET TITLE";
-    protected String info = "";
+    private String info = "";
     protected ArrayList<String> options;
     protected ArrayList<String> inputOptions;
 

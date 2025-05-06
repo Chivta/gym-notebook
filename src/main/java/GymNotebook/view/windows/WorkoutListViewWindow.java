@@ -46,7 +46,7 @@ public class WorkoutListViewWindow extends Window {
     }
 
     @Override
-    public List<Command> HandleInput(String input) {
+    public List<Command> HandleInput(String input) throws WindowException {
         List<Command> commands = new ArrayList<>();
 
         switch (input) {
@@ -64,7 +64,7 @@ public class WorkoutListViewWindow extends Window {
         return commands;
     }
 
-    private List<Command> HandleWorkoutNumber(String input) {
+    private List<Command> HandleWorkoutNumber(String input) throws WindowException {
         List<Command> commands = new ArrayList<>();
 
         try {
@@ -75,10 +75,10 @@ public class WorkoutListViewWindow extends Window {
             if (!WorkoutName.isEmpty()) {
                 commands.add(new OpenWorkoutView(WorkoutName));
             } else {
-                this.info = "ERR: Invalid workout number. Please enter a number between 1 and " + workoutListService.getItemsCount() + ".";
+                throw new WindowException("ERR: Invalid workout number. Please enter a number between 1 and " + workoutListService.getItemsCount());
             }
         } catch (NumberFormatException e) {
-            this.info = "ERR: Invalid input.";
+            throw new WindowException("ERR: Invalid input.");
         }
         return commands;
     }

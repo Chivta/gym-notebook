@@ -17,18 +17,18 @@ public class WorkoutCreationWindow extends Window{
     private WindowState state;
 
     private class TitleInput implements WindowState{
-        public List<Command> HandleInput(String title) {
+        public List<Command> HandleInput(String title) throws WindowException {
             List<Command> commands = new ArrayList<>();
             if(!title.isEmpty()){
                 if (title.length()<20){
                     workout.setTitle(title);
                     state = new OptionSelection();
                 }else{
-                    info = "ERR: Title cannot be longer than 20 symbols";
+                    throw new WindowException("ERR: Title cannot be longer than 20 symbols");
                 }
             }
             else{
-                info = "ERR: Title cannot be empty";
+                throw new WindowException("ERR: Title cannot be empty");
             }
 
             return commands;
@@ -70,14 +70,10 @@ public class WorkoutCreationWindow extends Window{
     }
 
     @Override
-    public List<Command> HandleInput(String input) {
+    public List<Command> HandleInput(String input) throws WindowException {
         List<Command> commands = new ArrayList<>();
 
-        try{
-            commands.addAll(state.HandleInput(input));
-        }catch (WindowException e){
-            this.info = e.getMessage();
-        }
+        commands.addAll(state.HandleInput(input));
 
         return commands;
     }
