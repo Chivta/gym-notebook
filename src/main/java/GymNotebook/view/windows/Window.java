@@ -48,7 +48,7 @@ public abstract class Window {
         System.out.println("-------------------------");
     }
 
-    protected List<Command> TryHandleOptionIndex(String input){
+    protected List<Command> TryHandleOptionIndex(String input) throws WindowException{
         List<Command> commands = new ArrayList<>();
 
         try {
@@ -57,10 +57,10 @@ public abstract class Window {
             if (optionNumber>0 && optionNumber <= options.size()) {
                 commands.addAll(HandleOptionIndex(optionNumber));
             } else {
-                info = "ERR: Invalid option number. Enter a number between 1 and " + options.size();
+                throw new WindowException("ERR: Invalid option number. Enter a number between 1 and " + options.size());
             }
         } catch (NumberFormatException e) {
-            this.info = "ERR: Invalid input. Please enter a number.";
+            throw new WindowException("ERR: Invalid input. Please enter a number.");
         }
 
         return commands;
