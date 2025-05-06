@@ -25,6 +25,6 @@ public abstract class OptionHandler {
     }
 
     protected List<Command> HandleOptionIndex(int index) throws WindowException {
-        throw new WindowException("ERR: HandleOptionIndex not implemented in this window");
+        throw new WindowException("ERR: HandleOptionIndex is not implemented in this window");
     };
 }
