@@ -7,7 +7,7 @@ import GymNotebook.presenter.commands.Command;
 
 public abstract class Window extends OptionHandler {
     protected String header = "UNSET TITLE";
-    private String info = "";
+    private String errorMessage = "";
     protected ArrayList<String> options;
     protected ArrayList<String> inputOptions;
 
@@ -20,7 +20,7 @@ public abstract class Window extends OptionHandler {
         try{
             commands.addAll(HandleInput(input));
         } catch (WindowException e) {
-            info = e.getMessage();
+            errorMessage = e.getMessage();
         }
 
         return commands;
@@ -41,8 +41,8 @@ public abstract class Window extends OptionHandler {
 
     }
     private void SendInfo(){
-        if(!info.isEmpty()){
-            System.out.println(info);
+        if(!errorMessage.isEmpty()){
+            System.out.println(errorMessage);
         }
     }
 
@@ -73,7 +73,7 @@ public abstract class Window extends OptionHandler {
         SendFooter();
         SendInfo();
         SendSeparator();
-        info = "";
+        errorMessage = "";
     }
 
     protected void AddBackOptionToFooter(){
