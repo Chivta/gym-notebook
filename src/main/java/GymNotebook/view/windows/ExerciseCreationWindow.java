@@ -64,35 +64,32 @@ public class ExerciseCreationWindow extends Window{
         }
     }
 
-    private class RepExercise implements WindowState{
-        public List<Command> HandleInput(String input) throws WindowException{
+    private class RepExercise extends OptionHandler implements WindowState{
+
+        protected List<Command> HandleOptionIndex(int index){
             List<Command> commands = new ArrayList<>();
 
-            try{
-                int selected = Integer.parseInt(input);
-                switch(selected){
-                    case 1:
-                        SaveExercise saveExerciseCommand = new SaveExercise();
-                        saveExerciseCommand.SetExercise(exercise);
-                        commands.add(saveExerciseCommand);
+            switch(index) {
+                case 1:
+                    SaveExercise saveExerciseCommand = new SaveExercise();
+                    saveExerciseCommand.SetExercise(exercise);
+                    commands.add(saveExerciseCommand);
 
-                        commands.add(new OpenNewRepSet());
-                        break;
-                    case 2:
-                        AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
-                        AddExerciseCommand.SetExercise(exercise);
-                        commands.add(AddExerciseCommand);
+                    commands.add(new OpenNewRepSet());
+                    break;
+                case 2:
+                    AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
+                    AddExerciseCommand.SetExercise(exercise);
+                    commands.add(AddExerciseCommand);
 
-                        commands.add(new GoBack());
-                        break;
-                    default:
-                        throw new WindowException("ERR: Number out of range");
-                }
-            }catch (NumberFormatException e){
-                throw new WindowException("ERR: Invalid input");
+                    commands.add(new GoBack());
+                    break;
             }
-
             return commands;
+        }
+
+        public List<Command> HandleInput(String input) throws WindowException{
+            return TryHandleOptionIndex(input,options);
         }
         public void Render(){
             SendExerciseOverview();
@@ -100,35 +97,31 @@ public class ExerciseCreationWindow extends Window{
         }
     }
 
-    private class TimeExercise implements WindowState{
-        public List<Command> HandleInput(String input) throws WindowException {
+    private class TimeExercise extends OptionHandler implements WindowState{
+        protected List<Command> HandleOptionIndex(int index){
             List<Command> commands = new ArrayList<>();
 
-            try{
-                int selected = Integer.parseInt(input);
-                switch(selected){
-                    case 1:
-                        SaveExercise saveExerciseCommand = new SaveExercise();
-                        saveExerciseCommand.SetExercise(exercise);
-                        commands.add(saveExerciseCommand);
+            switch(index) {
+                case 1:
+                    SaveExercise saveExerciseCommand = new SaveExercise();
+                    saveExerciseCommand.SetExercise(exercise);
+                    commands.add(saveExerciseCommand);
 
-                        commands.add(new OpenNewTimeSet());
-                        break;
-                    case 2:
-                        AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
-                        AddExerciseCommand.SetExercise(exercise);
-                        commands.add(AddExerciseCommand);
+                    commands.add(new OpenNewTimeSet());
+                    break;
+                case 2:
+                    AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
+                    AddExerciseCommand.SetExercise(exercise);
+                    commands.add(AddExerciseCommand);
 
-                        commands.add(new GoBack());
-                        break;
-                    default:
-                        throw new WindowException("ERR: Number out of range.");
-                }
-            }catch (NumberFormatException e){
-                throw new WindowException("ERR: Invalid input");
+                    commands.add(new GoBack());
+                    break;
             }
-
             return commands;
+        }
+
+        public List<Command> HandleInput(String input) throws WindowException{
+            return TryHandleOptionIndex(input,options);
         }
         public void Render(){
             SendExerciseOverview();
