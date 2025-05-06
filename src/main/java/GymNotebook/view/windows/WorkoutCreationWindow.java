@@ -12,18 +12,55 @@ import java.util.List;
 
 
 public class WorkoutCreationWindow extends Window{
-    private State state;
     private final Workout workout;
+
+    public WindowState state;
 
     enum State {
         TitleInput,
         OptionSelection,
     }
 
+    private class TitleInput implements WindowState{
+        public List<Command> HandleInput(String title) {
+            List<Command> commands = new ArrayList<>();
+            if(!title.isEmpty()){
+                if (title.length()<20){
+                    workout.setTitle(title);
+                    state = new OptionSelection();
+                }else{
+                    info = "ERR: Title cannot be longer than 20 symbols";
+                }
+            }
+            else{
+                info = "ERR: Title cannot be empty";
+            }
+
+            return commands;
+        }
+        public void Render(){
+            System.out.println("Enter Workout Title");
+        }
+    }
+
+    private class OptionSelection implements WindowState{
+        public void Render(){
+            SendWorkoutOverview();
+            SendOptions();
+        }
+
+        public List<Command> HandleInput(String input) throws WindowException{
+            return TryHandleOptionIndex(input, options);
+        }
+        private void SendWorkoutOverview(){
+            WorkoutPrinter.PrintWorkout(workout);
+        }
+    }
+
     public WorkoutCreationWindow(Workout workout) {
         header = "New Workout Creation";
 
-        state = State.TitleInput;
+        state = new TitleInput();
 
         this.workout = workout;
 
@@ -34,24 +71,7 @@ public class WorkoutCreationWindow extends Window{
 
     @Override
     public void SendBody(){
-        switch (state){
-            case TitleInput:
-                SendTitleWaiting();
-                break;
-            case OptionSelection:
-                SendWorkoutOverview();
-                SendOptions();
-                break;
-        }
-    }
-
-
-    private void SendTitleWaiting(){
-        System.out.println("Enter Workout Title");
-    }
-
-    private void SendWorkoutOverview(){
-        WorkoutPrinter.PrintWorkout(workout);
+        state.Render();
     }
 
     @Override
@@ -59,34 +79,12 @@ public class WorkoutCreationWindow extends Window{
         List<Command> commands = new ArrayList<>();
 
         try{
-            switch (state){
-                case TitleInput:
-                    HandleTitleInput(input);
-                    break;
-                case OptionSelection:
-                    commands.addAll(TryHandleOptionIndex(input, options));
-                    break;
-            }
+            commands.addAll(state.HandleInput(input));
         }catch (WindowException e){
             this.info = e.getMessage();
         }
 
         return commands;
-    }
-
-    private void HandleTitleInput(String title){
-        if(!title.isEmpty()){
-            if (title.length()<20){
-                workout.setTitle(title);
-                state = State.OptionSelection;
-            }else{
-                info = "ERR: Title cannot be longer than 20 symbols";
-            }
-        }
-        else{
-            info = "ERR: Title cannot be empty";
-        }
-
     }
 
     protected List<Command> HandleOptionIndex(int index){
@@ -105,4 +103,5 @@ public class WorkoutCreationWindow extends Window{
         }
         return commands;
     }
+
 }

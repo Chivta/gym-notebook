@@ -4,6 +4,6 @@ import GymNotebook.presenter.commands.Command;
 import java.util.List;
 
 public interface WindowState {
-    List<Command> HandleInput(String input);
+    List<Command> HandleInput(String input) throws WindowException;
     void Render();
 }
