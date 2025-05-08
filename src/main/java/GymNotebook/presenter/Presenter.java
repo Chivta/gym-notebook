@@ -1,9 +1,6 @@
 package GymNotebook.presenter;
 
-import GymNotebook.model.Exercise;
-import GymNotebook.model.Workout;
-import GymNotebook.model.Set;
-import GymNotebook.model.WorkoutService;
+import GymNotebook.model.*;
 import GymNotebook.view.UIManager;
 import GymNotebook.view.windows.*;
 
@@ -17,10 +14,12 @@ import java.io.IOException;
 public class Presenter {
     private final UIManager ui;
     private final WorkoutService workoutService;
+    private final ExerciseService exerciseService;
 
     public Presenter(UIManager uiManager) {
         ui = uiManager;
         workoutService = new WorkoutService();
+        exerciseService = new ExerciseService();
     }
 
     public void OpenWorkoutListView(){
@@ -47,14 +46,14 @@ public class Presenter {
         ui.ChangeWindow(new WorkoutCreationWindow(workoutService));
     }
 
-    Exercise currentExercise;
+
     public void OpenNewExercise(){
-        currentExercise = new Exercise();
-        ui.ChangeWindow(new ExerciseCreationWindow(currentExercise));
+        exerciseService.StartNewExercise();
+        ui.ChangeWindow(new ExerciseCreationWindow(exerciseService));
     }
 
     public void SaveExercise(Exercise exercise){
-        currentExercise = exercise;
+        //
     }
 
     public void ChangeUnitsForCurrentWorkout(){
@@ -73,7 +72,7 @@ public class Presenter {
         unitManger.Subscribe(set);
         set.setUnits(unitManger.getUnits());
 
-        currentExercise.AddSet(set);
+        exerciseService.AddSet(set);
     }
 
     public void AddExerciseToCurrentWorkout(Exercise exercise){

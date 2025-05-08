@@ -1,14 +1,15 @@
 package GymNotebook.presenter.commands;
 
 import GymNotebook.model.Exercise;
+import GymNotebook.model.ExerciseService;
 import GymNotebook.presenter.Presenter;
 
 public class AddExerciseToCurrentWorkout  implements Command{
     private Presenter presenter;
-    private Exercise exercise;
+    private ExerciseService exerciseService;
 
-    public void SetExercise(Exercise exercise){
-        this.exercise = exercise;
+    public void SetExerciseService(ExerciseService exerciseService){
+        this.exerciseService = exerciseService;
     }
 
     public void SetPresenter(Presenter presenter){
@@ -16,6 +17,7 @@ public class AddExerciseToCurrentWorkout  implements Command{
     }
 
     public void Execute(){
+        Exercise exercise = exerciseService.BuildExercise();
         presenter.AddExerciseToCurrentWorkout(exercise);
     }
 }

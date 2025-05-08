@@ -9,21 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Exercise {
-    protected String title;
+    private String title;
     private ArrayList<Set> sets;
-
 
     public Exercise() {
         sets = new ArrayList<>();
-    }
-
-    public Exercise(String title) {
-        this();
-        this.title = title;
-    }
-
-    public void AddSet(Set set) {
-        sets.add(set);
     }
 
     @Override

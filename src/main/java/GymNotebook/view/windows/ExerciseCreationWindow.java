@@ -1,6 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Exercise;
+import GymNotebook.model.ExerciseService;
 import GymNotebook.presenter.commands.*;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class ExerciseCreationWindow extends Window{
     private final ArrayList<String> exerciseTypes;
-    private final Exercise exercise;
+    private final ExerciseService exerciseService;
     private WindowState state;
 
     private class TitleInput implements WindowState{
@@ -17,7 +18,7 @@ public class ExerciseCreationWindow extends Window{
 
             if(!input.isEmpty() ){
                 if(input.length()<20){
-                    exercise.setTitle(input);
+                    exerciseService.SetTitle(input);
                     state = new TypeSelection();
                 }else{
                     throw new WindowException("ERR: Title cannot be longer than 20 symbols");
@@ -72,14 +73,14 @@ public class ExerciseCreationWindow extends Window{
             switch(index) {
                 case 1:
                     SaveExercise saveExerciseCommand = new SaveExercise();
-                    saveExerciseCommand.SetExercise(exercise);
+                    saveExerciseCommand.SetExerciseService(exerciseService);
                     commands.add(saveExerciseCommand);
 
                     commands.add(new OpenNewRepSet());
                     break;
                 case 2:
                     AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
-                    AddExerciseCommand.SetExercise(exercise);
+                    AddExerciseCommand.SetExerciseService(exerciseService);
                     commands.add(AddExerciseCommand);
 
                     commands.add(new GoBack());
@@ -104,14 +105,14 @@ public class ExerciseCreationWindow extends Window{
             switch(index) {
                 case 1:
                     SaveExercise saveExerciseCommand = new SaveExercise();
-                    saveExerciseCommand.SetExercise(exercise);
+                    saveExerciseCommand.SetExerciseService(exerciseService);
                     commands.add(saveExerciseCommand);
 
                     commands.add(new OpenNewTimeSet());
                     break;
                 case 2:
                     AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
-                    AddExerciseCommand.SetExercise(exercise);
+                    AddExerciseCommand.SetExerciseService(exerciseService);
                     commands.add(AddExerciseCommand);
 
                     commands.add(new GoBack());
@@ -130,8 +131,8 @@ public class ExerciseCreationWindow extends Window{
     }
 
 
-    public ExerciseCreationWindow(Exercise exercise){
-        this.exercise = exercise;
+    public ExerciseCreationWindow(ExerciseService exerciseService){
+        this.exerciseService = exerciseService;
 
         header = "New Exercise Adding";
 
@@ -154,7 +155,7 @@ public class ExerciseCreationWindow extends Window{
     }
 
     private void SendExerciseOverview(){
-        System.out.println(exercise.toString());
+        System.out.println(exerciseService.ToStringExercise());
     }
 
     @Override

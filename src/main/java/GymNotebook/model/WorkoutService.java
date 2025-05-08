@@ -15,6 +15,7 @@ public class WorkoutService {
 
     public void SetTitle(String title){
         this.title = title;
+        workout.setTitle(title);
     }
 
     public void AddExercise(Exercise exercise){
