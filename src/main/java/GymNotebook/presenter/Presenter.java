@@ -3,6 +3,7 @@ package GymNotebook.presenter;
 import GymNotebook.model.Exercise;
 import GymNotebook.model.Workout;
 import GymNotebook.model.Set;
+import GymNotebook.model.WorkoutService;
 import GymNotebook.view.UIManager;
 import GymNotebook.view.windows.*;
 
@@ -15,9 +16,11 @@ import java.io.IOException;
 
 public class Presenter {
     private final UIManager ui;
+    private final WorkoutService workoutService;
 
     public Presenter(UIManager uiManager) {
         ui = uiManager;
+        workoutService = new WorkoutService();
     }
 
     public void OpenWorkoutListView(){
@@ -35,14 +38,13 @@ public class Presenter {
 
 
     UnitManger unitManger;
-    Workout currentWorkout;
     public void OpenNewWorkoutCreation(){
-        currentWorkout = new Workout();
+        workoutService.StartNewWorkout();
         unitManger = new UnitManger();
 
         unitManger.setUnits(UnitManger.WeightUnits.kg);
 
-        ui.ChangeWindow(new WorkoutCreationWindow(currentWorkout));
+        ui.ChangeWindow(new WorkoutCreationWindow(workoutService));
     }
 
     Exercise currentExercise;
@@ -75,10 +77,11 @@ public class Presenter {
     }
 
     public void AddExerciseToCurrentWorkout(Exercise exercise){
-        currentWorkout.AddExercise(exercise);
+        workoutService.AddExercise(exercise);
     }
 
     public void saveCurrentWorkout() {
+        Workout currentWorkout = workoutService.BuildWorkout();
         if (currentWorkout == null) {
             System.err.println("Err: No current workout to save.");
             return;
@@ -88,8 +91,8 @@ public class Presenter {
         String sanitizedTitle = (title == null || title.trim().isEmpty())
                 ? "UntitledWorkout"
                 : title.trim().replaceAll("\\s+", "_").replaceAll("[^a-zA-Z0-9\\-_]", "");
-        if (sanitizedTitle.length() > 50) {
-            sanitizedTitle = sanitizedTitle.substring(0, 50);
+        if (sanitizedTitle.length() > 20) {
+            sanitizedTitle = sanitizedTitle.substring(0, 20);
         }
         if (sanitizedTitle.isEmpty()) {
             sanitizedTitle = "Workout";

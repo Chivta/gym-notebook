@@ -1,7 +1,6 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.model.Workout;
-import GymNotebook.presenter.WorkoutPrinter;
+import GymNotebook.model.WorkoutService;
 import GymNotebook.presenter.commands.ChangeUnitsForCurrentWorkout;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.commands.OpenNewExercise;
@@ -12,7 +11,7 @@ import java.util.List;
 
 
 public class WorkoutCreationWindow extends Window{
-    private final Workout workout;
+    private final WorkoutService workoutService;
 
     private WindowState state;
 
@@ -21,7 +20,7 @@ public class WorkoutCreationWindow extends Window{
             List<Command> commands = new ArrayList<>();
             if(!title.isEmpty()){
                 if (title.length()<20){
-                    workout.setTitle(title);
+                    workoutService.SetTitle(title);
                     state = new OptionSelection();
                 }else{
                     throw new WindowException("ERR: Title cannot be longer than 20 symbols");
@@ -48,16 +47,16 @@ public class WorkoutCreationWindow extends Window{
             return TryHandleOptionIndex(input, options);
         }
         private void SendWorkoutOverview(){
-            WorkoutPrinter.PrintWorkout(workout);
+            System.out.println(workoutService.ToStringWorkout());
         }
     }
 
-    public WorkoutCreationWindow(Workout workout) {
+    public WorkoutCreationWindow(WorkoutService workoutService) {
         header = "New Workout Creation";
 
         state = new TitleInput();
 
-        this.workout = workout;
+        this.workoutService = workoutService;
 
         options.add("Add Exercise");
         options.add("Save Workout");
