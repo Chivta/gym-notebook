@@ -2,6 +2,7 @@ package GymNotebook.model;
 
 import GymNotebook.presenter.UnitManger;
 import GymNotebook.presenter.UnitManger.WeightUnits;
+
 import java.util.List;
 
 public class WorkoutService implements UnitChangeListener{
@@ -9,11 +10,11 @@ public class WorkoutService implements UnitChangeListener{
     private String title;
     private List<Exercise> exercises;
 
-
-    public void StartNewWorkout(){
+    public void StartNewWorkout(WeightUnits units){
         workout = new Workout();
         exercises = workout.getExercises();
         title = workout.getTitle();
+        workout.units = units;
     }
 
     public void SetTitle(String title){
@@ -24,17 +25,19 @@ public class WorkoutService implements UnitChangeListener{
     public void AddExercise(Exercise exercise){
         exercises.add(exercise);
     }
-
-    public String ToStringWorkout(){
+    public static String WorkoutToString(Workout workout){
         StringBuilder toReturn = new StringBuilder();
 
-        toReturn.append(title);
+        toReturn.append(workout.getTitle());
 
-        for(Exercise ex : exercises){
-            toReturn.append(String.format("%n - %s", (ex.toString()).replace("-","--")));
+        for(Exercise ex : workout.getExercises()){
+            toReturn.append(String.format("%n - %s", (ExerciseService.ExerciseToString(ex)).replace("-","--")));
         }
 
         return toReturn.toString();
+    }
+    public String WorkoutToString(){
+        return WorkoutToString(workout);
     }
 
     public Workout BuildWorkout(){

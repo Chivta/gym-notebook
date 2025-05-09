@@ -41,9 +41,8 @@ public class Presenter {
     }
 
     public void OpenNewWorkoutCreation(){
-        workoutService.StartNewWorkout();
-
         unitManger.setUnits(UnitManger.WeightUnits.kg);
+        workoutService.StartNewWorkout(unitManger.getUnits());
 
         ui.ChangeWindow(new WorkoutCreationWindow(workoutService));
     }
@@ -61,26 +60,22 @@ public class Presenter {
         unitManger.ChangeUnits();
     }
 
-    public void OpenNewRepSet(){
-        ui.ChangeWindow(new RepSetCreationWindow(unitManger));
-    }
-
-    public void OpenNewTimeSet(){
-        ui.ChangeWindow(new TimeSetCreationWindow(unitManger));
-    }
-
     public void OpenNewSet(){
-        setService.StartNewSet(exerciseService.GetType());
+        setService.StartNewSet(exerciseService.GetType(),unitManger.getUnits());
 
-        ui.ChangeWindow(new SetCreationWindow(setService, unitManger));
+        ui.ChangeWindow(new SetCreationWindow(setService));
     }
 
     public void SetTypeForExercise(ExerciseType type){
         exerciseService.SetType(type);
     }
 
-    public void AddSetToCurrentExercise(Set set){
-        exerciseService.AddSet(set);
+    public void SetParameter(String key, Object value){
+        setService.SetParameter(key,value);
+    }
+
+    public void AddSetToCurrentExercise(){
+        exerciseService.AddSet(setService.BuildSet());
     }
 
     public void AddExerciseToCurrentWorkout(Exercise exercise){

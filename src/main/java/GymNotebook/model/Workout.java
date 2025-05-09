@@ -1,8 +1,11 @@
 package GymNotebook.model;
 
 import GymNotebook.presenter.UnitManger.WeightUnits;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -10,7 +13,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"title", "exercises", "units"})
 public class Workout {
     private String title;
     private ArrayList<Exercise> exercises;

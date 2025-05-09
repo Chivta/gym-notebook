@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class OpenNewTimeSet implements Command{
+public class OpenNewSet implements Command{
     private Presenter presenter;
 
     public void SetPresenter(Presenter presenter){
@@ -10,6 +10,6 @@ public class OpenNewTimeSet implements Command{
     }
 
     public void Execute(){
-        presenter.OpenNewTimeSet();
+        presenter.OpenNewSet();
     }
 }

@@ -1,7 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
-import GymNotebook.presenter.WorkoutPrinter;
+import GymNotebook.model.WorkoutService;
 import GymNotebook.presenter.commands.Command;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class WorkoutViewWindow extends Window{
 
     @Override
     public void SendBody(){
-        WorkoutPrinter.PrintWorkout(workout);
+        System.out.println(WorkoutService.WorkoutToString(workout));
     }
 
     @Override

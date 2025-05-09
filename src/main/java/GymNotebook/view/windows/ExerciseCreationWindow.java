@@ -64,15 +64,14 @@ public class ExerciseCreationWindow extends Window{
                 switch(selected){
                     case 1:
                         commands.add(new SetTypeForExercise(ExerciseType.Rep));
-                        state = new RepExercise();
                         break;
                     case 2:
                         commands.add(new SetTypeForExercise(ExerciseType.Time));
-                        state = new TimeExercise();
                         break;
                     default:
                         throw new WindowException("ERR: Number out of range");
                 }
+                state = new OptionSelection();
             }catch (NumberFormatException e){
                 throw new WindowException("ERR: Invalid input");
             }
@@ -87,50 +86,14 @@ public class ExerciseCreationWindow extends Window{
         }
     }
 
-    private class RepExercise extends OptionHandler implements WindowState{
 
+    private class OptionSelection extends OptionHandler implements WindowState{
         protected List<Command> HandleOptionIndex(int index){
             List<Command> commands = new ArrayList<>();
 
             switch(index) {
                 case 1:
-                    SaveExercise saveExerciseCommand = new SaveExercise();
-                    saveExerciseCommand.SetExerciseService(exerciseService);
-                    commands.add(saveExerciseCommand);
-
-                    commands.add(new OpenNewRepSet());
-                    break;
-                case 2:
-                    AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
-                    AddExerciseCommand.SetExerciseService(exerciseService);
-                    commands.add(AddExerciseCommand);
-
-                    commands.add(new GoBack());
-                    break;
-            }
-            return commands;
-        }
-
-        public List<Command> HandleInput(String input) throws WindowException{
-            return TryHandleOptionIndex(input,options);
-        }
-        public void Render(){
-            SendExerciseOverview();
-            SendOptions();
-        }
-    }
-
-    private class TimeExercise extends OptionHandler implements WindowState{
-        protected List<Command> HandleOptionIndex(int index){
-            List<Command> commands = new ArrayList<>();
-
-            switch(index) {
-                case 1:
-                    SaveExercise saveExerciseCommand = new SaveExercise();
-                    saveExerciseCommand.SetExerciseService(exerciseService);
-                    commands.add(saveExerciseCommand);
-
-                    commands.add(new OpenNewTimeSet());
+                    commands.add(new OpenNewSet());
                     break;
                 case 2:
                     AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
@@ -158,7 +121,7 @@ public class ExerciseCreationWindow extends Window{
     }
 
     private void SendExerciseOverview(){
-        System.out.println(exerciseService.ToStringExercise());
+        System.out.println(exerciseService.ExerciseToString());
     }
 
     @Override

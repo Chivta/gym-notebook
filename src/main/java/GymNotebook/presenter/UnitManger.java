@@ -14,7 +14,7 @@ public class UnitManger {
     @Setter
     private WeightUnits units;
 
-    public static enum WeightUnits{
+    public enum WeightUnits{
         kg,
         lbs
     }

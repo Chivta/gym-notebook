@@ -29,19 +29,21 @@ public class ExerciseService {
         sets.add(set);
     }
 
-
-    public String ToStringExercise() {
+    public static String ExerciseToString(Exercise ex){
         StringBuilder toReturn = new StringBuilder();
-        toReturn.append(title != null ? title : "Untitled Exercise");
-        if (sets != null && !sets.isEmpty()) {
-            for (Set set : sets) {
+        toReturn.append(ex.getTitle() != null ? ex.getTitle() : "Untitled Exercise");
+        if (ex.getSets() != null && !ex.getSets().isEmpty()) {
+            for (Set set : ex.getSets()) {
                 if (set != null) {
-
-                    toReturn.append(String.format("%n - %s", set));
+                    toReturn.append(String.format("%n - %s", SetService.SetToString(set)));
                 }
             }
         }
         return toReturn.toString();
+    }
+
+    public String ExerciseToString() {
+        return ExerciseToString(exercise);
     }
 
     public Exercise BuildExercise(){

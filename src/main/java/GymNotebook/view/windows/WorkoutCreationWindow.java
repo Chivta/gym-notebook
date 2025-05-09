@@ -47,7 +47,7 @@ public class WorkoutCreationWindow extends Window{
             return TryHandleOptionIndex(input, options);
         }
         private void SendWorkoutOverview(){
-            System.out.println(workoutService.ToStringWorkout());
+            System.out.println(workoutService.WorkoutToString());
         }
     }
 
