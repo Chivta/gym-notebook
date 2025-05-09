@@ -1,11 +1,14 @@
 package GymNotebook.model;
 
+import GymNotebook.presenter.UnitManger;
+import GymNotebook.presenter.UnitManger.WeightUnits;
 import java.util.List;
 
-public class WorkoutService {
+public class WorkoutService implements UnitChangeListener{
     private Workout workout;
     private String title;
     private List<Exercise> exercises;
+
 
     public void StartNewWorkout(){
         workout = new Workout();
@@ -36,5 +39,22 @@ public class WorkoutService {
 
     public Workout BuildWorkout(){
         return workout;
+    }
+
+    public void Notify(){
+        for (Exercise ex : exercises){
+            for (Set set : ex.getSets()){
+                switch (set.units){
+                    case kg:
+                        set.weight = UnitManger.KGtoLBS(set.weight);
+                        set.units = WeightUnits.lbs;
+                        break;
+                    case lbs:
+                        set.weight = UnitManger.LBStoKG(set.weight);
+                        set.units = WeightUnits.kg;
+                        break;
+                }
+            }
+        }
     }
 }

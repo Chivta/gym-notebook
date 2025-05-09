@@ -1,6 +1,6 @@
 package GymNotebook.model;
 
-import GymNotebook.presenter.UnitManger;
+import GymNotebook.presenter.UnitManger.WeightUnits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +14,7 @@ import java.util.Objects;
 public class Workout {
     private String title;
     private ArrayList<Exercise> exercises;
+    protected WeightUnits units;
 
     public Workout(){
         exercises = new ArrayList<>();

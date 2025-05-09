@@ -23,6 +23,7 @@ public class TimeSetCreationWindow extends Window{
         header = "Set adding";
 
         set = new TimeSet();
+        set.setUnits(unitManger.getUnits());
 
         state = new SettingWeight();
     }

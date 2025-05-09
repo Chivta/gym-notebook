@@ -15,11 +15,14 @@ public class Presenter {
     private final UIManager ui;
     private final WorkoutService workoutService;
     private final ExerciseService exerciseService;
+    private final UnitManger unitManger;
 
     public Presenter(UIManager uiManager) {
         ui = uiManager;
         workoutService = new WorkoutService();
         exerciseService = new ExerciseService();
+        unitManger = new UnitManger();
+        unitManger.Subscribe(workoutService);
     }
 
     public void OpenWorkoutListView(){
@@ -35,17 +38,13 @@ public class Presenter {
         System.exit(200);
     }
 
-
-    UnitManger unitManger;
     public void OpenNewWorkoutCreation(){
         workoutService.StartNewWorkout();
-        unitManger = new UnitManger();
 
         unitManger.setUnits(UnitManger.WeightUnits.kg);
 
         ui.ChangeWindow(new WorkoutCreationWindow(workoutService));
     }
-
 
     public void OpenNewExercise(){
         exerciseService.StartNewExercise();
@@ -69,9 +68,6 @@ public class Presenter {
     }
 
     public void AddSetToCurrentExercise(Set set){
-        unitManger.Subscribe(set);
-        set.setUnits(unitManger.getUnits());
-
         exerciseService.AddSet(set);
     }
 

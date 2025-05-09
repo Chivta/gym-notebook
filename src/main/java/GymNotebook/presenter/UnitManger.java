@@ -51,7 +51,7 @@ public class UnitManger {
 
     private void NotifyAllSubscribers(){
         for(var listener : unitChangeListeners){
-            listener.Notify(units);
+            listener.Notify();
         }
     }
 

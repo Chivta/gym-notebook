@@ -21,6 +21,7 @@ public class RepSetCreationWindow extends Window{
         header = "Set adding";
 
         set = new RepSet();
+        set.setUnits(unitManger.getUnits());
 
         state = new SettingWeight();
     }
