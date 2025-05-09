@@ -22,7 +22,7 @@ import lombok.Setter;
         @JsonSubTypes.Type(value = RepSet.class, name = "RepSet"),
         @JsonSubTypes.Type(value = TimeSet.class, name = "TimeSet"),
 })
-public abstract class Set implements UnitChangeListener {
+public class Set implements UnitChangeListener {
     protected double weight;
     protected WeightUnits units;
 
