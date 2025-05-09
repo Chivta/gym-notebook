@@ -11,6 +11,7 @@ import lombok.Setter;
 public class Exercise {
     private String title;
     private ArrayList<Set> sets;
+    private ExerciseType type;
 
     public Exercise() {
         sets = new ArrayList<>();

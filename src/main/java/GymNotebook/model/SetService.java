@@ -5,12 +5,43 @@ import java.util.List;
 
 public class SetService {
     private Set set;
-    private List<String> parametersList;
+    private List<ParameterDescriptor> parametersList;
+    private ExerciseType type;
 
     public SetService(){
-        set = new Set();
-        parametersList = new ArrayList<>(){{add("Weight");add("Rep");}};
+        parametersList = new ArrayList<>();
     }
 
+    public void StartNewSet(ExerciseType type){
+        set = new Set();
+        set.setType(type);
+        this.type = type;
+    }
+
+    public List<ParameterDescriptor> GetParameters(){
+        parametersList.clear();
+        parametersList.add(
+                new ParameterDescriptor(
+                        "weight",
+                        "Input weight in "+set.units,
+                        ParameterDescriptor.InputType.DOUBLE,
+                        true));
+        if(type == ExerciseType.Rep){
+            parametersList.add(
+                    new ParameterDescriptor(
+                            "rep",
+                            "Input repetitions",
+                            ParameterDescriptor.InputType.INTEGER,
+                            false));
+        }else if(type == ExerciseType.Time){
+            parametersList.add(
+                    new ParameterDescriptor(
+                            "time",
+                            "Input time in seconds",
+                            ParameterDescriptor.InputType.INTEGER,
+                            false));
+        }
+        return parametersList;
+    }
 
 }

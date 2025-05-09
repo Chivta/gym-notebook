@@ -16,11 +16,13 @@ public class Presenter {
     private final WorkoutService workoutService;
     private final ExerciseService exerciseService;
     private final UnitManger unitManger;
+    private final SetService setService;
 
     public Presenter(UIManager uiManager) {
         ui = uiManager;
         workoutService = new WorkoutService();
         exerciseService = new ExerciseService();
+        setService = new SetService();
         unitManger = new UnitManger();
         unitManger.Subscribe(workoutService);
     }
@@ -65,6 +67,16 @@ public class Presenter {
 
     public void OpenNewTimeSet(){
         ui.ChangeWindow(new TimeSetCreationWindow(unitManger));
+    }
+
+    public void OpenNewSet(){
+        setService.StartNewSet(exerciseService.GetType());
+
+        ui.ChangeWindow(new SetCreationWindow(setService, unitManger));
+    }
+
+    public void SetTypeForExercise(ExerciseType type){
+        exerciseService.SetType(type);
     }
 
     public void AddSetToCurrentExercise(Set set){

@@ -2,6 +2,7 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.Exercise;
 import GymNotebook.model.ExerciseService;
+import GymNotebook.model.ExerciseType;
 import GymNotebook.presenter.commands.*;
 
 import java.util.ArrayList;
@@ -11,6 +12,25 @@ public class ExerciseCreationWindow extends Window{
     private final ArrayList<String> exerciseTypes;
     private final ExerciseService exerciseService;
     private WindowState state;
+
+
+    public ExerciseCreationWindow(ExerciseService exerciseService){
+        this.exerciseService = exerciseService;
+
+        header = "New Exercise Adding";
+
+        inputOptions.add("Enter exercise name");
+
+        state = new TitleInput();
+
+        exerciseTypes = new ArrayList<>();
+
+        exerciseTypes.add("Rep Exercise");
+        exerciseTypes.add("Time Exercise");
+
+        options.add("Add Set");
+        options.add("Save Exercise");
+    }
 
     private class TitleInput implements WindowState{
         public List<Command> HandleInput(String input) throws WindowException{
@@ -43,9 +63,11 @@ public class ExerciseCreationWindow extends Window{
                 int selected = Integer.parseInt(input);
                 switch(selected){
                     case 1:
+                        commands.add(new SetTypeForExercise(ExerciseType.Rep));
                         state = new RepExercise();
                         break;
                     case 2:
+                        commands.add(new SetTypeForExercise(ExerciseType.Time));
                         state = new TimeExercise();
                         break;
                     default:
@@ -128,25 +150,6 @@ public class ExerciseCreationWindow extends Window{
             SendExerciseOverview();
             SendOptions();
         }
-    }
-
-
-    public ExerciseCreationWindow(ExerciseService exerciseService){
-        this.exerciseService = exerciseService;
-
-        header = "New Exercise Adding";
-
-        inputOptions.add("Enter exercise name");
-
-        state = new TitleInput();
-
-        exerciseTypes = new ArrayList<>();
-
-        exerciseTypes.add("Rep Exercise");
-        exerciseTypes.add("Time Exercise");
-
-        options.add("Add Set");
-        options.add("Save Exercise");
     }
 
     @Override

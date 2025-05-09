@@ -24,5 +24,7 @@ import lombok.Setter;
 public class Set {
     protected double weight;
     protected WeightUnits units;
+
+    private ExerciseType type;
 }
 

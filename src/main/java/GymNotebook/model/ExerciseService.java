@@ -18,6 +18,13 @@ public class ExerciseService {
         exercise.setTitle(title);
     }
 
+    public void SetType(ExerciseType type){
+        exercise.setType(type);
+    }
+    public ExerciseType GetType(){
+        return exercise.getType();
+    }
+
     public void AddSet(Set set){
         sets.add(set);
     }
