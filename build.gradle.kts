@@ -22,6 +22,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.38")
     testImplementation("org.mockito:mockito-core:5.11.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.12.0")
+    implementation ("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.0")
 }
 
 
