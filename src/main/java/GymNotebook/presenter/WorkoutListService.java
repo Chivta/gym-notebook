@@ -19,17 +19,13 @@ public class WorkoutListService {
     @Getter
     private int ItemsCount;
 
-    public WorkoutListService() {
+    public WorkoutListService(List<String> allWorkouts) {
         ItemsPerPage = 10;
         CurrentPage = 1;
         MaxPage = 0;
         ItemsCount = 0;
         currentPageWorkouts = new ArrayList<>();
-        LoadAllWorkouts();
-    }
-
-    private void LoadAllWorkouts() {
-        allWorkouts = FileManager.getAllWorkoutFilenamesSortedByDateDesc();
+        this.allWorkouts = allWorkouts;
         ItemsCount = allWorkouts.size();
         MaxPage = (int) Math.ceil((double) ItemsCount / ItemsPerPage);
         if (MaxPage == 0) {

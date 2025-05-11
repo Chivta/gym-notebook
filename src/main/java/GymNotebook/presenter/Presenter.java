@@ -32,7 +32,7 @@ public class Presenter {
     }
 
     public void OpenWorkoutListView(){
-        WorkoutListService workoutListService = new WorkoutListService();
+        WorkoutListService workoutListService = new WorkoutListService(workoutFileHandler.getAllWorkoutFilenamesSortedByDateDesc());
         ui.ChangeWindow(new WorkoutListViewWindow(workoutListService));
     }
 
@@ -112,7 +112,7 @@ public class Presenter {
     }
 
     public void OpenWorkoutView(String filename){
-        Workout workout = FileManager.loadWorkoutByFileName(filename);
+        Workout workout = workoutFileHandler.loadWorkout(filename);
         ui.ChangeWindow(new WorkoutViewWindow(workout));
     }
 }

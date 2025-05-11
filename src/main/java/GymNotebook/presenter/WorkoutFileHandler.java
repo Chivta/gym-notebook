@@ -12,6 +12,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 public class WorkoutFileHandler {
 
@@ -28,9 +37,24 @@ public class WorkoutFileHandler {
 
     }
 
+    private static class WorkoutFileInfo {
+        String filename;
+        LocalDate date;
+
+        WorkoutFileInfo(String filename, LocalDate date) {
+            this.filename = filename;
+            this.date = date;
+        }
+        LocalDate getDate() { return date == null ? LocalDate.MIN : date; }
+        String getFilename() { return filename; }
+    }
+
     private WorkoutStorageStrategy storageStrategy;
     private Extension currentExtension = Extension.JSON; // За замовчуванням JSON
     private static final String WORKOUTS_DIR_NAME = "Workouts";
+    private static final Pattern DATE_PATTERN = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
+
 
     public WorkoutFileHandler() {
         setStorageStrategy(currentExtension);
@@ -43,7 +67,7 @@ public class WorkoutFileHandler {
         }
     }
 
-    private void    setStorageStrategy(Extension extension) {
+    private void setStorageStrategy(Extension extension) {
         switch (extension) {
             case JSON:
                 this.storageStrategy = new JsonWorkoutStorage();
@@ -118,5 +142,42 @@ public class WorkoutFileHandler {
             filename = baseFilename + "(" + counter + ")" + extension;
         }
         return filename;
+    }
+
+    public List<String> getAllWorkoutFilenamesSortedByDateDesc() {
+        Path workoutsDirPath = Paths.get(WORKOUTS_DIR_NAME);
+
+        if (!Files.exists(workoutsDirPath) || !Files.isDirectory(workoutsDirPath)) {
+            return new ArrayList<>();
+        }
+
+        try (Stream<Path> paths = Files.list(workoutsDirPath)) {
+            List<WorkoutFileInfo> fileInfos = paths
+                    .filter(Files::isRegularFile)
+                    .map(Path::getFileName)
+                    .map(Path::toString)
+                    .filter(name -> name.toLowerCase().endsWith(currentExtension.getExtension()))
+                    .map(filename -> {
+                        Matcher matcher = DATE_PATTERN.matcher(filename);
+                        LocalDate date = null;
+                        if (matcher.find()) {
+                            try {
+                                date = LocalDate.parse(matcher.group(1), DATE_FORMATTER);
+                            } catch (DateTimeParseException e) { /* Ігноруємо помилку парсингу дати */ }
+                        }
+                        return new WorkoutFileInfo(filename, date);
+                    })
+                    .collect(Collectors.toList());
+
+            fileInfos.sort(Comparator.comparing(WorkoutFileInfo::getDate).reversed());
+
+            return fileInfos.stream()
+                    .map(WorkoutFileInfo::getFilename)
+                    .collect(Collectors.toList());
+
+        } catch (IOException e) {
+            System.err.println("Error reading directory '" + workoutsDirPath + "': " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
 }
