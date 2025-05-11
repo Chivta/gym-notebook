@@ -3,6 +3,8 @@ package GymNotebook.presenter;
 import GymNotebook.model.*;
 import GymNotebook.view.UIManager;
 import GymNotebook.view.windows.*;
+import GymNotebook.presenter.WorkoutFileHandler;
+import GymNotebook.presenter.WorkoutFileHandler.Extension;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,14 +17,16 @@ public class Presenter {
     private final UIManager ui;
     private final WorkoutService workoutService;
     private final ExerciseService exerciseService;
-    private final UnitManger unitManger;
     private final SetService setService;
+    private final UnitManger unitManger;
+    private final WorkoutFileHandler workoutFileHandler;
 
     public Presenter(UIManager uiManager) {
         ui = uiManager;
         workoutService = new WorkoutService();
         exerciseService = new ExerciseService();
         setService = new SetService();
+        workoutFileHandler = new WorkoutFileHandler();
         unitManger = new UnitManger();
         unitManger.Subscribe(workoutService);
     }
@@ -89,48 +93,22 @@ public class Presenter {
             return;
         }
 
-        String title = currentWorkout.getTitle();
-        String sanitizedTitle = (title == null || title.trim().isEmpty())
-                ? "UntitledWorkout"
-                : title.trim().replaceAll("\\s+", "_").replaceAll("[^a-zA-Z0-9\\-_]", "");
-        if (sanitizedTitle.length() > 20) {
-            sanitizedTitle = sanitizedTitle.substring(0, 20);
-        }
-        if (sanitizedTitle.isEmpty()) {
-            sanitizedTitle = "Workout";
-        }
+        // Отримуємо бажане розширення (можливо, з налаштувань UI або іншого місця)
+        // Для прикладу припустимо, що за замовчуванням використовується JSON
+        Extension saveExtension = Extension.JSON;
+        // Якщо користувач обрав інший формат, встановлюємо його
+        // workoutFileHandler.setExtension(Extension.XML);
 
+        String savedFilename = workoutFileHandler.saveWorkout(currentWorkout);
 
-
-        LocalDate today = LocalDate.now();
-        String dateString = today.format(DateTimeFormatter.ISO_LOCAL_DATE);
-
-
-        String baseFilename = dateString + "_" + sanitizedTitle;
-        String filename = baseFilename + ".json";
-        Path workoutDirPath = Paths.get("Workouts");
-
-        int counter = 0;
-        while (Files.exists(workoutDirPath.resolve(filename))) {
-            counter++;
-            filename = baseFilename + "(" + counter + ").json";
-        }
-
-        try {
-            FileManager.saveWorkout(currentWorkout, filename);
-            System.out.println("Workout saved successfully as: " + filename);
-
-            currentWorkout = null;
-
+        if (savedFilename != null) {
+            System.out.println("Workout saved successfully as: " + savedFilename);
             ui.ChangeWindow(new MainMenuWindow());
             ui.ClearHistory();
-
-        } catch (IOException e) {
-            System.err.println("Failed to save workout file '" + filename + "': " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred during saving workout '" + filename + "': " + e.getMessage());
+        } else {
+            System.err.println("Failed to save the workout.");
+            // Можна додати додаткову обробку помилок для UI
         }
-
     }
 
     public void OpenWorkoutView(String filename){
