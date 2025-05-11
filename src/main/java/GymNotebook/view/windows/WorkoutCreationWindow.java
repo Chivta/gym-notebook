@@ -1,10 +1,9 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.WorkoutService;
-import GymNotebook.presenter.commands.ChangeUnitsForCurrentWorkout;
-import GymNotebook.presenter.commands.Command;
-import GymNotebook.presenter.commands.OpenNewExercise;
-import GymNotebook.presenter.commands.SaveCurrentWorkout;
+import GymNotebook.presenter.WorkoutFileHandler;
+import GymNotebook.presenter.WorkoutFileHandler.Extension;
+import GymNotebook.presenter.commands.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,20 +50,26 @@ public class WorkoutCreationWindow extends Window{
         }
     }
 
-    public WorkoutCreationWindow(WorkoutService workoutService) {
+    private WorkoutFileHandler workoutFileHandler;
+
+    public WorkoutCreationWindow(WorkoutService workoutService, WorkoutFileHandler workoutFileHandler) {
         header = "New Workout Creation";
 
         state = new TitleInput();
-
+        this.workoutFileHandler = workoutFileHandler;
         this.workoutService = workoutService;
-
+    }
+    private void BuildOptions(){
+        options.clear();
         options.add("Add Exercise");
         options.add("Save Workout");
-        options.add("Change units");
+        options.add(String.format("Change units (current: %s)",workoutService.getUnits()));
+        options.add(String.format("Switch saving format (current: %s)",workoutFileHandler.GetCurrentExtension()));
     }
 
     @Override
     public void SendBody(){
+        BuildOptions();
         state.Render();
     }
 
@@ -89,6 +94,9 @@ public class WorkoutCreationWindow extends Window{
                 break;
             case 3:
                 commands.add(new ChangeUnitsForCurrentWorkout());
+                break;
+            case 4:
+                commands.add(new SwitchSavingFormat());
                 break;
         }
         return commands;

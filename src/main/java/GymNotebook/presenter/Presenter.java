@@ -3,15 +3,7 @@ package GymNotebook.presenter;
 import GymNotebook.model.*;
 import GymNotebook.view.UIManager;
 import GymNotebook.view.windows.*;
-import GymNotebook.presenter.WorkoutFileHandler;
 import GymNotebook.presenter.WorkoutFileHandler.Extension;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.IOException;
 
 public class Presenter {
     private final UIManager ui;
@@ -20,6 +12,7 @@ public class Presenter {
     private final SetService setService;
     private final UnitManger unitManger;
     private final WorkoutFileHandler workoutFileHandler;
+    private Extension SavingExtension;
 
     public Presenter(UIManager uiManager) {
         ui = uiManager;
@@ -29,6 +22,8 @@ public class Presenter {
         workoutFileHandler = new WorkoutFileHandler();
         unitManger = new UnitManger();
         unitManger.Subscribe(workoutService);
+        SavingExtension = workoutFileHandler.GetCurrentExtension();
+
     }
 
     public void OpenWorkoutListView(){
@@ -48,7 +43,7 @@ public class Presenter {
         unitManger.setUnits(UnitManger.WeightUnits.kg);
         workoutService.StartNewWorkout(unitManger.getUnits());
 
-        ui.ChangeWindow(new WorkoutCreationWindow(workoutService));
+        ui.ChangeWindow(new WorkoutCreationWindow(workoutService, workoutFileHandler));
     }
 
     public void OpenNewExercise(){
@@ -84,6 +79,11 @@ public class Presenter {
 
     public void AddExerciseToCurrentWorkout(Exercise exercise){
         workoutService.AddExercise(exercise);
+    }
+
+    public void SwitchSavingFormat(){
+        workoutFileHandler.SwitchExtension();
+        SavingExtension = workoutFileHandler.GetCurrentExtension();
     }
 
     public void saveCurrentWorkout() {

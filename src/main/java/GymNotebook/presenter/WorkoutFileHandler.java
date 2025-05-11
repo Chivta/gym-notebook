@@ -56,15 +56,20 @@ public class WorkoutFileHandler {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
 
+    public Extension GetCurrentExtension(){
+        return currentExtension;
+    }
+
     public WorkoutFileHandler() {
         setStorageStrategy(currentExtension);
     }
 
-    public void setExtension(Extension extension) {
-        if (this.currentExtension != extension) {
-            this.currentExtension = extension;
-            setStorageStrategy(extension);
+    public void SwitchExtension() {
+        switch(currentExtension){
+            case XML -> currentExtension = Extension.JSON;
+            case JSON -> currentExtension = Extension.XML;
         }
+        setStorageStrategy(currentExtension);
     }
 
     private void setStorageStrategy(Extension extension) {
@@ -102,9 +107,22 @@ public class WorkoutFileHandler {
             System.err.println("Error: Could not determine file extension for loading: " + filename);
             return null;
         }
-        setStorageStrategy(extension); // Встановлюємо стратегію на основі розширення файлу
+
+        WorkoutStorageStrategy loadingStrategy; // Локальна стратегія для завантаження
+        switch (extension) {
+            case JSON:
+                loadingStrategy = new JsonWorkoutStorage();
+                break;
+            case XML:
+                loadingStrategy = new XmlWorkoutStorage();
+                break;
+            default:
+                System.err.println("Unsupported file extension for loading: " + extension);
+                return null;
+        }
+
         try {
-            return storageStrategy.loadWorkout(filename);
+            return loadingStrategy.loadWorkout(filename); // Використовуємо локальну стратегію
         } catch (IOException e) {
             System.err.println("Failed to load workout file '" + filename + "': " + e.getMessage());
             return null;
@@ -156,7 +174,6 @@ public class WorkoutFileHandler {
                     .filter(Files::isRegularFile)
                     .map(Path::getFileName)
                     .map(Path::toString)
-                    .filter(name -> name.toLowerCase().endsWith(currentExtension.getExtension()))
                     .map(filename -> {
                         Matcher matcher = DATE_PATTERN.matcher(filename);
                         LocalDate date = null;
