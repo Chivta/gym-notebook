@@ -1,11 +1,8 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.ParameterDescriptor;
+import GymNotebook.presenter.commands.*;
 import GymNotebook.service.SetService;
-import GymNotebook.presenter.commands.AddSetToCurrentExercise;
-import GymNotebook.presenter.commands.Command;
-import GymNotebook.presenter.commands.GoBack;
-import GymNotebook.presenter.commands.SetParameter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +59,7 @@ public class SetCreationWindow extends Window{
                 index++;
 
                 if(index == parameters.size()){
-                    commands.add(new AddSetToCurrentExercise());
+                    commands.add(new AddItemToCurrentComposite());
                     commands.add(new GoBack());
                 }
 

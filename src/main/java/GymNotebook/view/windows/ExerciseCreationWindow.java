@@ -95,7 +95,7 @@ public class ExerciseCreationWindow extends Window{
                     commands.add(new OpenNewSet());
                     break;
                 case 2:
-                    commands.add(new AddExercise());
+                    commands.add(new AddItemToCurrentComposite());
                     commands.add(new GoBack());
                     break;
             }

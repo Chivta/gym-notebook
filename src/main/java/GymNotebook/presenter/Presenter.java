@@ -87,14 +87,6 @@ public class Presenter {
         serviceStack.peek().addItem(currentService.Build());
     }
 
-    public void AddSetToCurrentExercise(){
-        AddItemToCurrentComposite();
-    }
-
-    public void AddExerciseToCurrentWorkout(){
-        AddItemToCurrentComposite();
-    }
-
     public void SwitchSavingFormat(){
         workoutFileHandler.SwitchExtension();
     }
