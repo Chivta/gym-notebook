@@ -1,7 +1,5 @@
 package GymNotebook.presenter.commands;
 
-import GymNotebook.model.Exercise;
-import GymNotebook.model.ExerciseService;
 import GymNotebook.presenter.Presenter;
 
 public class AddExercise implements Command{

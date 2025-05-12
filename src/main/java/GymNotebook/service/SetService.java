@@ -1,5 +1,8 @@
-package GymNotebook.model;
+package GymNotebook.service;
 
+import GymNotebook.model.ExerciseType;
+import GymNotebook.model.ParameterDescriptor;
+import GymNotebook.model.Set;
 import GymNotebook.presenter.UnitManger;
 import GymNotebook.presenter.UnitManger.WeightUnits;
 
@@ -16,7 +19,7 @@ public class SetService implements Service{
         set = new Set();
         set.setType(type);
         this.type = type;
-        set.units = units;
+        set.setUnits(units);
     }
 
     public List<ParameterDescriptor> GetParameters(){
@@ -24,7 +27,7 @@ public class SetService implements Service{
         parametersList.add(
                 new ParameterDescriptor(
                         "weight",
-                        "Input weight in "+set.units,
+                        "Input weight in "+ set.getUnits(),
                         ParameterDescriptor.InputType.DOUBLE,
                         true));
         if(type == ExerciseType.Rep){

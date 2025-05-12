@@ -1,4 +1,8 @@
-package GymNotebook.model;
+package GymNotebook.service;
+
+import GymNotebook.model.Exercise;
+import GymNotebook.model.SuperSet;
+import GymNotebook.model.WorkoutItem;
 
 import java.util.ArrayList;
 import java.util.List;

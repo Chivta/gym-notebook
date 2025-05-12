@@ -1,9 +1,9 @@
 package GymNotebook.presenter;
 
 import GymNotebook.model.*;
+import GymNotebook.service.*;
 import GymNotebook.view.UIManager;
 import GymNotebook.view.windows.*;
-import GymNotebook.presenter.WorkoutFileHandler.Extension;
 
 import java.util.Stack;
 

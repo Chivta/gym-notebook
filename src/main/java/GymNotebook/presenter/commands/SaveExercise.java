@@ -1,6 +1,6 @@
 package GymNotebook.presenter.commands;
 
-import GymNotebook.model.ExerciseService;
+import GymNotebook.service.ExerciseService;
 import GymNotebook.presenter.Presenter;
 
 public class SaveExercise implements Command{

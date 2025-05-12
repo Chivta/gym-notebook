@@ -1,6 +1,6 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.model.SuperSetService;
+import GymNotebook.service.SuperSetService;
 import GymNotebook.presenter.commands.*;
 
 import java.util.ArrayList;

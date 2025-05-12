@@ -1,6 +1,6 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.model.ExerciseService;
+import GymNotebook.service.ExerciseService;
 import GymNotebook.model.ExerciseType;
 import GymNotebook.presenter.commands.*;
 

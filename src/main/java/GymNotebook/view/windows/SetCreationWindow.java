@@ -1,14 +1,12 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.ParameterDescriptor;
-import GymNotebook.model.SetService;
-import GymNotebook.presenter.UnitManger;
+import GymNotebook.service.SetService;
 import GymNotebook.presenter.commands.AddSetToCurrentExercise;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.commands.GoBack;
 import GymNotebook.presenter.commands.SetParameter;
 
-import static GymNotebook.model.ParameterDescriptor.InputType.*;
 import java.util.ArrayList;
 import java.util.List;
 

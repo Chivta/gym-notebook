@@ -1,6 +1,6 @@
-package GymNotebook.model;
+package GymNotebook.service;
 
-import GymNotebook.presenter.UnitManger;
+import GymNotebook.model.*;
 import GymNotebook.presenter.UnitManger.WeightUnits;
 import lombok.Getter;
 
@@ -14,7 +14,7 @@ public class WorkoutService implements UnitChangeListener, Service{
 
     public WorkoutService(WeightUnits units){
         workout = new Workout();
-        workout.units = units;
+        workout.setUnits(units);
         this.units = units;
     }
 
@@ -61,13 +61,13 @@ public class WorkoutService implements UnitChangeListener, Service{
     }
 
     public void Notify() {
-        switch (workout.units) {
+        switch (workout.getUnits()) {
             case kg -> {
-                workout.units = WeightUnits.lbs;
+                workout.setUnits(WeightUnits.lbs);
                 units = WeightUnits.lbs;
             }
             case lbs -> {
-                workout.units = WeightUnits.kg;
+                workout.setUnits(WeightUnits.kg);
                 units = WeightUnits.kg;
             }
 

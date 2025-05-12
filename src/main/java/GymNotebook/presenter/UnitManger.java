@@ -1,6 +1,6 @@
 package GymNotebook.presenter;
 
-import GymNotebook.model.UnitChangeListener;
+import GymNotebook.service.UnitChangeListener;
 import lombok.Getter;
 import lombok.Setter;
 
