@@ -2,15 +2,15 @@ package GymNotebook.model;
 
 import java.util.List;
 
-public class ExerciseService {
+public class ExerciseService implements Service {
     private Exercise exercise;
     private String title;
-    private List<Set> sets;
+    private List<WorkoutItem> items;
 
-    public void StartNewExercise(){
+    public ExerciseService(){
         exercise = new Exercise();
         this.title = exercise.getTitle();
-        this.sets = exercise.getSets();
+        this.items = exercise.getItems();
     }
 
     public void SetTitle(String title){
@@ -25,28 +25,28 @@ public class ExerciseService {
         return exercise.getType();
     }
 
-    public void AddSet(Set set){
-        sets.add(set);
+    public void addItem(WorkoutItem item){
+        items.add(item);
     }
 
-    public static String ExerciseToString(Exercise ex){
+    public static String ObjectToString(Exercise ex){
         StringBuilder toReturn = new StringBuilder();
         toReturn.append(ex.getTitle() != null ? ex.getTitle() : "Untitled Exercise");
-        if (ex.getSets() != null && !ex.getSets().isEmpty()) {
-            for (Set set : ex.getSets()) {
-                if (set != null) {
-                    toReturn.append(String.format("%n - %s", SetService.SetToString(set)));
+        if (ex.getItems() != null && !ex.getItems().isEmpty()) {
+            for (WorkoutItem item : ex.getItems()) {
+                if (item != null) {
+                    toReturn.append(String.format("%n - %s", SetService.ObjectToString((Set) item)));
                 }
             }
         }
         return toReturn.toString();
     }
 
-    public String ExerciseToString() {
-        return ExerciseToString(exercise);
+    public String ObjectToString() {
+        return ObjectToString(exercise);
     }
 
-    public Exercise BuildExercise(){
+    public Exercise Build(){
         return exercise;
     }
 

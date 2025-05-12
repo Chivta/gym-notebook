@@ -55,12 +55,21 @@ public class WorkoutFileHandler {
     private static final Pattern DATE_PATTERN = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
+    private void createWorkoutDirectoryIfNotExists() {
+        try {
+            Files.createDirectories(Paths.get(WORKOUTS_DIR_NAME));
+        } catch (IOException e) {
+            System.err.println("Failed to create directory '" + WORKOUTS_DIR_NAME + "': " + e.getMessage());
+        }
+    }
+
 
     public Extension GetCurrentExtension(){
         return currentExtension;
     }
 
     public WorkoutFileHandler() {
+        createWorkoutDirectoryIfNotExists();
         setStorageStrategy(currentExtension);
     }
 
@@ -93,6 +102,7 @@ public class WorkoutFileHandler {
 
         String filename = generateUniqueFilename(workout.getTitle(), currentExtension.getExtension());
         try {
+            
             storageStrategy.saveWorkout(workout, filename);
             return filename;
         } catch (IOException e) {

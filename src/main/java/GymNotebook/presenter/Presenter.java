@@ -5,24 +5,22 @@ import GymNotebook.view.UIManager;
 import GymNotebook.view.windows.*;
 import GymNotebook.presenter.WorkoutFileHandler.Extension;
 
+import java.util.Stack;
+
 public class Presenter {
     private final UIManager ui;
-    private final WorkoutService workoutService;
-    private final ExerciseService exerciseService;
-    private final SetService setService;
     private final UnitManger unitManger;
     private final WorkoutFileHandler workoutFileHandler;
-    private Extension SavingExtension;
+    private Stack<Service> serviceStack;
 
     public Presenter(UIManager uiManager) {
         ui = uiManager;
-        workoutService = new WorkoutService();
-        exerciseService = new ExerciseService();
-        setService = new SetService();
-        workoutFileHandler = new WorkoutFileHandler();
+        serviceStack = new Stack<>();
+
         unitManger = new UnitManger();
+        WorkoutService workoutService = new WorkoutService(unitManger.getUnits());
         unitManger.Subscribe(workoutService);
-        SavingExtension = workoutFileHandler.GetCurrentExtension();
+        workoutFileHandler = new WorkoutFileHandler();
 
     }
 
@@ -41,13 +39,14 @@ public class Presenter {
 
     public void OpenNewWorkoutCreation(){
         unitManger.setUnits(UnitManger.WeightUnits.kg);
-        workoutService.StartNewWorkout(unitManger.getUnits());
-
+        WorkoutService workoutService = new WorkoutService(unitManger.getUnits());
+        serviceStack.add(workoutService);
         ui.ChangeWindow(new WorkoutCreationWindow(workoutService, workoutFileHandler));
     }
 
     public void OpenNewExercise(){
-        exerciseService.StartNewExercise();
+        ExerciseService exerciseService = new ExerciseService();
+        serviceStack.add(exerciseService);
         ui.ChangeWindow(new ExerciseCreationWindow(exerciseService));
     }
 
@@ -55,39 +54,54 @@ public class Presenter {
         //
     }
 
+    public void OpenNewSuperSet(){
+        ui.ChangeWindow(new SuperSetCreationWindow());
+    }
+
     public void ChangeUnitsForCurrentWorkout(){
         unitManger.ChangeUnits();
     }
 
     public void OpenNewSet(){
-        setService.StartNewSet(exerciseService.GetType(),unitManger.getUnits());
+        ExerciseService exerciseService = (ExerciseService) serviceStack.peek();
+        SetService setService = new SetService(exerciseService.GetType(),unitManger.getUnits());
+        serviceStack.add(setService);
 
         ui.ChangeWindow(new SetCreationWindow(setService));
     }
 
     public void SetTypeForExercise(ExerciseType type){
-        exerciseService.SetType(type);
+        ((ExerciseService)serviceStack.peek()).SetType(type);
     }
 
     public void SetParameter(String key, Object value){
+        SetService setService = (SetService) serviceStack.peek();
         setService.SetParameter(key,value);
     }
 
-    public void AddSetToCurrentExercise(){
-        exerciseService.AddSet(setService.BuildSet());
+    public void AddItemToCurrentComposite(){
+        Service currentService = serviceStack.pop();
+        serviceStack.peek().addItem(currentService.Build());
     }
 
-    public void AddExerciseToCurrentWorkout(Exercise exercise){
-        workoutService.AddExercise(exercise);
+    public void AddSetToCurrentExercise(){
+        AddItemToCurrentComposite();
+    }
+
+    public void AddExerciseToCurrentWorkout(){
+        AddItemToCurrentComposite();
     }
 
     public void SwitchSavingFormat(){
         workoutFileHandler.SwitchExtension();
-        SavingExtension = workoutFileHandler.GetCurrentExtension();
     }
 
     public void saveCurrentWorkout() {
-        Workout currentWorkout = workoutService.BuildWorkout();
+        if(!(serviceStack.peek() instanceof WorkoutService)){
+            return;
+        }
+        WorkoutService service = (WorkoutService) serviceStack.pop();
+        Workout currentWorkout = (Workout) service.Build();
         if (currentWorkout == null) {
             System.err.println("Err: No current workout to save.");
             return;

@@ -18,7 +18,7 @@ public class WorkoutViewWindow extends Window{
 
     @Override
     public void SendBody(){
-        System.out.println(WorkoutService.WorkoutToString(workout));
+        System.out.println(WorkoutService.ObjectToString(workout));
     }
 
     @Override

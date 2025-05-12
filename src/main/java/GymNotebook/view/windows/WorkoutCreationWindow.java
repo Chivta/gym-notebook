@@ -2,7 +2,6 @@ package GymNotebook.view.windows;
 
 import GymNotebook.model.WorkoutService;
 import GymNotebook.presenter.WorkoutFileHandler;
-import GymNotebook.presenter.WorkoutFileHandler.Extension;
 import GymNotebook.presenter.commands.*;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class WorkoutCreationWindow extends Window{
             return TryHandleOptionIndex(input, options);
         }
         private void SendWorkoutOverview(){
-            System.out.println(workoutService.WorkoutToString());
+            System.out.println(workoutService.ObjectToString());
         }
     }
 
@@ -62,6 +61,7 @@ public class WorkoutCreationWindow extends Window{
     private void BuildOptions(){
         options.clear();
         options.add("Add Exercise");
+        options.add("Add SuperSet Exercise");
         options.add("Save Workout");
         options.add(String.format("Change units (current: %s)",workoutService.getUnits()));
         options.add(String.format("Switch saving format (current: %s)",workoutFileHandler.GetCurrentExtension()));
@@ -90,12 +90,15 @@ public class WorkoutCreationWindow extends Window{
                 commands.add(new OpenNewExercise());
                 break;
             case 2:
-                commands.add(new SaveCurrentWorkout());
+                commands.add(new OpenNewSuperSet());
                 break;
             case 3:
-                commands.add(new ChangeUnitsForCurrentWorkout());
+                commands.add(new SaveCurrentWorkout());
                 break;
             case 4:
+                commands.add(new ChangeUnitsForCurrentWorkout());
+                break;
+            case 5:
                 commands.add(new SwitchSavingFormat());
                 break;
         }

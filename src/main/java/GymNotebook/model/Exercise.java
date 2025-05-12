@@ -1,6 +1,7 @@
 package GymNotebook.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,23 +11,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Exercise {
+public class Exercise implements WorkoutItem {
     private String title;
-    private ArrayList<Set> sets;
+    private List<WorkoutItem> items;
     private ExerciseType type;
 
     public Exercise() {
-        sets = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Exercise exercise) {
             if (title == null || !title.equals(exercise.getTitle())) return false;
-            if (sets.size() != exercise.getSets().size()) return false;
+            if (items.size() != exercise.getItems().size()) return false;
 
-            for (int i = 0; i < sets.size(); i++) {
-                if (!sets.get(i).equals(exercise.getSets().get(i))) {
+            for (int i = 0; i < items.size(); i++) {
+                if (!items.get(i).equals(exercise.getItems().get(i))) {
                     return false;
                 }
             }
@@ -39,6 +40,6 @@ public class Exercise {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, sets);
+        return Objects.hash(title, items);
     }
 }

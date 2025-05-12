@@ -15,23 +15,23 @@ import java.util.Objects;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"title", "exercises", "units"})
-public class Workout {
+public class Workout implements WorkoutItem{
     private String title;
-    private ArrayList<Exercise> exercises;
+    private ArrayList<WorkoutItem> items;
     protected WeightUnits units;
 
     public Workout(){
-        exercises = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     @Override
     public boolean equals(Object obj){
         if(obj instanceof Workout workout){
             if (!title.equals(workout.getTitle())) return false;
-            if (exercises.size()!=workout.getExercises().size()) return false;
+            if (items.size()!=workout.getItems().size()) return false;
 
-            for(int i = 0; i < exercises.size(); i++){
-                if(!exercises.get(i).equals(workout.getExercises().get(i))){
+            for(int i = 0; i < items.size(); i++){
+                if(!items.get(i).equals(workout.getItems().get(i))){
                     return false;
                 }
             }
@@ -44,6 +44,6 @@ public class Workout {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, exercises);
+        return Objects.hash(title, items);
     }
 }

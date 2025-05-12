@@ -6,16 +6,13 @@ import GymNotebook.presenter.UnitManger.WeightUnits;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetService {
-    private Set set;
-    private List<ParameterDescriptor> parametersList;
-    private ExerciseType type;
+public class SetService implements Service{
+    private final Set set;
+    private final List<ParameterDescriptor> parametersList;
+    private final ExerciseType type;
 
-    public SetService(){
+    public SetService(ExerciseType type, WeightUnits units){
         parametersList = new ArrayList<>();
-    }
-
-    public void StartNewSet(ExerciseType type, WeightUnits units){
         set = new Set();
         set.setType(type);
         this.type = type;
@@ -81,11 +78,15 @@ public class SetService {
         }
     }
 
-    public Set BuildSet(){
+    public Set Build(){
         return set;
     }
 
-    public static String SetToString(Set set){
+    public String ObjectToString(){
+        return ObjectToString(set);
+    }
+
+    public static String ObjectToString(Set set){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(set.getWeight()).append(" ");
         stringBuilder.append(set.getUnits()).append(" ");

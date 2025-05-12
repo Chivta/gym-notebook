@@ -1,6 +1,5 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.model.Exercise;
 import GymNotebook.model.ExerciseService;
 import GymNotebook.model.ExerciseType;
 import GymNotebook.presenter.commands.*;
@@ -96,10 +95,7 @@ public class ExerciseCreationWindow extends Window{
                     commands.add(new OpenNewSet());
                     break;
                 case 2:
-                    AddExerciseToCurrentWorkout AddExerciseCommand = new AddExerciseToCurrentWorkout();
-                    AddExerciseCommand.SetExerciseService(exerciseService);
-                    commands.add(AddExerciseCommand);
-
+                    commands.add(new AddExercise());
                     commands.add(new GoBack());
                     break;
             }
@@ -121,7 +117,7 @@ public class ExerciseCreationWindow extends Window{
     }
 
     private void SendExerciseOverview(){
-        System.out.println(exerciseService.ExerciseToString());
+        System.out.println(exerciseService.ObjectToString());
     }
 
     @Override
