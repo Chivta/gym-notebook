@@ -4,17 +4,14 @@ import java.util.List;
 
 public class ExerciseService implements Service {
     private Exercise exercise;
-    private String title;
     private List<WorkoutItem> items;
 
     public ExerciseService(){
         exercise = new Exercise();
-        this.title = exercise.getTitle();
         this.items = exercise.getItems();
     }
 
     public void SetTitle(String title){
-        this.title = title;
         exercise.setTitle(title);
     }
 

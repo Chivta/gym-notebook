@@ -35,6 +35,7 @@ public class UnitManger {
 
     public UnitManger(){
         unitChangeListeners = new ArrayList<>();
+        units = WeightUnits.kg;
     }
 
     public void ChangeUnits(){

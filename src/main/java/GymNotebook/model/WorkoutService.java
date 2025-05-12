@@ -9,37 +9,48 @@ import java.util.List;
 
 public class WorkoutService implements UnitChangeListener, Service{
     private Workout workout;
-    private String title;
-    private List<WorkoutItem> items;
     @Getter
     private WeightUnits units;
 
     public WorkoutService(WeightUnits units){
         workout = new Workout();
-        items = workout.getItems();
-        title = workout.getTitle();
         workout.units = units;
         this.units = units;
     }
 
     public void SetTitle(String title){
-        this.title = title;
         workout.setTitle(title);
     }
 
     public void addItem(WorkoutItem exercise){
-        items.add(exercise);
+        workout.getItems().add(exercise);
     }
-    public static String ObjectToString(Workout workout){
-        StringBuilder toReturn = new StringBuilder();
 
-        toReturn.append(workout.getTitle());
+    private static String CollectNestedObjects(WorkoutItem item){
+        String toReturn = "";
 
-        for(WorkoutItem item : workout.getItems()){
-            toReturn.append(String.format("%n - %s", (ExerciseService.ObjectToString((Exercise) item)).replace("-","--")));
+        try{
+            toReturn = item.getTitle() + "\n";
+            List<WorkoutItem> items = item.getItems();
+            if(!items.isEmpty()){
+                List<String> collectedItems = new ArrayList<>();
+                for(WorkoutItem nestedItem : items){
+                    collectedItems.add(CollectNestedObjects(nestedItem));
+                }
+                toReturn+=String.join("\n",collectedItems);
+                toReturn = toReturn.replace("\n","\n-");
+            }
+
+        }catch (UnsupportedOperationException e){
+            toReturn += SetService.ObjectToString((Set) item);
         }
 
-        return toReturn.toString();
+        return toReturn;
+
+    }
+
+    public static String ObjectToString(Workout workout){
+        return CollectNestedObjects(workout);
     }
     public String ObjectToString(){
         return ObjectToString(workout);
@@ -59,25 +70,24 @@ public class WorkoutService implements UnitChangeListener, Service{
                 workout.units = WeightUnits.kg;
                 units = WeightUnits.kg;
             }
+
         }
+        SwitchUnits();
 
-        for (WorkoutItem item : items) {
-            if (item instanceof Exercise exercise) {
-                for (WorkoutItem set : exercise.getItems()) {
-                    double weight = ((Set) set).getWeight();
-                    ((Set) set).setWeight(units == WeightUnits.kg ? weight * 0.453592 : weight * 2.20462);
-
-                }
-            } else if (item instanceof SuperSet superset) {
-                for (WorkoutItem exercise : superset.getItems()) {
-                    for (WorkoutItem set : exercise.getItems()) {
-                        double weight = ((Set) set).getWeight();
-                        ((Set) set).setWeight(units == WeightUnits.kg ? weight * 0.453592 : weight * 2.20462);
-                    }
-                }
-            }
-        }
-
-
+    }
+    private void SwitchUnits(){
+       for(WorkoutItem nestedItem : workout.getItems()){
+           if(nestedItem instanceof Exercise){
+               for(WorkoutItem set : nestedItem.getItems()){
+                   set.SwitchUnits();
+               }
+           }else if(nestedItem instanceof SuperSet){
+               for(WorkoutItem ex : nestedItem.getItems()){
+                   for(WorkoutItem set : ex.getItems()){
+                       set.SwitchUnits();
+                   }
+               }
+           }
+       }
     }
 }

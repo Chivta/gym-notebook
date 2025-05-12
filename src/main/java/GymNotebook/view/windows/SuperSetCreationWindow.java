@@ -1,26 +1,59 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.presenter.commands.Command;
+import GymNotebook.model.SuperSetService;
+import GymNotebook.presenter.commands.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SuperSetCreationWindow extends Window{
+    private final SuperSetService sup;
+    private WindowState state;
 
-    public SuperSetCreationWindow(){
+    public SuperSetCreationWindow(SuperSetService superSetService){
         header = "SuperSet Creation";
-
-
+        sup = superSetService;
+        state = new OptionSelection();
+        options.add("Add Exercise");
+        options.add("Save SuperSet");
     }
 
-    @Override
-    protected void SendBody() {
-        System.out.println("SuperSetCreationWindow");
+
+    private class OptionSelection extends OptionHandler implements WindowState {
+        protected List<Command> HandleOptionIndex(int index) {
+            List<Command> commands = new ArrayList<>();
+
+            switch (index) {
+                case 1:
+                    commands.add(new OpenNewExercise());
+                    break;
+                case 2:
+                    commands.add(new AddExercise());
+                    commands.add(new GoBack());
+                    break;
+            }
+            return commands;
+        }
+        public List<Command> HandleInput(String input) throws WindowException{
+            return TryHandleOptionIndex(input,options);
+        }
+        public void Render(){
+            SendSuperSetOverview();
+            SendOptions();
+        }
     }
-    protected List<Command> HandleInput(String input){
+
+    private void SendSuperSetOverview(){
+        System.out.println(sup.ObjectToString());
+    }
+
+    public void SendBody() {
+        state.Render();
+    }
+    public List<Command> HandleInput(String input) throws WindowException{
         List<Command> commands = new ArrayList<>();
 
-
+        commands.addAll(state.HandleInput(input));
 
         return commands;
     }

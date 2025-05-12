@@ -18,8 +18,6 @@ public class Presenter {
         serviceStack = new Stack<>();
 
         unitManger = new UnitManger();
-        WorkoutService workoutService = new WorkoutService(unitManger.getUnits());
-        unitManger.Subscribe(workoutService);
         workoutFileHandler = new WorkoutFileHandler();
 
     }
@@ -40,6 +38,8 @@ public class Presenter {
     public void OpenNewWorkoutCreation(){
         unitManger.setUnits(UnitManger.WeightUnits.kg);
         WorkoutService workoutService = new WorkoutService(unitManger.getUnits());
+        unitManger.Subscribe(workoutService);
+
         serviceStack.add(workoutService);
         ui.ChangeWindow(new WorkoutCreationWindow(workoutService, workoutFileHandler));
     }
@@ -55,7 +55,9 @@ public class Presenter {
     }
 
     public void OpenNewSuperSet(){
-        ui.ChangeWindow(new SuperSetCreationWindow());
+        SuperSetService sup = new SuperSetService();
+        serviceStack.add(sup);
+        ui.ChangeWindow(new SuperSetCreationWindow(sup));
     }
 
     public void ChangeUnitsForCurrentWorkout(){
@@ -107,12 +109,6 @@ public class Presenter {
             return;
         }
 
-        // Отримуємо бажане розширення (можливо, з налаштувань UI або іншого місця)
-        // Для прикладу припустимо, що за замовчуванням використовується JSON
-        Extension saveExtension = Extension.JSON;
-        // Якщо користувач обрав інший формат, встановлюємо його
-        // workoutFileHandler.setExtension(Extension.XML);
-
         String savedFilename = workoutFileHandler.saveWorkout(currentWorkout);
 
         if (savedFilename != null) {
@@ -121,7 +117,6 @@ public class Presenter {
             ui.ClearHistory();
         } else {
             System.err.println("Failed to save the workout.");
-            // Можна додати додаткову обробку помилок для UI
         }
     }
 

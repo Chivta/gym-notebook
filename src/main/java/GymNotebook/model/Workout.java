@@ -22,6 +22,7 @@ public class Workout implements WorkoutItem{
 
     public Workout(){
         items = new ArrayList<>();
+        units = WeightUnits.kg;
     }
 
     @Override
