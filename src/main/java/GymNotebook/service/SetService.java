@@ -45,6 +45,12 @@ public class SetService implements Service{
                             ParameterDescriptor.InputType.INTEGER,
                             false));
         }
+        parametersList.add(
+                new ParameterDescriptor(
+                        "note",
+                        "Enter a note for this set. (Optional)",
+                        ParameterDescriptor.InputType.STRING,
+                        true));
         return parametersList;
     }
 
@@ -75,7 +81,9 @@ public class SetService implements Service{
                     throw new IllegalArgumentException("Invalid value type for 'weight'. Expected Double.");
                 }
                 break;
-
+            case "note":
+                set.setNote((String) value);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown parameter: " + key);
         }

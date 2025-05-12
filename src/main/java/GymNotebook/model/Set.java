@@ -21,7 +21,7 @@ public class Set implements WorkoutItem {
     private ExerciseType type;
     private int repCount;
     private int time;
-
+    private String note;
     public void SwitchUnits(){
         switch (units){
             case kg:

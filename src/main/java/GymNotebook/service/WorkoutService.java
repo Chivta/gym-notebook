@@ -29,24 +29,29 @@ public class WorkoutService implements UnitChangeListener, Service{
     private static String CollectNestedObjects(WorkoutItem item){
         String toReturn = "";
 
-        try{
-            toReturn = item.getTitle() + "\n";
-            List<WorkoutItem> items = item.getItems();
-            if(!items.isEmpty()){
-                List<String> collectedItems = new ArrayList<>();
-                for(WorkoutItem nestedItem : items){
-                    collectedItems.add(CollectNestedObjects(nestedItem));
-                }
-                toReturn+=String.join("\n",collectedItems);
-                toReturn = toReturn.replace("\n","\n-");
-            }
 
-        }catch (UnsupportedOperationException e){
-            toReturn += SetService.ObjectToString((Set) item);
+        String title = item.getTitle();
+        if(title != null && !title.isEmpty()) {
+            toReturn = item.getTitle() + "\n";
+        }
+        String note = item.getNote();
+        if(note != null && !note.isEmpty()){
+            toReturn+=String.format("Note: %s\n",note);
+        }
+
+        List<WorkoutItem> items = item.getItems();
+        if(items!=null && !items.isEmpty()) {
+            List<String> collectedItems = new ArrayList<>();
+            for (WorkoutItem nestedItem : items) {
+                collectedItems.add(CollectNestedObjects(nestedItem));
+            }
+            toReturn += String.join("\n", collectedItems);
+            toReturn = toReturn.replace("\n", "\n ");
+        } else if(item instanceof Set set){
+            toReturn += SetService.ObjectToString(set);
         }
 
         return toReturn;
-
     }
 
     public static String ObjectToString(Workout workout){
@@ -70,7 +75,6 @@ public class WorkoutService implements UnitChangeListener, Service{
                 workout.setUnits(WeightUnits.kg);
                 units = WeightUnits.kg;
             }
-
         }
         SwitchUnits();
 

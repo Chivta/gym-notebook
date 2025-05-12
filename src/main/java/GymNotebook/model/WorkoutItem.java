@@ -8,9 +8,12 @@ import java.util.List;
 public interface WorkoutItem {
     default void SwitchUnits(){}
     default String getTitle(){
-        throw new UnsupportedOperationException("Not supported for this object.");
+        return null;
     }
     default List<WorkoutItem> getItems(){
-        throw new UnsupportedOperationException("Not supported for this object.");
+        return null;
+    }
+    default String getNote(){
+        return null;
     }
 }
