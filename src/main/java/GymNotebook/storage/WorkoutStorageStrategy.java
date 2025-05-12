@@ -1,4 +1,4 @@
-package GymNotebook.presenter;
+package GymNotebook.storage;
 
 import GymNotebook.model.Workout;
 import java.io.IOException;

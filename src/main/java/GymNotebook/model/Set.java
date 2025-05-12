@@ -1,7 +1,7 @@
 package GymNotebook.model;
 
-import GymNotebook.presenter.UnitManger;
-import GymNotebook.presenter.UnitManger.WeightUnits;
+import GymNotebook.presenter.UnitManager;
+import GymNotebook.presenter.UnitManager.WeightUnits;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,11 +25,11 @@ public class Set implements WorkoutItem {
     public void SwitchUnits(){
         switch (units){
             case kg:
-                weight = UnitManger.KGtoLBS(weight);
+                weight = UnitManager.KGtoLBS(weight);
                 units = WeightUnits.lbs;
                 break;
             case lbs:
-                weight = UnitManger.LBStoKG(weight);
+                weight = UnitManager.LBStoKG(weight);
                 units = WeightUnits.kg;
                 break;
         }

@@ -1,11 +1,9 @@
 package GymNotebook.model;
 
-import GymNotebook.presenter.UnitManger.WeightUnits;
+import GymNotebook.presenter.UnitManager.WeightUnits;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;

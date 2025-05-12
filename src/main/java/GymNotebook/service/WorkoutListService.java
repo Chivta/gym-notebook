@@ -1,4 +1,4 @@
-package GymNotebook.presenter;
+package GymNotebook.service;
 
 import lombok.Getter;
 

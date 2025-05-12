@@ -1,9 +1,6 @@
-package GymNotebook.presenter;
+package GymNotebook.storage;
 
 import GymNotebook.model.Workout;
-import GymNotebook.presenter.JsonWorkoutStorage;
-import GymNotebook.presenter.WorkoutStorageStrategy;
-import GymNotebook.presenter.XmlWorkoutStorage;
 import lombok.Getter;
 
 import java.io.IOException;

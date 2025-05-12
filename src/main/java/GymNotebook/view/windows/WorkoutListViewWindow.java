@@ -1,6 +1,6 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.presenter.WorkoutListService;
+import GymNotebook.service.WorkoutListService;
 import GymNotebook.presenter.commands.Command;
 import GymNotebook.presenter.commands.OpenWorkoutView;
 

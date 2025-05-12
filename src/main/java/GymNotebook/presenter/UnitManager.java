@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnitManger {
+public class UnitManager {
     private final List<UnitChangeListener> unitChangeListeners;
 
     @Getter
@@ -33,7 +33,7 @@ public class UnitManger {
         return (double)Math.round(value * multiplier) / multiplier ;
     }
 
-    public UnitManger(){
+    public UnitManager(){
         unitChangeListeners = new ArrayList<>();
         units = WeightUnits.kg;
     }

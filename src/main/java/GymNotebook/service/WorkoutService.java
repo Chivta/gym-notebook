@@ -1,7 +1,7 @@
 package GymNotebook.service;
 
 import GymNotebook.model.*;
-import GymNotebook.presenter.UnitManger.WeightUnits;
+import GymNotebook.presenter.UnitManager.WeightUnits;
 import lombok.Getter;
 
 import java.util.ArrayList;

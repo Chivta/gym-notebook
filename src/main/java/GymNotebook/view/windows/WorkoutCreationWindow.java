@@ -1,7 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.service.WorkoutService;
-import GymNotebook.presenter.WorkoutFileHandler;
+import GymNotebook.storage.WorkoutFileHandler;
 import GymNotebook.presenter.commands.*;
 
 import java.util.ArrayList;

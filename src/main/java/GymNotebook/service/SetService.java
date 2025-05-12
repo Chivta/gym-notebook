@@ -3,8 +3,8 @@ package GymNotebook.service;
 import GymNotebook.model.ExerciseType;
 import GymNotebook.model.ParameterDescriptor;
 import GymNotebook.model.Set;
-import GymNotebook.presenter.UnitManger;
-import GymNotebook.presenter.UnitManger.WeightUnits;
+import GymNotebook.presenter.UnitManager;
+import GymNotebook.presenter.UnitManager.WeightUnits;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class SetService implements Service{
         switch (key) {
             case "weight":
                 if (value instanceof Double) {
-                    set.setWeight((UnitManger.RoundToDecimalPlaces((Double) value,2)));
+                    set.setWeight((UnitManager.RoundToDecimalPlaces((Double) value,2)));
                 } else {
                     throw new IllegalArgumentException("Invalid value type for 'weight'. Expected Double.");
                 }

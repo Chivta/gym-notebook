@@ -2,6 +2,7 @@ package GymNotebook.presenter;
 
 import GymNotebook.model.*;
 import GymNotebook.service.*;
+import GymNotebook.storage.WorkoutFileHandler;
 import GymNotebook.view.UIManager;
 import GymNotebook.view.windows.*;
 
@@ -9,7 +10,7 @@ import java.util.Stack;
 
 public class Presenter {
     private final UIManager ui;
-    private final UnitManger unitManger;
+    private final UnitManager unitManager;
     private final WorkoutFileHandler workoutFileHandler;
     private Stack<Service> serviceStack;
 
@@ -17,7 +18,7 @@ public class Presenter {
         ui = uiManager;
         serviceStack = new Stack<>();
 
-        unitManger = new UnitManger();
+        unitManager = new UnitManager();
         workoutFileHandler = new WorkoutFileHandler();
 
     }
@@ -36,9 +37,9 @@ public class Presenter {
     }
 
     public void OpenNewWorkoutCreation(){
-        unitManger.setUnits(UnitManger.WeightUnits.kg);
-        WorkoutService workoutService = new WorkoutService(unitManger.getUnits());
-        unitManger.Subscribe(workoutService);
+        unitManager.setUnits(UnitManager.WeightUnits.kg);
+        WorkoutService workoutService = new WorkoutService(unitManager.getUnits());
+        unitManager.Subscribe(workoutService);
 
         serviceStack.add(workoutService);
         ui.ChangeWindow(new WorkoutCreationWindow(workoutService, workoutFileHandler));
@@ -61,12 +62,12 @@ public class Presenter {
     }
 
     public void ChangeUnitsForCurrentWorkout(){
-        unitManger.ChangeUnits();
+        unitManager.ChangeUnits();
     }
 
     public void OpenNewSet(){
         ExerciseService exerciseService = (ExerciseService) serviceStack.peek();
-        SetService setService = new SetService(exerciseService.GetType(),unitManger.getUnits());
+        SetService setService = new SetService(exerciseService.GetType(), unitManager.getUnits());
         serviceStack.add(setService);
 
         ui.ChangeWindow(new SetCreationWindow(setService));
