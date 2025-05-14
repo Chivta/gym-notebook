@@ -7,26 +7,27 @@ import GymNotebook.model.WorkoutItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuperSetService implements Service{
-    private List<WorkoutItem> items;
+public class SuperSetService implements BuildableItemService, CompositeItemService{
     private final SuperSet superSet;
 
     public SuperSetService(){
         superSet = new SuperSet();
-        items = superSet.getItems();
     }
 
     public void UpdateTitle(){
         List<String> titles = new ArrayList<>();
-        for(WorkoutItem item : items){
+        for(WorkoutItem item : superSet.getItems()){
             titles.add(item.getTitle());
         }
         superSet.setTitle(String.join("+", titles));
     }
 
-    public void addItem(WorkoutItem item){
-        items.add(item);
+    public void AddItem(WorkoutItem item){
+        superSet.getItems().add(item);
         UpdateTitle();
+    }
+    public List<WorkoutItem> GetItems(){
+        return superSet.getItems();
     }
 
     public static String ObjectToString(SuperSet superSet){

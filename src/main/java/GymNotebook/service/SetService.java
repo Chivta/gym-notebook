@@ -9,7 +9,7 @@ import GymNotebook.presenter.UnitManager.WeightUnits;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetService implements Service{
+public class SetService implements BuildableItemService{
     private final Set set;
     private final List<ParameterDescriptor> parametersList;
     private final ExerciseType type;

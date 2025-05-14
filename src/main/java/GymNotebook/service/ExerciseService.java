@@ -4,13 +4,11 @@ import GymNotebook.model.*;
 
 import java.util.List;
 
-public class ExerciseService implements Service {
+public class ExerciseService implements BuildableItemService, CompositeItemService {
     private Exercise exercise;
-    private List<WorkoutItem> items;
 
     public ExerciseService(){
         exercise = new Exercise();
-        this.items = exercise.getItems();
     }
 
     public void SetTitle(String title){
@@ -24,10 +22,10 @@ public class ExerciseService implements Service {
         return exercise.getType();
     }
 
-    public void addItem(WorkoutItem item){
-        items.add(item);
+    public void AddItem(WorkoutItem item){
+        exercise.getItems().add(item);
     }
-
+    public List<WorkoutItem> GetItems() {return exercise.getItems();}
     public static String ObjectToString(Exercise ex){
         StringBuilder toReturn = new StringBuilder();
         toReturn.append(ex.getTitle() != null ? ex.getTitle() : "Untitled Exercise");

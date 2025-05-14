@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkoutService implements UnitChangeListener, Service{
+public class WorkoutService implements UnitChangeListener, BuildableItemService, CompositeItemService{
     private Workout workout;
     @Getter
     private WeightUnits units;
@@ -22,9 +22,9 @@ public class WorkoutService implements UnitChangeListener, Service{
         workout.setTitle(title);
     }
 
-    public void addItem(WorkoutItem exercise){
-        workout.getItems().add(exercise);
-    }
+    public void AddItem(WorkoutItem exercise){ workout.getItems().add(exercise); }
+    public List<WorkoutItem> GetItems(){ return workout.getItems(); }
+
 
     private static String CollectNestedObjects(WorkoutItem item){
         String toReturn = "";
