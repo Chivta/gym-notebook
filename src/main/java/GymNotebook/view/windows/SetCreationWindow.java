@@ -13,6 +13,7 @@ public class SetCreationWindow extends Window{
 
     public SetCreationWindow(SetService setService){
         this.setService = setService;
+        this.header = "Set Creation";
 
         state = new ParameterSet();
     }

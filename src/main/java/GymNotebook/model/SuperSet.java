@@ -1,5 +1,6 @@
 package GymNotebook.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"note"})
 public class SuperSet implements WorkoutItem {
     private String title;
     private ArrayList<WorkoutItem> items;
