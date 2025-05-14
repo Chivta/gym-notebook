@@ -16,13 +16,13 @@ public class WorkoutItemFormatter {
 
         String title = item.getTitle();
         if(title != null && !title.isEmpty()) {
-            toReturn = item.getClass().getSimpleName() + ": " + item.getTitle() + "\n";
+            toReturn = item.getClass().getSimpleName() + ": " + item.getTitle();
         }else{
-            toReturn = item.getClass().getSimpleName() + ": \n";
+            toReturn = item.getClass().getSimpleName() + ": ";
         }
         String note = item.getNote();
         if(note != null && !note.isEmpty()){
-            toReturn+=String.format(" Note: %s\n",note);
+            toReturn+=String.format("%n Note: %s",note);
         }
 
         List<WorkoutItem> items = item.getItems();
@@ -31,10 +31,11 @@ public class WorkoutItemFormatter {
             for (WorkoutItem nestedItem : items) {
                 collectedItems.add(CollectNestedObjects(nestedItem));
             }
+            toReturn += "\n";
             toReturn += String.join("\n", collectedItems);
             toReturn = toReturn.replace("\n", "\n ");
         } else if(item instanceof Set set){
-            toReturn += String.format(" %f %s - %s",set.getWeight(),set.getUnits(),
+            toReturn += String.format("%n %f %s - %s",set.getWeight(),set.getUnits(),
                     (set.getType()== ExerciseType.Rep ?  set.getRepCount()+" times":set.getTime() + " seconds"));
         }
 

@@ -20,6 +20,10 @@ public class UnitManager {
     }
 
 
+    public void SetUnitsToDefault(){
+        units = WeightUnits.kg;
+    }
+
     public static final double KgInLbs = 2.2;
     public static double KGtoLBS(double KG){
         return RoundToDecimalPlaces(KG * KgInLbs,2);
@@ -60,4 +64,7 @@ public class UnitManager {
         unitChangeListeners.add(listener);
     }
 
+    public void ClearSubscribers(){
+        unitChangeListeners.clear();
+    }
 }

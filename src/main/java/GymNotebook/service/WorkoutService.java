@@ -13,10 +13,13 @@ public class WorkoutService implements UnitChangeListener, BuildableItemService,
     @Getter
     private WeightUnits units;
 
-    public WorkoutService(WeightUnits units){
+    public void StartNew(){
         workout = new Workout();
-        workout.setUnits(units);
+    }
+
+    public void SetUnits(WeightUnits units){
         this.units = units;
+        workout.setUnits(units);
     }
 
     public void SetTitle(String title){

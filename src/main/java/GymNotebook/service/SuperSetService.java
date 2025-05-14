@@ -10,9 +10,9 @@ import java.util.List;
 import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
 
 public class SuperSetService implements BuildableItemService, CompositeItemService{
-    private final SuperSet superSet;
+    private SuperSet superSet;
 
-    public SuperSetService(){
+    public void StartNew(){
         superSet = new SuperSet();
     }
 

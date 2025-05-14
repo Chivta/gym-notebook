@@ -11,10 +11,17 @@ public class ExerciseCreationWindow extends Window{
     private final ArrayList<String> exerciseTypes;
     private final ExerciseService exerciseService;
     private WindowState state;
+    private final TargetComposite targetComposite;
+
+    public enum TargetComposite{
+        SuperSet,
+        Workout
+    }
 
 
-    public ExerciseCreationWindow(ExerciseService exerciseService){
+    public ExerciseCreationWindow(ExerciseService exerciseService, TargetComposite targetComposite){
         this.exerciseService = exerciseService;
+        this.targetComposite = targetComposite;
 
         header = "New Exercise Adding";
 
@@ -95,7 +102,11 @@ public class ExerciseCreationWindow extends Window{
                     commands.add(new OpenNewSet());
                     break;
                 case 2:
-                    commands.add(new AddItemToCurrentComposite());
+                    if(targetComposite == TargetComposite.SuperSet){
+                        commands.add(new AddExerciseToSuperSet());
+                    }else{
+                        commands.add(new AddExerciseToWorkout());
+                    }
                     commands.add(new GoBack());
                     break;
             }

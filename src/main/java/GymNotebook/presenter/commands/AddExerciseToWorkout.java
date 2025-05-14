@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class OpenNewWorkoutCreationWindow implements Command {
+public class AddExerciseToWorkout implements Command{
     private Presenter presenter;
 
     public void SetPresenter(Presenter presenter){
@@ -10,6 +10,6 @@ public class OpenNewWorkoutCreationWindow implements Command {
     }
 
     public void Execute(){
-        presenter.OpenWorkoutCreation();
+        presenter.AddExerciseToWorkout();
     }
 }

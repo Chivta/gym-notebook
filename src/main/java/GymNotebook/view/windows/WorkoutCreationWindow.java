@@ -87,7 +87,7 @@ public class WorkoutCreationWindow extends Window{
 
         switch (index) {
             case 1:
-                commands.add(new OpenNewExercise());
+                commands.add(new OpenNewExercise(ExerciseCreationWindow.TargetComposite.Workout));
                 break;
             case 2:
                 commands.add(new OpenNewSuperSet());

@@ -10,6 +10,6 @@ public class OpenMainWindow implements Command {
     }
 
     public void Execute(){
-        presenter.OpenNewWorkoutCreation();
+        presenter.OpenWorkoutCreation();
     }
 }

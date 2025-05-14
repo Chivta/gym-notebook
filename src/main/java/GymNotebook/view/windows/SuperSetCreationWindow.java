@@ -25,10 +25,10 @@ public class SuperSetCreationWindow extends Window{
 
             switch (index) {
                 case 1:
-                    commands.add(new OpenNewExercise());
+                    commands.add(new OpenNewExercise(ExerciseCreationWindow.TargetComposite.SuperSet));
                     break;
                 case 2:
-                    commands.add(new AddItemToCurrentComposite());
+                    commands.add(new AddSuperSetToWorkout());
                     commands.add(new GoBack());
                     break;
             }

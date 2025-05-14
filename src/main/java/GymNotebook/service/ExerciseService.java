@@ -9,7 +9,7 @@ import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
 public class ExerciseService implements BuildableItemService, CompositeItemService {
     private Exercise exercise;
 
-    public ExerciseService(){
+    public void StartNew(){
         exercise = new Exercise();
     }
 

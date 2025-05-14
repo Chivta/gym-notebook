@@ -12,16 +12,26 @@ import java.util.List;
 import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
 
 public class SetService implements BuildableItemService{
-    private final Set set;
+    private Set set;
     private final List<ParameterDescriptor> parametersList;
-    private final ExerciseType type;
+    private ExerciseType type;
 
-    public SetService(ExerciseType type, WeightUnits units){
+    public SetService(){
         parametersList = new ArrayList<>();
+    }
+
+    public void StartNew(){
+        parametersList.clear();
         set = new Set();
+    }
+
+    public void SetUnits(WeightUnits units){
+        set.setUnits(units);
+    }
+
+    public void SetType(ExerciseType type){
         set.setType(type);
         this.type = type;
-        set.setUnits(units);
     }
 
     public List<ParameterDescriptor> GetParameters(){

@@ -59,7 +59,7 @@ public class SetCreationWindow extends Window{
                 index++;
 
                 if(index == parameters.size()){
-                    commands.add(new AddItemToCurrentComposite());
+                    commands.add(new AddSetToExercise());
                     commands.add(new GoBack());
                 }
 
