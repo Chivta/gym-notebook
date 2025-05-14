@@ -4,8 +4,9 @@ import GymNotebook.model.*;
 import GymNotebook.presenter.UnitManager.WeightUnits;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
 
 public class WorkoutService implements UnitChangeListener, BuildableItemService, CompositeItemService{
     private Workout workout;
@@ -26,39 +27,8 @@ public class WorkoutService implements UnitChangeListener, BuildableItemService,
     public List<WorkoutItem> GetItems(){ return workout.getItems(); }
 
 
-    private static String CollectNestedObjects(WorkoutItem item){
-        String toReturn = "";
-
-
-        String title = item.getTitle();
-        if(title != null && !title.isEmpty()) {
-            toReturn = item.getTitle() + "\n";
-        }
-        String note = item.getNote();
-        if(note != null && !note.isEmpty()){
-            toReturn+=String.format("Note: %s\n",note);
-        }
-
-        List<WorkoutItem> items = item.getItems();
-        if(items!=null && !items.isEmpty()) {
-            List<String> collectedItems = new ArrayList<>();
-            for (WorkoutItem nestedItem : items) {
-                collectedItems.add(CollectNestedObjects(nestedItem));
-            }
-            toReturn += String.join("\n", collectedItems);
-            toReturn = toReturn.replace("\n", "\n ");
-        } else if(item instanceof Set set){
-            toReturn += SetService.ObjectToString(set);
-        }
-
-        return toReturn;
-    }
-
-    public static String ObjectToString(Workout workout){
-        return CollectNestedObjects(workout);
-    }
     public String ObjectToString(){
-        return ObjectToString(workout);
+        return WorkoutItemToString(workout);
     }
 
     public WorkoutItem Build(){

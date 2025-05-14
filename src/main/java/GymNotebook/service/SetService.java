@@ -9,6 +9,8 @@ import GymNotebook.presenter.UnitManager.WeightUnits;
 import java.util.ArrayList;
 import java.util.List;
 
+import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
+
 public class SetService implements BuildableItemService{
     private final Set set;
     private final List<ParameterDescriptor> parametersList;
@@ -94,18 +96,7 @@ public class SetService implements BuildableItemService{
     }
 
     public String ObjectToString(){
-        return ObjectToString(set);
+        return WorkoutItemToString(set);
     }
 
-    public static String ObjectToString(Set set){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(set.getWeight()).append(" ");
-        stringBuilder.append(set.getUnits()).append(" ");
-        if(set.getType()==ExerciseType.Rep){
-            stringBuilder.append(set.getRepCount()).append(" times");
-        }else if(set.getType()==ExerciseType.Time){
-            stringBuilder.append(set.getTime()).append(" seconds");
-        }
-        return stringBuilder.toString();
-    }
 }

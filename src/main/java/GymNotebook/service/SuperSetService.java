@@ -7,6 +7,8 @@ import GymNotebook.model.WorkoutItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
+
 public class SuperSetService implements BuildableItemService, CompositeItemService{
     private final SuperSet superSet;
 
@@ -30,19 +32,8 @@ public class SuperSetService implements BuildableItemService, CompositeItemServi
         return superSet.getItems();
     }
 
-    public static String ObjectToString(SuperSet superSet){
-        StringBuffer toReturn = new StringBuffer();
-        toReturn.append(superSet.getTitle()).append("\n");
-        List<String> items = new ArrayList<>();
-        for(WorkoutItem item : superSet.getItems()){
-            items.add(ExerciseService.ObjectToString((Exercise) item));
-        }
-        toReturn.append(String.join("\n", items));
-        return toReturn.toString();
-    }
-
     public String ObjectToString(){
-        return ObjectToString(superSet);
+        return WorkoutItemToString(superSet);
     }
 
     public SuperSet Build(){

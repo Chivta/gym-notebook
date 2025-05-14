@@ -7,6 +7,8 @@ import GymNotebook.presenter.commands.Command;
 import java.util.ArrayList;
 import java.util.List;
 
+import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
+
 public class WorkoutViewWindow extends Window{
     Workout workout;
 
@@ -18,7 +20,7 @@ public class WorkoutViewWindow extends Window{
 
     @Override
     public void SendBody(){
-        System.out.println(WorkoutService.ObjectToString(workout));
+        System.out.println(WorkoutItemToString(workout));
     }
 
     @Override

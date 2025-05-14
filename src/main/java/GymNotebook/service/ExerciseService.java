@@ -4,6 +4,8 @@ import GymNotebook.model.*;
 
 import java.util.List;
 
+import static GymNotebook.service.WorkoutItemFormatter.WorkoutItemToString;
+
 public class ExerciseService implements BuildableItemService, CompositeItemService {
     private Exercise exercise;
 
@@ -26,21 +28,9 @@ public class ExerciseService implements BuildableItemService, CompositeItemServi
         exercise.getItems().add(item);
     }
     public List<WorkoutItem> GetItems() {return exercise.getItems();}
-    public static String ObjectToString(Exercise ex){
-        StringBuilder toReturn = new StringBuilder();
-        toReturn.append(ex.getTitle() != null ? ex.getTitle() : "Untitled Exercise");
-        if (ex.getItems() != null && !ex.getItems().isEmpty()) {
-            for (WorkoutItem item : ex.getItems()) {
-                if (item != null) {
-                    toReturn.append(String.format("%n - %s", SetService.ObjectToString((Set) item)));
-                }
-            }
-        }
-        return toReturn.toString();
-    }
 
     public String ObjectToString() {
-        return ObjectToString(exercise);
+        return WorkoutItemToString(exercise);
     }
 
     public Exercise Build(){

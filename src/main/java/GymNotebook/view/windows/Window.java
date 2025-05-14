@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.GoBack;
 
 public abstract class Window extends OptionHandler {
     protected String header = "UNSET TITLE";
@@ -16,6 +17,11 @@ public abstract class Window extends OptionHandler {
 
     public List<Command> AcceptInput(String input){
         List<Command> commands = new ArrayList<>();
+
+        if (input.equalsIgnoreCase("b")){
+            commands.add(new GoBack());
+            return commands;
+        }
 
         try{
             commands.addAll(HandleInput(input));

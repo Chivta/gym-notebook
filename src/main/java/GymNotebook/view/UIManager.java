@@ -38,12 +38,8 @@ public class UIManager {
             if (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
 
-                if (line.equalsIgnoreCase("b") && !history.isEmpty()){
-                    GoBack();
-                }
-                else{
-                    commands = CurrentWindow.AcceptInput(line);
-                }
+                commands = CurrentWindow.AcceptInput(line);
+
                 if(!commands.isEmpty()){
                     for(Command command : commands){
                         command.SetPresenter(presenter);

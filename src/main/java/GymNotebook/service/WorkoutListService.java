@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutListService {
-    private List<String> allWorkouts;
+    private final List<String> allWorkouts;
     @Getter
     private List<String> currentPageWorkouts;
 

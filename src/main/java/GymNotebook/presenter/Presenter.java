@@ -23,12 +23,8 @@ public class Presenter {
 
     }
 
-    public void OpenWorkoutListView(){
-        WorkoutListService workoutListService = new WorkoutListService(workoutFileHandler.getAllWorkoutFilenamesSortedByDateDesc());
-        ui.ChangeWindow(new WorkoutListViewWindow(workoutListService));
-    }
-
     public void GoBack(){
+        itemServiceStack.pop();
         ui.GoBack();
     }
 
@@ -36,6 +32,10 @@ public class Presenter {
         System.exit(200);
     }
 
+    public void OpenWorkoutListView(){
+        WorkoutListService workoutListService = new WorkoutListService(workoutFileHandler.getAllWorkoutFilenamesSortedByDateDesc());
+        ui.ChangeWindow(new WorkoutListViewWindow(workoutListService));
+    }
     public void OpenNewWorkoutCreation(){
         unitManager.setUnits(UnitManager.WeightUnits.kg);
         WorkoutService workoutService = new WorkoutService(unitManager.getUnits());
@@ -62,12 +62,18 @@ public class Presenter {
     }
 
     public void OpenNewSet(){
-        ExerciseService exerciseService = (ExerciseService) itemServiceStack.peek();
-        SetService setService = new SetService(exerciseService.GetType(), unitManager.getUnits());
-        itemServiceStack.add(setService);
+        BuildableItemService service = itemServiceStack.peek();
+        if(service instanceof ExerciseService exerciseService){
+            SetService setService = new SetService(exerciseService.GetType(), unitManager.getUnits());
+            itemServiceStack.add(setService);
 
-        ui.ChangeWindow(new SetCreationWindow(setService));
+            ui.ChangeWindow(new SetCreationWindow(setService));
+        }else if (service instanceof SetService){
+            itemServiceStack.pop();
+            OpenNewSet();
+        }
     }
+
 
     public void SetTypeForExercise(ExerciseType type){
         ((ExerciseService) itemServiceStack.peek()).SetType(type);
