@@ -6,7 +6,6 @@ import java.util.List;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public interface WorkoutItem {
-    default void SwitchUnits(){}
     default String getTitle(){
         return null;
     }

@@ -56,12 +56,12 @@ public class WorkoutService implements UnitChangeListener, BuildableItemService,
        for(WorkoutItem nestedItem : workout.getItems()){
            if(nestedItem instanceof Exercise){
                for(WorkoutItem set : nestedItem.getItems()){
-                   set.SwitchUnits();
+                   SetService.SwitchUnits((Set) set);
                }
            }else if(nestedItem instanceof SuperSet){
                for(WorkoutItem ex : nestedItem.getItems()){
                    for(WorkoutItem set : ex.getItems()){
-                       set.SwitchUnits();
+                       SetService.SwitchUnits((Set) set);
                    }
                }
            }

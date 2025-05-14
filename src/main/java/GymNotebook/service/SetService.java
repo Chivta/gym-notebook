@@ -109,4 +109,16 @@ public class SetService implements BuildableItemService{
         return WorkoutItemToString(set);
     }
 
+    public static void SwitchUnits(Set set){
+        switch (set.getUnits()){
+            case kg:
+                set.setWeight(UnitManager.KGtoLBS(set.getWeight()));
+                set.setUnits(WeightUnits.lbs);
+                break;
+            case lbs:
+                set.setWeight(UnitManager.LBStoKG(set.getWeight()));
+                set.setUnits(WeightUnits.kg);
+                break;
+        }
+    }
 }

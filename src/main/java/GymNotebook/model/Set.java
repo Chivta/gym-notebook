@@ -22,17 +22,5 @@ public class Set implements WorkoutItem {
     private int repCount;
     private int time;
     private String note;
-    public void SwitchUnits(){
-        switch (units){
-            case kg:
-                weight = UnitManager.KGtoLBS(weight);
-                units = WeightUnits.lbs;
-                break;
-            case lbs:
-                weight = UnitManager.LBStoKG(weight);
-                units = WeightUnits.kg;
-                break;
-        }
-    }
 }
 
