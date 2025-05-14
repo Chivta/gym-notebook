@@ -51,10 +51,6 @@ public class Presenter {
         ui.ChangeWindow(new ExerciseCreationWindow(exerciseService));
     }
 
-    public void SaveExercise(Exercise exercise){
-        //
-    }
-
     public void OpenNewSuperSet(){
         SuperSetService sup = new SuperSetService();
         serviceStack.add(sup);

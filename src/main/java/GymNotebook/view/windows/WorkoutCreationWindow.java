@@ -10,6 +10,8 @@ import java.util.List;
 
 public class WorkoutCreationWindow extends Window{
     private final WorkoutService workoutService;
+    private final WorkoutFileHandler workoutFileHandler;
+
 
     private WindowState state;
 
@@ -48,8 +50,6 @@ public class WorkoutCreationWindow extends Window{
             System.out.println(workoutService.ObjectToString());
         }
     }
-
-    private WorkoutFileHandler workoutFileHandler;
 
     public WorkoutCreationWindow(WorkoutService workoutService, WorkoutFileHandler workoutFileHandler) {
         header = "New Workout Creation";
