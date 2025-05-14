@@ -1,15 +1,7 @@
 package GymNotebook.presenter.commands;
 
-import GymNotebook.presenter.Presenter;
-
-public class OpenNewSuperSet implements ICommand {
-    private Presenter presenter;
-
-    @Override
+public class OpenNewSuperSet extends Command {
     public void Execute() {
         presenter.OpenNewSuperSet();
-    }
-    public void SetPresenter(Presenter presenter){
-        this.presenter = presenter;
     }
 }

@@ -1,18 +1,12 @@
 package GymNotebook.presenter.commands;
 
 import GymNotebook.model.ExerciseType;
-import GymNotebook.presenter.Presenter;
 
-public class SetTypeForExercise implements ICommand {
-    private Presenter presenter;
+public class SetTypeForExercise extends Command {
     private ExerciseType type;
 
     public SetTypeForExercise(ExerciseType type){
         this.type = type;
-    }
-
-    public void SetPresenter(Presenter presenter){
-        this.presenter = presenter;
     }
 
     public void Execute(){

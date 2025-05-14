@@ -1,19 +1,12 @@
 package GymNotebook.presenter.commands;
 
-import GymNotebook.presenter.Presenter;
-
-public class SetParameter  implements ICommand {
-    private Presenter presenter;
+public class SetParameter  extends Command {
     private String key;
     private Object value;
 
     public SetParameter(String key, Object value){
         this.key = key;
         this.value = value;
-    }
-
-    public void SetPresenter(Presenter presenter){
-        this.presenter = presenter;
     }
 
     public void Execute(){

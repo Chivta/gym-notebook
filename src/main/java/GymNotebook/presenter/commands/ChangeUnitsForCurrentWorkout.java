@@ -1,14 +1,6 @@
 package GymNotebook.presenter.commands;
 
-import GymNotebook.presenter.Presenter;
-
-public class ChangeUnitsForCurrentWorkout implements ICommand {
-    private Presenter presenter;
-
-    public void SetPresenter(Presenter presenter){
-        this.presenter = presenter;
-    }
-
+public class ChangeUnitsForCurrentWorkout extends Command  {
     public void Execute(){
         presenter.ChangeUnitsForCurrentWorkout();
     }
