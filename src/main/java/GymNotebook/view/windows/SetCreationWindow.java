@@ -29,8 +29,8 @@ public class SetCreationWindow extends Window{
             index = 0;
         }
 
-        public List<Command> HandleInput(String input) throws WindowException{
-            List<Command> commands = new ArrayList<>();
+        public List<ICommand> HandleInput(String input) throws WindowException{
+            List<ICommand> ICommands = new ArrayList<>();
             Object value;
             try{
                 switch (currentParameter.expectedInputType()){
@@ -56,19 +56,19 @@ public class SetCreationWindow extends Window{
                         throw new WindowException("ERR: Unsupported input type");
                 }
                 
-                commands.add(new SetParameter(currentParameter.parameterKey(),value));
+                ICommands.add(new SetParameter(currentParameter.parameterKey(),value));
                 index++;
 
                 if(index == parameters.size()){
-                    commands.add(new AddSetToExercise());
-                    commands.add(new GoBack());
+                    ICommands.add(new AddSetToExercise());
+                    ICommands.add(new GoBack());
                 }
 
             }catch (NumberFormatException e) {
                 throw new WindowException("ERR: Invalid input. Please enter a " + currentParameter.expectedInputType());
             }
 
-            return commands;
+            return ICommands;
         }
 
         public void Render(){
@@ -85,11 +85,11 @@ public class SetCreationWindow extends Window{
     }
 
     @Override
-    public List<Command> HandleInput(String input) throws WindowException{
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> HandleInput(String input) throws WindowException{
+        List<ICommand> ICommands = new ArrayList<>();
 
-        commands.addAll(state.HandleInput(input));
+        ICommands.addAll(state.HandleInput(input));
 
-        return commands;
+        return ICommands;
     }
 }

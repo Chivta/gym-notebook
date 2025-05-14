@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class GoBack implements Command{
+public class GoBack implements ICommand {
     private Presenter presenter;
 
     public void SetPresenter(Presenter presenter){

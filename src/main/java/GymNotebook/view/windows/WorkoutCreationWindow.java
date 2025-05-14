@@ -16,8 +16,8 @@ public class WorkoutCreationWindow extends Window{
     private WindowState state;
 
     private class TitleInput implements WindowState{
-        public List<Command> HandleInput(String title) throws WindowException {
-            List<Command> commands = new ArrayList<>();
+        public List<ICommand> HandleInput(String title) throws WindowException {
+            List<ICommand> ICommands = new ArrayList<>();
             if(!title.isEmpty()){
                 if (title.length()<20){
                     workoutService.SetTitle(title);
@@ -30,7 +30,7 @@ public class WorkoutCreationWindow extends Window{
                 throw new WindowException("ERR: Title cannot be empty");
             }
 
-            return commands;
+            return ICommands;
         }
         public void Render(){
             System.out.println("Enter Workout Title");
@@ -43,7 +43,7 @@ public class WorkoutCreationWindow extends Window{
             SendOptions();
         }
 
-        public List<Command> HandleInput(String input) throws WindowException{
+        public List<ICommand> HandleInput(String input) throws WindowException{
             return TryHandleOptionIndex(input, options);
         }
         private void SendWorkoutOverview(){
@@ -74,35 +74,35 @@ public class WorkoutCreationWindow extends Window{
     }
 
     @Override
-    public List<Command> HandleInput(String input) throws WindowException {
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> HandleInput(String input) throws WindowException {
+        List<ICommand> ICommands = new ArrayList<>();
 
-        commands.addAll(state.HandleInput(input));
+        ICommands.addAll(state.HandleInput(input));
 
-        return commands;
+        return ICommands;
     }
 
-    protected List<Command> HandleOptionIndex(int index){
-        List<Command> commands = new ArrayList<>();
+    protected List<ICommand> HandleOptionIndex(int index){
+        List<ICommand> ICommands = new ArrayList<>();
 
         switch (index) {
             case 1:
-                commands.add(new OpenNewExercise(ExerciseCreationWindow.TargetComposite.Workout));
+                ICommands.add(new OpenNewExercise(ExerciseCreationWindow.TargetComposite.Workout));
                 break;
             case 2:
-                commands.add(new OpenNewSuperSet());
+                ICommands.add(new OpenNewSuperSet());
                 break;
             case 3:
-                commands.add(new SaveCurrentWorkout());
+                ICommands.add(new SaveCurrentWorkout());
                 break;
             case 4:
-                commands.add(new ChangeUnitsForCurrentWorkout());
+                ICommands.add(new ChangeUnitsForCurrentWorkout());
                 break;
             case 5:
-                commands.add(new SwitchSavingFormat());
+                ICommands.add(new SwitchSavingFormat());
                 break;
         }
-        return commands;
+        return ICommands;
     }
 
 }

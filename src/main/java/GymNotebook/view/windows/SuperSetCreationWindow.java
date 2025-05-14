@@ -20,21 +20,21 @@ public class SuperSetCreationWindow extends Window{
 
 
     private class OptionSelection extends OptionHandler implements WindowState {
-        protected List<Command> HandleOptionIndex(int index) {
-            List<Command> commands = new ArrayList<>();
+        protected List<ICommand> HandleOptionIndex(int index) {
+            List<ICommand> ICommands = new ArrayList<>();
 
             switch (index) {
                 case 1:
-                    commands.add(new OpenNewExercise(ExerciseCreationWindow.TargetComposite.SuperSet));
+                    ICommands.add(new OpenNewExercise(ExerciseCreationWindow.TargetComposite.SuperSet));
                     break;
                 case 2:
-                    commands.add(new AddSuperSetToWorkout());
-                    commands.add(new GoBack());
+                    ICommands.add(new AddSuperSetToWorkout());
+                    ICommands.add(new GoBack());
                     break;
             }
-            return commands;
+            return ICommands;
         }
-        public List<Command> HandleInput(String input) throws WindowException{
+        public List<ICommand> HandleInput(String input) throws WindowException{
             return TryHandleOptionIndex(input,options);
         }
         public void Render(){
@@ -50,11 +50,11 @@ public class SuperSetCreationWindow extends Window{
     public void SendBody() {
         state.Render();
     }
-    public List<Command> HandleInput(String input) throws WindowException{
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> HandleInput(String input) throws WindowException{
+        List<ICommand> ICommands = new ArrayList<>();
 
-        commands.addAll(state.HandleInput(input));
+        ICommands.addAll(state.HandleInput(input));
 
-        return commands;
+        return ICommands;
     }
 }

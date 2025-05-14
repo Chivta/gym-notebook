@@ -3,7 +3,7 @@ package GymNotebook.presenter.commands;
 import GymNotebook.model.ExerciseType;
 import GymNotebook.presenter.Presenter;
 
-public class SetTypeForExercise implements Command{
+public class SetTypeForExercise implements ICommand {
     private Presenter presenter;
     private ExerciseType type;
 

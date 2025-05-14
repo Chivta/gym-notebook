@@ -1,8 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.model.Workout;
-import GymNotebook.service.WorkoutService;
-import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.ICommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class WorkoutViewWindow extends Window{
     }
 
     @Override
-    public List<Command> HandleInput(String input){
+    public List<ICommand> HandleInput(String input){
 
         return new ArrayList<>();
     }

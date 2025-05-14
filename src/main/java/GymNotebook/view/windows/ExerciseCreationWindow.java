@@ -39,8 +39,8 @@ public class ExerciseCreationWindow extends Window{
     }
 
     private class TitleInput implements WindowState{
-        public List<Command> HandleInput(String input) throws WindowException{
-            List<Command> commands = new ArrayList<>();
+        public List<ICommand> HandleInput(String input) throws WindowException{
+            List<ICommand> ICommands = new ArrayList<>();
 
             if(!input.isEmpty() ){
                 if(input.length()<20){
@@ -54,7 +54,7 @@ public class ExerciseCreationWindow extends Window{
                 throw new WindowException("ERR: Title cannot be empty");
             }
 
-            return commands;
+            return ICommands;
         }
         public void Render(){
             System.out.println("Enter Exercise Title");
@@ -62,17 +62,17 @@ public class ExerciseCreationWindow extends Window{
     }
 
     private class TypeSelection implements WindowState{
-        public List<Command> HandleInput(String input) throws WindowException{
-            List<Command> commands = new ArrayList<>();
+        public List<ICommand> HandleInput(String input) throws WindowException{
+            List<ICommand> ICommands = new ArrayList<>();
 
             try{
                 int selected = Integer.parseInt(input);
                 switch(selected){
                     case 1:
-                        commands.add(new SetTypeForExercise(ExerciseType.Rep));
+                        ICommands.add(new SetTypeForExercise(ExerciseType.Rep));
                         break;
                     case 2:
-                        commands.add(new SetTypeForExercise(ExerciseType.Time));
+                        ICommands.add(new SetTypeForExercise(ExerciseType.Time));
                         break;
                     default:
                         throw new WindowException("ERR: Number out of range");
@@ -81,7 +81,7 @@ public class ExerciseCreationWindow extends Window{
             }catch (NumberFormatException e){
                 throw new WindowException("ERR: Invalid input");
             }
-            return commands;
+            return ICommands;
         }
         public void Render(){
             for(int i = 0; i< exerciseTypes.size(); i++){
@@ -94,26 +94,26 @@ public class ExerciseCreationWindow extends Window{
 
 
     private class OptionSelection extends OptionHandler implements WindowState{
-        protected List<Command> HandleOptionIndex(int index){
-            List<Command> commands = new ArrayList<>();
+        protected List<ICommand> HandleOptionIndex(int index){
+            List<ICommand> ICommands = new ArrayList<>();
 
             switch(index) {
                 case 1:
-                    commands.add(new OpenNewSet());
+                    ICommands.add(new OpenNewSet());
                     break;
                 case 2:
                     if(targetComposite == TargetComposite.SuperSet){
-                        commands.add(new AddExerciseToSuperSet());
+                        ICommands.add(new AddExerciseToSuperSet());
                     }else{
-                        commands.add(new AddExerciseToWorkout());
+                        ICommands.add(new AddExerciseToWorkout());
                     }
-                    commands.add(new GoBack());
+                    ICommands.add(new GoBack());
                     break;
             }
-            return commands;
+            return ICommands;
         }
 
-        public List<Command> HandleInput(String input) throws WindowException{
+        public List<ICommand> HandleInput(String input) throws WindowException{
             return TryHandleOptionIndex(input,options);
         }
         public void Render(){
@@ -132,11 +132,11 @@ public class ExerciseCreationWindow extends Window{
     }
 
     @Override
-    public List<Command> HandleInput(String input) throws WindowException{
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> HandleInput(String input) throws WindowException{
+        List<ICommand> ICommands = new ArrayList<>();
 
-        commands.addAll(state.HandleInput(input));
+        ICommands.addAll(state.HandleInput(input));
 
-        return commands;
+        return ICommands;
     }
 }

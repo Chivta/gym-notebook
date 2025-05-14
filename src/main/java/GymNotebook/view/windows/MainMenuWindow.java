@@ -1,6 +1,6 @@
 package GymNotebook.view.windows;
 
-import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.ICommand;
 import GymNotebook.presenter.commands.OpenNewWorkoutCreationWindow;
 import GymNotebook.presenter.commands.OpenWorkoutListView;
 import GymNotebook.presenter.commands.QuitProgram;
@@ -21,30 +21,30 @@ public class MainMenuWindow extends Window {
         SendOptions();
     }
 
-    public List<Command> HandleOptionIndex(int index){
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> HandleOptionIndex(int index){
+        List<ICommand> ICommands = new ArrayList<>();
 
         switch (index) {
             case 1:
-                commands.add(new OpenNewWorkoutCreationWindow());
+                ICommands.add(new OpenNewWorkoutCreationWindow());
                 break;
             case 2:
-                commands.add(new OpenWorkoutListView());
+                ICommands.add(new OpenWorkoutListView());
                 break;
             case 3:
-                commands.add(new QuitProgram());
+                ICommands.add(new QuitProgram());
                 break;
         }
-        return commands;
+        return ICommands;
 
     }
 
     @Override
-    public List<Command> HandleInput(String input) throws WindowException{
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> HandleInput(String input) throws WindowException{
+        List<ICommand> ICommands = new ArrayList<>();
 
-        commands.addAll(TryHandleOptionIndex(input, options));
+        ICommands.addAll(TryHandleOptionIndex(input, options));
 
-        return commands;
+        return ICommands;
     }
 }

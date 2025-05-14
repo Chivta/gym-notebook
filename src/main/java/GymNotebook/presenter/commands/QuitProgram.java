@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class QuitProgram implements Command{
+public class QuitProgram implements ICommand {
     private Presenter presenter;
 
     public void SetPresenter(Presenter presenter){

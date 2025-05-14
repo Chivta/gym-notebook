@@ -1,7 +1,7 @@
 package GymNotebook.view;
 
 import GymNotebook.presenter.Presenter;
-import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.ICommand;
 import GymNotebook.view.windows.MainMenuWindow;
 import GymNotebook.view.windows.Window;
 import lombok.Getter;
@@ -31,19 +31,19 @@ public class UIManager {
         clearScreen();
         CurrentWindow.Render();
 
-        List<Command> commands = new ArrayList<>();
+        List<ICommand> ICommands = new ArrayList<>();
 
         while (true) {
-            commands.clear();
+            ICommands.clear();
             if (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
 
-                commands = CurrentWindow.AcceptInput(line);
+                ICommands = CurrentWindow.AcceptInput(line);
 
-                if(!commands.isEmpty()){
-                    for(Command command : commands){
-                        command.SetPresenter(presenter);
-                        command.Execute();
+                if(!ICommands.isEmpty()){
+                    for(ICommand ICommand : ICommands){
+                        ICommand.SetPresenter(presenter);
+                        ICommand.Execute();
                     }
                 }
                 clearScreen();

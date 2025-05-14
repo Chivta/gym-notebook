@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class OpenNewSuperSet implements Command{
+public class OpenNewSuperSet implements ICommand {
     private Presenter presenter;
 
     @Override

@@ -1,7 +1,7 @@
 package GymNotebook.view.windows;
 
 import GymNotebook.service.WorkoutListService;
-import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.ICommand;
 import GymNotebook.presenter.commands.OpenWorkoutView;
 
 import java.util.ArrayList;
@@ -46,8 +46,8 @@ public class WorkoutListViewWindow extends Window {
     }
 
     @Override
-    public List<Command> HandleInput(String input) throws WindowException {
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> HandleInput(String input) throws WindowException {
+        List<ICommand> ICommands = new ArrayList<>();
 
         switch (input) {
             case "n":
@@ -57,15 +57,15 @@ public class WorkoutListViewWindow extends Window {
                 workoutListService.PreviousPage();
                 break;
             default:
-                commands.addAll(HandleWorkoutNumber(input));
+                ICommands.addAll(HandleWorkoutNumber(input));
                 break;
         }
 
-        return commands;
+        return ICommands;
     }
 
-    private List<Command> HandleWorkoutNumber(String input) throws WindowException {
-        List<Command> commands = new ArrayList<>();
+    private List<ICommand> HandleWorkoutNumber(String input) throws WindowException {
+        List<ICommand> ICommands = new ArrayList<>();
 
         try {
             int optionNumber = Integer.parseInt(input);
@@ -73,13 +73,13 @@ public class WorkoutListViewWindow extends Window {
             String WorkoutName = workoutListService.getWorkoutFilename(optionNumber);
 
             if (!WorkoutName.isEmpty()) {
-                commands.add(new OpenWorkoutView(WorkoutName));
+                ICommands.add(new OpenWorkoutView(WorkoutName));
             } else {
                 throw new WindowException("ERR: Invalid workout number. Please enter a number between 1 and " + workoutListService.getItemsCount());
             }
         } catch (NumberFormatException e) {
             throw new WindowException("ERR: Invalid input.");
         }
-        return commands;
+        return ICommands;
     }
 }

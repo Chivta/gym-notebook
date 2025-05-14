@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class OpenWorkoutView implements Command{
+public class OpenWorkoutView implements ICommand {
     private Presenter presenter;
     private final String fileName;
 

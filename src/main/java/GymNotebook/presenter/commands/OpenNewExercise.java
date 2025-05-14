@@ -3,7 +3,7 @@ package GymNotebook.presenter.commands;
 import GymNotebook.presenter.Presenter;
 import GymNotebook.view.windows.ExerciseCreationWindow;
 
-public class OpenNewExercise implements Command {
+public class OpenNewExercise implements ICommand {
     private Presenter presenter;
     private ExerciseCreationWindow.TargetComposite targetComposite;
 

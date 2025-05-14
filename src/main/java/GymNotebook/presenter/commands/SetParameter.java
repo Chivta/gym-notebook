@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class SetParameter  implements Command{
+public class SetParameter  implements ICommand {
     private Presenter presenter;
     private String key;
     private Object value;

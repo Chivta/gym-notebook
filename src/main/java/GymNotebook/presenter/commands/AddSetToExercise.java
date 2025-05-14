@@ -2,7 +2,7 @@ package GymNotebook.presenter.commands;
 
 import GymNotebook.presenter.Presenter;
 
-public class AddSetToExercise implements Command{
+public class AddSetToExercise implements ICommand {
     private Presenter presenter;
 
     public void SetPresenter(Presenter presenter){

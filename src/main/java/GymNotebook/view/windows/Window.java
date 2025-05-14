@@ -3,7 +3,7 @@ package GymNotebook.view.windows;
 import java.util.ArrayList;
 import java.util.List;
 
-import GymNotebook.presenter.commands.Command;
+import GymNotebook.presenter.commands.ICommand;
 import GymNotebook.presenter.commands.GoBack;
 
 public abstract class Window extends OptionHandler {
@@ -13,23 +13,23 @@ public abstract class Window extends OptionHandler {
     protected ArrayList<String> inputOptions;
 
     protected abstract void SendBody();
-    protected abstract List<Command> HandleInput(String input) throws WindowException;
+    protected abstract List<ICommand> HandleInput(String input) throws WindowException;
 
-    public List<Command> AcceptInput(String input){
-        List<Command> commands = new ArrayList<>();
+    public List<ICommand> AcceptInput(String input){
+        List<ICommand> ICommands = new ArrayList<>();
 
         if (input.equalsIgnoreCase("b")){
-            commands.add(new GoBack());
-            return commands;
+            ICommands.add(new GoBack());
+            return ICommands;
         }
 
         try{
-            commands.addAll(HandleInput(input));
+            ICommands.addAll(HandleInput(input));
         } catch (WindowException e) {
             errorMessage = e.getMessage();
         }
 
-        return commands;
+        return ICommands;
     }
 
     protected Window(){
