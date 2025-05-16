@@ -34,7 +34,7 @@ public class Presenter {
     }
 
     public void Quit(){
-        System.exit(200);
+        System.exit(0);
     }
 
     public void OpenWorkoutListView(){

@@ -19,11 +19,13 @@ public class UIManager {
     private Window CurrentWindow;
     private final Stack<Window> history;
     private final Presenter presenter;
+    private final List<ICommand> commands;
 
     public UIManager(){
         this.presenter = new Presenter(this);
         CurrentWindow = new MainMenuWindow();
         history = new Stack<>();
+        commands = new ArrayList<>();
     }
 
     public void Start() {
@@ -31,27 +33,30 @@ public class UIManager {
         clearScreen();
         CurrentWindow.Render();
 
-        List<ICommand> ICommands = new ArrayList<>();
-
         while (true) {
-            ICommands.clear();
             if (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
 
-                ICommands = CurrentWindow.AcceptInput(line);
+                commands.addAll(CurrentWindow.AcceptInput(line));
 
-                if(!ICommands.isEmpty()){
-                    for(ICommand ICommand : ICommands){
-                        ICommand.SetPresenter(presenter);
-                        ICommand.Execute();
-                    }
-                }
+                RunCommands();
+
                 clearScreen();
                 CurrentWindow.Render();
 
             }
 
         }
+    }
+
+    private void RunCommands(){
+        if(!commands.isEmpty()){
+            for(ICommand ICommand : commands){
+                ICommand.SetPresenter(presenter);
+                ICommand.Execute();
+            }
+        }
+        commands.clear();
     }
 
     public void GoBack(){

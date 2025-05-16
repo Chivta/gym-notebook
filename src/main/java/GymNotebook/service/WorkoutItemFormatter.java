@@ -35,7 +35,7 @@ public class WorkoutItemFormatter {
             toReturn += String.join("\n", collectedItems);
             toReturn = toReturn.replace("\n", "\n ");
         } else if(item instanceof Set set){
-            toReturn += String.format("%n %f %s - %s",set.getWeight(),set.getUnits(),
+            toReturn += String.format("%n %.2f %s - %s",set.getWeight(),set.getUnits(),
                     (set.getType()== ExerciseType.Rep ?  set.getRepCount()+" times":set.getTime() + " seconds"));
         }
 

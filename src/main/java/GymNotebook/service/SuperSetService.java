@@ -16,7 +16,7 @@ public class SuperSetService implements BuildableItemService, CompositeItemServi
         superSet = new SuperSet();
     }
 
-    public void UpdateTitle(){
+    private void UpdateTitle(){
         List<String> titles = new ArrayList<>();
         for(WorkoutItem item : superSet.getItems()){
             titles.add(item.getTitle());
