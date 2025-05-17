@@ -21,5 +21,10 @@ public class Set implements WorkoutItem {
     private int repCount;
     private int time;
     private String note;
+
+    public String getDescription(){
+        return String.format("%.2f %s - %s",weight, units,
+                (type == ExerciseType.Rep ? repCount+" times":time + " seconds"));
+    }
 }
 

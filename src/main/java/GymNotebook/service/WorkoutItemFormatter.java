@@ -25,6 +25,11 @@ public class WorkoutItemFormatter {
             toReturn+=String.format("%n Note: %s",note);
         }
 
+        String description = item.getDescription();
+        if(description!=null && !description.isEmpty()){
+            toReturn+= "\n "+description;
+        }
+
         List<WorkoutItem> items = item.getItems();
         if(items!=null && !items.isEmpty()) {
             List<String> collectedItems = new ArrayList<>();
@@ -34,9 +39,6 @@ public class WorkoutItemFormatter {
             toReturn += "\n";
             toReturn += String.join("\n", collectedItems);
             toReturn = toReturn.replace("\n", "\n ");
-        } else if(item instanceof Set set){
-            toReturn += String.format("%n %.2f %s - %s",set.getWeight(),set.getUnits(),
-                    (set.getType()== ExerciseType.Rep ?  set.getRepCount()+" times":set.getTime() + " seconds"));
         }
 
         return toReturn;

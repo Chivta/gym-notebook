@@ -13,6 +13,7 @@ public interface WorkoutItem {
         return null;
     }
     default String getNote(){
-        return null;
+        return "";
     }
+    default String getDescription(){return "";}
 }
