@@ -1,6 +1,5 @@
 package GymNotebook.model;
 
-import GymNotebook.presenter.UnitManager;
 import GymNotebook.presenter.UnitManager.WeightUnits;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

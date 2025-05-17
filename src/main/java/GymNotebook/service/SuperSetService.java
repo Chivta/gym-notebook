@@ -1,6 +1,5 @@
 package GymNotebook.service;
 
-import GymNotebook.model.Exercise;
 import GymNotebook.model.SuperSet;
 import GymNotebook.model.WorkoutItem;
 
