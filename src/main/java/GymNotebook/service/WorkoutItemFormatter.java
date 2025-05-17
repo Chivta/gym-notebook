@@ -1,7 +1,5 @@
 package GymNotebook.service;
 
-import GymNotebook.model.ExerciseType;
-import GymNotebook.model.Set;
 import GymNotebook.model.WorkoutItem;
 
 import java.util.ArrayList;
